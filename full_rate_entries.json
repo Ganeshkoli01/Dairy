@@ -1,0 +1,9074 @@
+[
+  {
+    "milkType": "buffalo",
+    "fat": 5.0,
+    "snf": 8.0,
+    "rate": 47.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.0,
+    "snf": 8.1,
+    "rate": 47.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.0,
+    "snf": 8.2,
+    "rate": 48.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.0,
+    "snf": 8.3,
+    "rate": 48.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.0,
+    "snf": 8.4,
+    "rate": 48.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.0,
+    "snf": 8.5,
+    "rate": 49.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.0,
+    "snf": 8.6,
+    "rate": 49.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.0,
+    "snf": 8.7,
+    "rate": 49.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.0,
+    "snf": 8.8,
+    "rate": 49.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.0,
+    "snf": 8.9,
+    "rate": 50.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.0,
+    "snf": 9.0,
+    "rate": 50.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.0,
+    "snf": 9.1,
+    "rate": 50.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.0,
+    "snf": 9.2,
+    "rate": 50.65
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.0,
+    "snf": 9.3,
+    "rate": 50.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.0,
+    "snf": 9.4,
+    "rate": 50.75
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.0,
+    "snf": 9.5,
+    "rate": 50.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.0,
+    "snf": 9.6,
+    "rate": 50.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.0,
+    "snf": 9.7,
+    "rate": 50.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.0,
+    "snf": 9.8,
+    "rate": 50.95
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.0,
+    "snf": 9.9,
+    "rate": 51.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.0,
+    "snf": 10.0,
+    "rate": 51.05
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.1,
+    "snf": 8.0,
+    "rate": 47.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.1,
+    "snf": 8.1,
+    "rate": 48.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.1,
+    "snf": 8.2,
+    "rate": 48.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.1,
+    "snf": 8.3,
+    "rate": 48.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.1,
+    "snf": 8.4,
+    "rate": 49.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.1,
+    "snf": 8.5,
+    "rate": 49.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.1,
+    "snf": 8.6,
+    "rate": 49.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.1,
+    "snf": 8.7,
+    "rate": 49.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.1,
+    "snf": 8.8,
+    "rate": 50.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.1,
+    "snf": 8.9,
+    "rate": 50.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.1,
+    "snf": 9.0,
+    "rate": 50.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.1,
+    "snf": 9.1,
+    "rate": 50.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.1,
+    "snf": 9.2,
+    "rate": 50.95
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.1,
+    "snf": 9.3,
+    "rate": 51.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.1,
+    "snf": 9.4,
+    "rate": 51.05
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.1,
+    "snf": 9.5,
+    "rate": 51.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.1,
+    "snf": 9.6,
+    "rate": 51.15
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.1,
+    "snf": 9.7,
+    "rate": 51.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.1,
+    "snf": 9.8,
+    "rate": 51.25
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.1,
+    "snf": 9.9,
+    "rate": 51.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.1,
+    "snf": 10.0,
+    "rate": 51.35
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.2,
+    "snf": 8.0,
+    "rate": 48.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.2,
+    "snf": 8.1,
+    "rate": 48.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.2,
+    "snf": 8.2,
+    "rate": 48.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.2,
+    "snf": 8.3,
+    "rate": 49.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.2,
+    "snf": 8.4,
+    "rate": 49.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.2,
+    "snf": 8.5,
+    "rate": 49.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.2,
+    "snf": 8.6,
+    "rate": 49.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.2,
+    "snf": 8.7,
+    "rate": 50.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.2,
+    "snf": 8.8,
+    "rate": 50.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.2,
+    "snf": 8.9,
+    "rate": 50.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.2,
+    "snf": 9.0,
+    "rate": 51.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.2,
+    "snf": 9.1,
+    "rate": 51.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.2,
+    "snf": 9.2,
+    "rate": 51.25
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.2,
+    "snf": 9.3,
+    "rate": 51.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.2,
+    "snf": 9.4,
+    "rate": 51.35
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.2,
+    "snf": 9.5,
+    "rate": 51.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.2,
+    "snf": 9.6,
+    "rate": 51.45
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.2,
+    "snf": 9.7,
+    "rate": 51.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.2,
+    "snf": 9.8,
+    "rate": 51.55
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.2,
+    "snf": 9.9,
+    "rate": 51.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.2,
+    "snf": 10.0,
+    "rate": 51.65
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.3,
+    "snf": 8.0,
+    "rate": 48.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.3,
+    "snf": 8.1,
+    "rate": 48.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.3,
+    "snf": 8.2,
+    "rate": 49.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.3,
+    "snf": 8.3,
+    "rate": 49.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.3,
+    "snf": 8.4,
+    "rate": 49.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.3,
+    "snf": 8.5,
+    "rate": 49.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.3,
+    "snf": 8.6,
+    "rate": 50.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.3,
+    "snf": 8.7,
+    "rate": 50.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.3,
+    "snf": 8.8,
+    "rate": 50.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.3,
+    "snf": 8.9,
+    "rate": 51.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.3,
+    "snf": 9.0,
+    "rate": 51.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.3,
+    "snf": 9.1,
+    "rate": 51.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.3,
+    "snf": 9.2,
+    "rate": 51.55
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.3,
+    "snf": 9.3,
+    "rate": 51.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.3,
+    "snf": 9.4,
+    "rate": 51.65
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.3,
+    "snf": 9.5,
+    "rate": 51.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.3,
+    "snf": 9.6,
+    "rate": 51.75
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.3,
+    "snf": 9.7,
+    "rate": 51.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.3,
+    "snf": 9.8,
+    "rate": 51.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.3,
+    "snf": 9.9,
+    "rate": 51.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.3,
+    "snf": 10.0,
+    "rate": 51.95
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.4,
+    "snf": 8.0,
+    "rate": 48.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.4,
+    "snf": 8.1,
+    "rate": 49.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.4,
+    "snf": 8.2,
+    "rate": 49.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.4,
+    "snf": 8.3,
+    "rate": 49.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.4,
+    "snf": 8.4,
+    "rate": 49.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.4,
+    "snf": 8.5,
+    "rate": 50.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.4,
+    "snf": 8.6,
+    "rate": 50.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.4,
+    "snf": 8.7,
+    "rate": 50.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.4,
+    "snf": 8.8,
+    "rate": 51.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.4,
+    "snf": 8.9,
+    "rate": 51.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.4,
+    "snf": 9.0,
+    "rate": 51.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.4,
+    "snf": 9.1,
+    "rate": 51.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.4,
+    "snf": 9.2,
+    "rate": 51.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.4,
+    "snf": 9.3,
+    "rate": 51.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.4,
+    "snf": 9.4,
+    "rate": 51.95
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.4,
+    "snf": 9.5,
+    "rate": 52.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.4,
+    "snf": 9.6,
+    "rate": 52.05
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.4,
+    "snf": 9.7,
+    "rate": 52.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.4,
+    "snf": 9.8,
+    "rate": 52.15
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.4,
+    "snf": 9.9,
+    "rate": 52.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.4,
+    "snf": 10.0,
+    "rate": 52.25
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.5,
+    "snf": 8.0,
+    "rate": 49.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.5,
+    "snf": 8.1,
+    "rate": 49.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.5,
+    "snf": 8.2,
+    "rate": 49.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.5,
+    "snf": 8.3,
+    "rate": 49.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.5,
+    "snf": 8.4,
+    "rate": 50.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.5,
+    "snf": 8.5,
+    "rate": 50.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.5,
+    "snf": 8.6,
+    "rate": 50.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.5,
+    "snf": 8.7,
+    "rate": 51.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.5,
+    "snf": 8.8,
+    "rate": 51.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.5,
+    "snf": 8.9,
+    "rate": 51.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.5,
+    "snf": 9.0,
+    "rate": 52.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.5,
+    "snf": 9.1,
+    "rate": 52.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.5,
+    "snf": 9.2,
+    "rate": 52.15
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.5,
+    "snf": 9.3,
+    "rate": 52.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.5,
+    "snf": 9.4,
+    "rate": 52.25
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.5,
+    "snf": 9.5,
+    "rate": 52.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.5,
+    "snf": 9.6,
+    "rate": 52.35
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.5,
+    "snf": 9.7,
+    "rate": 52.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.5,
+    "snf": 9.8,
+    "rate": 52.45
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.5,
+    "snf": 9.9,
+    "rate": 52.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.5,
+    "snf": 10.0,
+    "rate": 52.55
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.6,
+    "snf": 8.0,
+    "rate": 49.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.6,
+    "snf": 8.1,
+    "rate": 49.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.6,
+    "snf": 8.2,
+    "rate": 49.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.6,
+    "snf": 8.3,
+    "rate": 50.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.6,
+    "snf": 8.4,
+    "rate": 50.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.6,
+    "snf": 8.5,
+    "rate": 50.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.6,
+    "snf": 8.6,
+    "rate": 51.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.6,
+    "snf": 8.7,
+    "rate": 51.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.6,
+    "snf": 8.8,
+    "rate": 51.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.6,
+    "snf": 8.9,
+    "rate": 52.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.6,
+    "snf": 9.0,
+    "rate": 52.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.6,
+    "snf": 9.1,
+    "rate": 52.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.6,
+    "snf": 9.2,
+    "rate": 52.45
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.6,
+    "snf": 9.3,
+    "rate": 52.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.6,
+    "snf": 9.4,
+    "rate": 52.55
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.6,
+    "snf": 9.5,
+    "rate": 52.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.6,
+    "snf": 9.6,
+    "rate": 52.65
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.6,
+    "snf": 9.7,
+    "rate": 52.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.6,
+    "snf": 9.8,
+    "rate": 52.75
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.6,
+    "snf": 9.9,
+    "rate": 52.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.6,
+    "snf": 10.0,
+    "rate": 52.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.7,
+    "snf": 8.0,
+    "rate": 49.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.7,
+    "snf": 8.1,
+    "rate": 49.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.7,
+    "snf": 8.2,
+    "rate": 50.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.7,
+    "snf": 8.3,
+    "rate": 50.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.7,
+    "snf": 8.4,
+    "rate": 50.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.7,
+    "snf": 8.5,
+    "rate": 51.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.7,
+    "snf": 8.6,
+    "rate": 51.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.7,
+    "snf": 8.7,
+    "rate": 51.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.7,
+    "snf": 8.8,
+    "rate": 52.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.7,
+    "snf": 8.9,
+    "rate": 52.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.7,
+    "snf": 9.0,
+    "rate": 52.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.7,
+    "snf": 9.1,
+    "rate": 52.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.7,
+    "snf": 9.2,
+    "rate": 52.75
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.7,
+    "snf": 9.3,
+    "rate": 52.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.7,
+    "snf": 9.4,
+    "rate": 52.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.7,
+    "snf": 9.5,
+    "rate": 52.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.7,
+    "snf": 9.6,
+    "rate": 52.95
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.7,
+    "snf": 9.7,
+    "rate": 53.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.7,
+    "snf": 9.8,
+    "rate": 53.05
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.7,
+    "snf": 9.9,
+    "rate": 53.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.7,
+    "snf": 10.0,
+    "rate": 53.15
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.8,
+    "snf": 8.0,
+    "rate": 49.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.8,
+    "snf": 8.1,
+    "rate": 50.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.8,
+    "snf": 8.2,
+    "rate": 50.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.8,
+    "snf": 8.3,
+    "rate": 50.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.8,
+    "snf": 8.4,
+    "rate": 51.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.8,
+    "snf": 8.5,
+    "rate": 51.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.8,
+    "snf": 8.6,
+    "rate": 51.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.8,
+    "snf": 8.7,
+    "rate": 52.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.8,
+    "snf": 8.8,
+    "rate": 52.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.8,
+    "snf": 8.9,
+    "rate": 52.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.8,
+    "snf": 9.0,
+    "rate": 52.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.8,
+    "snf": 9.1,
+    "rate": 53.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.8,
+    "snf": 9.2,
+    "rate": 53.05
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.8,
+    "snf": 9.3,
+    "rate": 53.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.8,
+    "snf": 9.4,
+    "rate": 53.15
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.8,
+    "snf": 9.5,
+    "rate": 53.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.8,
+    "snf": 9.6,
+    "rate": 53.25
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.8,
+    "snf": 9.7,
+    "rate": 53.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.8,
+    "snf": 9.8,
+    "rate": 53.35
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.8,
+    "snf": 9.9,
+    "rate": 53.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.8,
+    "snf": 10.0,
+    "rate": 53.45
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.9,
+    "snf": 8.0,
+    "rate": 50.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.9,
+    "snf": 8.1,
+    "rate": 50.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.9,
+    "snf": 8.2,
+    "rate": 50.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.9,
+    "snf": 8.3,
+    "rate": 51.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.9,
+    "snf": 8.4,
+    "rate": 51.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.9,
+    "snf": 8.5,
+    "rate": 51.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.9,
+    "snf": 8.6,
+    "rate": 52.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.9,
+    "snf": 8.7,
+    "rate": 52.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.9,
+    "snf": 8.8,
+    "rate": 52.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.9,
+    "snf": 8.9,
+    "rate": 52.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.9,
+    "snf": 9.0,
+    "rate": 53.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.9,
+    "snf": 9.1,
+    "rate": 53.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.9,
+    "snf": 9.2,
+    "rate": 53.35
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.9,
+    "snf": 9.3,
+    "rate": 53.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.9,
+    "snf": 9.4,
+    "rate": 53.45
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.9,
+    "snf": 9.5,
+    "rate": 53.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.9,
+    "snf": 9.6,
+    "rate": 53.55
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.9,
+    "snf": 9.7,
+    "rate": 53.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.9,
+    "snf": 9.8,
+    "rate": 53.65
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.9,
+    "snf": 9.9,
+    "rate": 53.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 5.9,
+    "snf": 10.0,
+    "rate": 53.75
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.0,
+    "snf": 8.0,
+    "rate": 50.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.0,
+    "snf": 8.1,
+    "rate": 50.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.0,
+    "snf": 8.2,
+    "rate": 51.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.0,
+    "snf": 8.3,
+    "rate": 51.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.0,
+    "snf": 8.4,
+    "rate": 51.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.0,
+    "snf": 8.5,
+    "rate": 52.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.0,
+    "snf": 8.6,
+    "rate": 52.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.0,
+    "snf": 8.7,
+    "rate": 52.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.0,
+    "snf": 8.8,
+    "rate": 52.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.0,
+    "snf": 8.9,
+    "rate": 53.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.0,
+    "snf": 9.0,
+    "rate": 53.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.0,
+    "snf": 9.1,
+    "rate": 53.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.0,
+    "snf": 9.2,
+    "rate": 53.65
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.0,
+    "snf": 9.3,
+    "rate": 53.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.0,
+    "snf": 9.4,
+    "rate": 53.75
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.0,
+    "snf": 9.5,
+    "rate": 53.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.0,
+    "snf": 9.6,
+    "rate": 53.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.0,
+    "snf": 9.7,
+    "rate": 53.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.0,
+    "snf": 9.8,
+    "rate": 53.95
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.0,
+    "snf": 9.9,
+    "rate": 54.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.0,
+    "snf": 10.0,
+    "rate": 54.05
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.1,
+    "snf": 8.0,
+    "rate": 50.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.1,
+    "snf": 8.1,
+    "rate": 51.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.1,
+    "snf": 8.2,
+    "rate": 51.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.1,
+    "snf": 8.3,
+    "rate": 51.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.1,
+    "snf": 8.4,
+    "rate": 52.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.1,
+    "snf": 8.5,
+    "rate": 52.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.1,
+    "snf": 8.6,
+    "rate": 52.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.1,
+    "snf": 8.7,
+    "rate": 52.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.1,
+    "snf": 8.8,
+    "rate": 53.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.1,
+    "snf": 8.9,
+    "rate": 53.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.1,
+    "snf": 9.0,
+    "rate": 53.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.1,
+    "snf": 9.1,
+    "rate": 53.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.1,
+    "snf": 9.2,
+    "rate": 53.95
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.1,
+    "snf": 9.3,
+    "rate": 54.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.1,
+    "snf": 9.4,
+    "rate": 54.05
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.1,
+    "snf": 9.5,
+    "rate": 54.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.1,
+    "snf": 9.6,
+    "rate": 54.15
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.1,
+    "snf": 9.7,
+    "rate": 54.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.1,
+    "snf": 9.8,
+    "rate": 54.25
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.1,
+    "snf": 9.9,
+    "rate": 54.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.1,
+    "snf": 10.0,
+    "rate": 54.35
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.2,
+    "snf": 8.0,
+    "rate": 51.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.2,
+    "snf": 8.1,
+    "rate": 51.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.2,
+    "snf": 8.2,
+    "rate": 51.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.2,
+    "snf": 8.3,
+    "rate": 52.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.2,
+    "snf": 8.4,
+    "rate": 52.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.2,
+    "snf": 8.5,
+    "rate": 52.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.2,
+    "snf": 8.6,
+    "rate": 52.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.2,
+    "snf": 8.7,
+    "rate": 53.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.2,
+    "snf": 8.8,
+    "rate": 53.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.2,
+    "snf": 8.9,
+    "rate": 53.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.2,
+    "snf": 9.0,
+    "rate": 54.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.2,
+    "snf": 9.1,
+    "rate": 54.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.2,
+    "snf": 9.2,
+    "rate": 54.25
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.2,
+    "snf": 9.3,
+    "rate": 54.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.2,
+    "snf": 9.4,
+    "rate": 54.35
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.2,
+    "snf": 9.5,
+    "rate": 54.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.2,
+    "snf": 9.6,
+    "rate": 54.45
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.2,
+    "snf": 9.7,
+    "rate": 54.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.2,
+    "snf": 9.8,
+    "rate": 54.55
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.2,
+    "snf": 9.9,
+    "rate": 54.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.2,
+    "snf": 10.0,
+    "rate": 54.65
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.3,
+    "snf": 8.0,
+    "rate": 51.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.3,
+    "snf": 8.1,
+    "rate": 51.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.3,
+    "snf": 8.2,
+    "rate": 52.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.3,
+    "snf": 8.3,
+    "rate": 52.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.3,
+    "snf": 8.4,
+    "rate": 52.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.3,
+    "snf": 8.5,
+    "rate": 52.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.3,
+    "snf": 8.6,
+    "rate": 53.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.3,
+    "snf": 8.7,
+    "rate": 53.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.3,
+    "snf": 8.8,
+    "rate": 53.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.3,
+    "snf": 8.9,
+    "rate": 54.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.3,
+    "snf": 9.0,
+    "rate": 54.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.3,
+    "snf": 9.1,
+    "rate": 54.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.3,
+    "snf": 9.2,
+    "rate": 54.55
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.3,
+    "snf": 9.3,
+    "rate": 54.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.3,
+    "snf": 9.4,
+    "rate": 54.65
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.3,
+    "snf": 9.5,
+    "rate": 54.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.3,
+    "snf": 9.6,
+    "rate": 54.75
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.3,
+    "snf": 9.7,
+    "rate": 54.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.3,
+    "snf": 9.8,
+    "rate": 54.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.3,
+    "snf": 9.9,
+    "rate": 54.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.3,
+    "snf": 10.0,
+    "rate": 54.95
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.4,
+    "snf": 8.0,
+    "rate": 51.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.4,
+    "snf": 8.1,
+    "rate": 52.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.4,
+    "snf": 8.2,
+    "rate": 52.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.4,
+    "snf": 8.3,
+    "rate": 52.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.4,
+    "snf": 8.4,
+    "rate": 52.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.4,
+    "snf": 8.5,
+    "rate": 53.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.4,
+    "snf": 8.6,
+    "rate": 53.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.4,
+    "snf": 8.7,
+    "rate": 53.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.4,
+    "snf": 8.8,
+    "rate": 54.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.4,
+    "snf": 8.9,
+    "rate": 54.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.4,
+    "snf": 9.0,
+    "rate": 54.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.4,
+    "snf": 9.1,
+    "rate": 54.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.4,
+    "snf": 9.2,
+    "rate": 54.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.4,
+    "snf": 9.3,
+    "rate": 54.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.4,
+    "snf": 9.4,
+    "rate": 54.95
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.4,
+    "snf": 9.5,
+    "rate": 55.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.4,
+    "snf": 9.6,
+    "rate": 55.05
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.4,
+    "snf": 9.7,
+    "rate": 55.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.4,
+    "snf": 9.8,
+    "rate": 55.15
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.4,
+    "snf": 9.9,
+    "rate": 55.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.4,
+    "snf": 10.0,
+    "rate": 55.25
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.5,
+    "snf": 8.0,
+    "rate": 54.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.5,
+    "snf": 8.1,
+    "rate": 55.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.5,
+    "snf": 8.2,
+    "rate": 55.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.5,
+    "snf": 8.3,
+    "rate": 55.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.5,
+    "snf": 8.4,
+    "rate": 56.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.5,
+    "snf": 8.5,
+    "rate": 56.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.5,
+    "snf": 8.6,
+    "rate": 56.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.5,
+    "snf": 8.7,
+    "rate": 56.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.5,
+    "snf": 8.8,
+    "rate": 57.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.5,
+    "snf": 8.9,
+    "rate": 57.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.5,
+    "snf": 9.0,
+    "rate": 57.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.5,
+    "snf": 9.1,
+    "rate": 57.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.5,
+    "snf": 9.2,
+    "rate": 57.95
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.5,
+    "snf": 9.3,
+    "rate": 58.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.5,
+    "snf": 9.4,
+    "rate": 58.05
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.5,
+    "snf": 9.5,
+    "rate": 58.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.5,
+    "snf": 9.6,
+    "rate": 58.15
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.5,
+    "snf": 9.7,
+    "rate": 58.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.5,
+    "snf": 9.8,
+    "rate": 58.25
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.5,
+    "snf": 9.9,
+    "rate": 58.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.5,
+    "snf": 10.0,
+    "rate": 58.35
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.6,
+    "snf": 8.0,
+    "rate": 55.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.6,
+    "snf": 8.1,
+    "rate": 55.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.6,
+    "snf": 8.2,
+    "rate": 55.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.6,
+    "snf": 8.3,
+    "rate": 56.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.6,
+    "snf": 8.4,
+    "rate": 56.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.6,
+    "snf": 8.5,
+    "rate": 56.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.6,
+    "snf": 8.6,
+    "rate": 56.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.6,
+    "snf": 8.7,
+    "rate": 57.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.6,
+    "snf": 8.8,
+    "rate": 57.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.6,
+    "snf": 8.9,
+    "rate": 57.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.6,
+    "snf": 9.0,
+    "rate": 58.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.6,
+    "snf": 9.1,
+    "rate": 58.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.6,
+    "snf": 9.2,
+    "rate": 58.25
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.6,
+    "snf": 9.3,
+    "rate": 58.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.6,
+    "snf": 9.4,
+    "rate": 58.35
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.6,
+    "snf": 9.5,
+    "rate": 58.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.6,
+    "snf": 9.6,
+    "rate": 58.45
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.6,
+    "snf": 9.7,
+    "rate": 58.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.6,
+    "snf": 9.8,
+    "rate": 58.55
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.6,
+    "snf": 9.9,
+    "rate": 58.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.6,
+    "snf": 10.0,
+    "rate": 58.65
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.7,
+    "snf": 8.0,
+    "rate": 55.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.7,
+    "snf": 8.1,
+    "rate": 55.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.7,
+    "snf": 8.2,
+    "rate": 56.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.7,
+    "snf": 8.3,
+    "rate": 56.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.7,
+    "snf": 8.4,
+    "rate": 56.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.7,
+    "snf": 8.5,
+    "rate": 56.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.7,
+    "snf": 8.6,
+    "rate": 57.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.7,
+    "snf": 8.7,
+    "rate": 57.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.7,
+    "snf": 8.8,
+    "rate": 57.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.7,
+    "snf": 8.9,
+    "rate": 58.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.7,
+    "snf": 9.0,
+    "rate": 58.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.7,
+    "snf": 9.1,
+    "rate": 58.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.7,
+    "snf": 9.2,
+    "rate": 58.55
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.7,
+    "snf": 9.3,
+    "rate": 58.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.7,
+    "snf": 9.4,
+    "rate": 58.65
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.7,
+    "snf": 9.5,
+    "rate": 58.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.7,
+    "snf": 9.6,
+    "rate": 58.75
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.7,
+    "snf": 9.7,
+    "rate": 58.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.7,
+    "snf": 9.8,
+    "rate": 58.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.7,
+    "snf": 9.9,
+    "rate": 58.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.7,
+    "snf": 10.0,
+    "rate": 58.95
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.8,
+    "snf": 8.0,
+    "rate": 55.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.8,
+    "snf": 8.1,
+    "rate": 56.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.8,
+    "snf": 8.2,
+    "rate": 56.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.8,
+    "snf": 8.3,
+    "rate": 56.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.8,
+    "snf": 8.4,
+    "rate": 56.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.8,
+    "snf": 8.5,
+    "rate": 57.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.8,
+    "snf": 8.6,
+    "rate": 57.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.8,
+    "snf": 8.7,
+    "rate": 57.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.8,
+    "snf": 8.8,
+    "rate": 58.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.8,
+    "snf": 8.9,
+    "rate": 58.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.8,
+    "snf": 9.0,
+    "rate": 58.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.8,
+    "snf": 9.1,
+    "rate": 58.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.8,
+    "snf": 9.2,
+    "rate": 58.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.8,
+    "snf": 9.3,
+    "rate": 58.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.8,
+    "snf": 9.4,
+    "rate": 58.95
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.8,
+    "snf": 9.5,
+    "rate": 59.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.8,
+    "snf": 9.6,
+    "rate": 59.05
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.8,
+    "snf": 9.7,
+    "rate": 59.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.8,
+    "snf": 9.8,
+    "rate": 59.15
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.8,
+    "snf": 9.9,
+    "rate": 59.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.8,
+    "snf": 10.0,
+    "rate": 59.25
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.9,
+    "snf": 8.0,
+    "rate": 56.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.9,
+    "snf": 8.1,
+    "rate": 56.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.9,
+    "snf": 8.2,
+    "rate": 56.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.9,
+    "snf": 8.3,
+    "rate": 56.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.9,
+    "snf": 8.4,
+    "rate": 57.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.9,
+    "snf": 8.5,
+    "rate": 57.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.9,
+    "snf": 8.6,
+    "rate": 57.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.9,
+    "snf": 8.7,
+    "rate": 58.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.9,
+    "snf": 8.8,
+    "rate": 58.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.9,
+    "snf": 8.9,
+    "rate": 58.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.9,
+    "snf": 9.0,
+    "rate": 59.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.9,
+    "snf": 9.1,
+    "rate": 59.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.9,
+    "snf": 9.2,
+    "rate": 59.15
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.9,
+    "snf": 9.3,
+    "rate": 59.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.9,
+    "snf": 9.4,
+    "rate": 59.25
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.9,
+    "snf": 9.5,
+    "rate": 59.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.9,
+    "snf": 9.6,
+    "rate": 59.35
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.9,
+    "snf": 9.7,
+    "rate": 59.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.9,
+    "snf": 9.8,
+    "rate": 59.45
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.9,
+    "snf": 9.9,
+    "rate": 59.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 6.9,
+    "snf": 10.0,
+    "rate": 59.55
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.0,
+    "snf": 8.0,
+    "rate": 56.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.0,
+    "snf": 8.1,
+    "rate": 56.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.0,
+    "snf": 8.2,
+    "rate": 57.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.0,
+    "snf": 8.3,
+    "rate": 57.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.0,
+    "snf": 8.4,
+    "rate": 57.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.0,
+    "snf": 8.5,
+    "rate": 58.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.0,
+    "snf": 8.6,
+    "rate": 58.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.0,
+    "snf": 8.7,
+    "rate": 58.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.0,
+    "snf": 8.8,
+    "rate": 58.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.0,
+    "snf": 8.9,
+    "rate": 59.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.0,
+    "snf": 9.0,
+    "rate": 60.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.0,
+    "snf": 9.1,
+    "rate": 60.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.0,
+    "snf": 9.2,
+    "rate": 60.65
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.0,
+    "snf": 9.3,
+    "rate": 60.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.0,
+    "snf": 9.4,
+    "rate": 60.75
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.0,
+    "snf": 9.5,
+    "rate": 60.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.0,
+    "snf": 9.6,
+    "rate": 60.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.0,
+    "snf": 9.7,
+    "rate": 60.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.0,
+    "snf": 9.8,
+    "rate": 60.95
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.0,
+    "snf": 9.9,
+    "rate": 61.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.0,
+    "snf": 10.0,
+    "rate": 61.05
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.1,
+    "snf": 8.0,
+    "rate": 56.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.1,
+    "snf": 8.1,
+    "rate": 57.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.1,
+    "snf": 8.2,
+    "rate": 57.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.1,
+    "snf": 8.3,
+    "rate": 57.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.1,
+    "snf": 8.4,
+    "rate": 58.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.1,
+    "snf": 8.5,
+    "rate": 58.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.1,
+    "snf": 8.6,
+    "rate": 58.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.1,
+    "snf": 8.7,
+    "rate": 58.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.1,
+    "snf": 8.8,
+    "rate": 59.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.1,
+    "snf": 8.9,
+    "rate": 59.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.1,
+    "snf": 9.0,
+    "rate": 60.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.1,
+    "snf": 9.1,
+    "rate": 60.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.1,
+    "snf": 9.2,
+    "rate": 60.95
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.1,
+    "snf": 9.3,
+    "rate": 61.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.1,
+    "snf": 9.4,
+    "rate": 61.05
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.1,
+    "snf": 9.5,
+    "rate": 61.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.1,
+    "snf": 9.6,
+    "rate": 61.15
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.1,
+    "snf": 9.7,
+    "rate": 61.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.1,
+    "snf": 9.8,
+    "rate": 61.25
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.1,
+    "snf": 9.9,
+    "rate": 61.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.1,
+    "snf": 10.0,
+    "rate": 61.35
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.2,
+    "snf": 8.0,
+    "rate": 57.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.2,
+    "snf": 8.1,
+    "rate": 57.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.2,
+    "snf": 8.2,
+    "rate": 57.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.2,
+    "snf": 8.3,
+    "rate": 58.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.2,
+    "snf": 8.4,
+    "rate": 58.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.2,
+    "snf": 8.5,
+    "rate": 58.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.2,
+    "snf": 8.6,
+    "rate": 58.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.2,
+    "snf": 8.7,
+    "rate": 59.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.2,
+    "snf": 8.8,
+    "rate": 59.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.2,
+    "snf": 8.9,
+    "rate": 59.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.2,
+    "snf": 9.0,
+    "rate": 61.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.2,
+    "snf": 9.1,
+    "rate": 61.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.2,
+    "snf": 9.2,
+    "rate": 61.25
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.2,
+    "snf": 9.3,
+    "rate": 61.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.2,
+    "snf": 9.4,
+    "rate": 61.35
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.2,
+    "snf": 9.5,
+    "rate": 61.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.2,
+    "snf": 9.6,
+    "rate": 61.45
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.2,
+    "snf": 9.7,
+    "rate": 61.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.2,
+    "snf": 9.8,
+    "rate": 61.55
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.2,
+    "snf": 9.9,
+    "rate": 61.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.2,
+    "snf": 10.0,
+    "rate": 61.65
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.3,
+    "snf": 8.0,
+    "rate": 57.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.3,
+    "snf": 8.1,
+    "rate": 57.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.3,
+    "snf": 8.2,
+    "rate": 58.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.3,
+    "snf": 8.3,
+    "rate": 58.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.3,
+    "snf": 8.4,
+    "rate": 58.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.3,
+    "snf": 8.5,
+    "rate": 58.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.3,
+    "snf": 8.6,
+    "rate": 59.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.3,
+    "snf": 8.7,
+    "rate": 59.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.3,
+    "snf": 8.8,
+    "rate": 59.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.3,
+    "snf": 8.9,
+    "rate": 60.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.3,
+    "snf": 9.0,
+    "rate": 61.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.3,
+    "snf": 9.1,
+    "rate": 61.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.3,
+    "snf": 9.2,
+    "rate": 61.55
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.3,
+    "snf": 9.3,
+    "rate": 61.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.3,
+    "snf": 9.4,
+    "rate": 61.65
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.3,
+    "snf": 9.5,
+    "rate": 61.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.3,
+    "snf": 9.6,
+    "rate": 61.75
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.3,
+    "snf": 9.7,
+    "rate": 61.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.3,
+    "snf": 9.8,
+    "rate": 61.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.3,
+    "snf": 9.9,
+    "rate": 61.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.3,
+    "snf": 10.0,
+    "rate": 61.95
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.4,
+    "snf": 8.0,
+    "rate": 57.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.4,
+    "snf": 8.1,
+    "rate": 58.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.4,
+    "snf": 8.2,
+    "rate": 58.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.4,
+    "snf": 8.3,
+    "rate": 58.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.4,
+    "snf": 8.4,
+    "rate": 58.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.4,
+    "snf": 8.5,
+    "rate": 59.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.4,
+    "snf": 8.6,
+    "rate": 59.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.4,
+    "snf": 8.7,
+    "rate": 59.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.4,
+    "snf": 8.8,
+    "rate": 60.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.4,
+    "snf": 8.9,
+    "rate": 60.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.4,
+    "snf": 9.0,
+    "rate": 61.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.4,
+    "snf": 9.1,
+    "rate": 61.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.4,
+    "snf": 9.2,
+    "rate": 61.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.4,
+    "snf": 9.3,
+    "rate": 61.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.4,
+    "snf": 9.4,
+    "rate": 61.95
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.4,
+    "snf": 9.5,
+    "rate": 62.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.4,
+    "snf": 9.6,
+    "rate": 62.05
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.4,
+    "snf": 9.7,
+    "rate": 62.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.4,
+    "snf": 9.8,
+    "rate": 62.15
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.4,
+    "snf": 9.9,
+    "rate": 62.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.4,
+    "snf": 10.0,
+    "rate": 62.25
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.5,
+    "snf": 8.0,
+    "rate": 58.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.5,
+    "snf": 8.1,
+    "rate": 58.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.5,
+    "snf": 8.2,
+    "rate": 58.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.5,
+    "snf": 8.3,
+    "rate": 58.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.5,
+    "snf": 8.4,
+    "rate": 59.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.5,
+    "snf": 8.5,
+    "rate": 59.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.5,
+    "snf": 8.6,
+    "rate": 59.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.5,
+    "snf": 8.7,
+    "rate": 60.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.5,
+    "snf": 8.8,
+    "rate": 60.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.5,
+    "snf": 8.9,
+    "rate": 60.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.5,
+    "snf": 9.0,
+    "rate": 62.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.5,
+    "snf": 9.1,
+    "rate": 62.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.5,
+    "snf": 9.2,
+    "rate": 62.15
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.5,
+    "snf": 9.3,
+    "rate": 62.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.5,
+    "snf": 9.4,
+    "rate": 62.25
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.5,
+    "snf": 9.5,
+    "rate": 62.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.5,
+    "snf": 9.6,
+    "rate": 62.35
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.5,
+    "snf": 9.7,
+    "rate": 62.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.5,
+    "snf": 9.8,
+    "rate": 62.45
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.5,
+    "snf": 9.9,
+    "rate": 62.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.5,
+    "snf": 10.0,
+    "rate": 62.55
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.6,
+    "snf": 8.0,
+    "rate": 58.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.6,
+    "snf": 8.1,
+    "rate": 58.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.6,
+    "snf": 8.2,
+    "rate": 58.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.6,
+    "snf": 8.3,
+    "rate": 59.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.6,
+    "snf": 8.4,
+    "rate": 59.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.6,
+    "snf": 8.5,
+    "rate": 59.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.6,
+    "snf": 8.6,
+    "rate": 60.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.6,
+    "snf": 8.7,
+    "rate": 60.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.6,
+    "snf": 8.8,
+    "rate": 60.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.6,
+    "snf": 8.9,
+    "rate": 61.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.6,
+    "snf": 9.0,
+    "rate": 62.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.6,
+    "snf": 9.1,
+    "rate": 62.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.6,
+    "snf": 9.2,
+    "rate": 62.45
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.6,
+    "snf": 9.3,
+    "rate": 62.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.6,
+    "snf": 9.4,
+    "rate": 62.55
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.6,
+    "snf": 9.5,
+    "rate": 62.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.6,
+    "snf": 9.6,
+    "rate": 62.65
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.6,
+    "snf": 9.7,
+    "rate": 62.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.6,
+    "snf": 9.8,
+    "rate": 62.75
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.6,
+    "snf": 9.9,
+    "rate": 62.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.6,
+    "snf": 10.0,
+    "rate": 62.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.7,
+    "snf": 8.0,
+    "rate": 58.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.7,
+    "snf": 8.1,
+    "rate": 58.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.7,
+    "snf": 8.2,
+    "rate": 59.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.7,
+    "snf": 8.3,
+    "rate": 59.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.7,
+    "snf": 8.4,
+    "rate": 59.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.7,
+    "snf": 8.5,
+    "rate": 60.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.7,
+    "snf": 8.6,
+    "rate": 60.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.7,
+    "snf": 8.7,
+    "rate": 60.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.7,
+    "snf": 8.8,
+    "rate": 61.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.7,
+    "snf": 8.9,
+    "rate": 61.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.7,
+    "snf": 9.0,
+    "rate": 62.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.7,
+    "snf": 9.1,
+    "rate": 62.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.7,
+    "snf": 9.2,
+    "rate": 62.75
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.7,
+    "snf": 9.3,
+    "rate": 62.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.7,
+    "snf": 9.4,
+    "rate": 62.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.7,
+    "snf": 9.5,
+    "rate": 62.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.7,
+    "snf": 9.6,
+    "rate": 62.95
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.7,
+    "snf": 9.7,
+    "rate": 63.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.7,
+    "snf": 9.8,
+    "rate": 63.05
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.7,
+    "snf": 9.9,
+    "rate": 63.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.7,
+    "snf": 10.0,
+    "rate": 63.15
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.8,
+    "snf": 8.0,
+    "rate": 58.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.8,
+    "snf": 8.1,
+    "rate": 59.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.8,
+    "snf": 8.2,
+    "rate": 59.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.8,
+    "snf": 8.3,
+    "rate": 59.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.8,
+    "snf": 8.4,
+    "rate": 60.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.8,
+    "snf": 8.5,
+    "rate": 60.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.8,
+    "snf": 8.6,
+    "rate": 60.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.8,
+    "snf": 8.7,
+    "rate": 61.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.8,
+    "snf": 8.8,
+    "rate": 61.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.8,
+    "snf": 8.9,
+    "rate": 61.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.8,
+    "snf": 9.0,
+    "rate": 62.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.8,
+    "snf": 9.1,
+    "rate": 63.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.8,
+    "snf": 9.2,
+    "rate": 63.05
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.8,
+    "snf": 9.3,
+    "rate": 63.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.8,
+    "snf": 9.4,
+    "rate": 63.15
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.8,
+    "snf": 9.5,
+    "rate": 63.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.8,
+    "snf": 9.6,
+    "rate": 63.25
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.8,
+    "snf": 9.7,
+    "rate": 63.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.8,
+    "snf": 9.8,
+    "rate": 63.35
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.8,
+    "snf": 9.9,
+    "rate": 63.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.8,
+    "snf": 10.0,
+    "rate": 63.45
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.9,
+    "snf": 8.0,
+    "rate": 59.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.9,
+    "snf": 8.1,
+    "rate": 59.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.9,
+    "snf": 8.2,
+    "rate": 59.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.9,
+    "snf": 8.3,
+    "rate": 60.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.9,
+    "snf": 8.4,
+    "rate": 60.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.9,
+    "snf": 8.5,
+    "rate": 60.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.9,
+    "snf": 8.6,
+    "rate": 61.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.9,
+    "snf": 8.7,
+    "rate": 61.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.9,
+    "snf": 8.8,
+    "rate": 61.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.9,
+    "snf": 8.9,
+    "rate": 61.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.9,
+    "snf": 9.0,
+    "rate": 63.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.9,
+    "snf": 9.1,
+    "rate": 63.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.9,
+    "snf": 9.2,
+    "rate": 63.35
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.9,
+    "snf": 9.3,
+    "rate": 63.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.9,
+    "snf": 9.4,
+    "rate": 63.45
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.9,
+    "snf": 9.5,
+    "rate": 63.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.9,
+    "snf": 9.6,
+    "rate": 63.55
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.9,
+    "snf": 9.7,
+    "rate": 63.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.9,
+    "snf": 9.8,
+    "rate": 63.65
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.9,
+    "snf": 9.9,
+    "rate": 63.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 7.9,
+    "snf": 10.0,
+    "rate": 63.75
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.0,
+    "snf": 8.0,
+    "rate": 59.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.0,
+    "snf": 8.1,
+    "rate": 59.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.0,
+    "snf": 8.2,
+    "rate": 60.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.0,
+    "snf": 8.3,
+    "rate": 60.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.0,
+    "snf": 8.4,
+    "rate": 60.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.0,
+    "snf": 8.5,
+    "rate": 61.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.0,
+    "snf": 8.6,
+    "rate": 61.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.0,
+    "snf": 8.7,
+    "rate": 61.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.0,
+    "snf": 8.8,
+    "rate": 61.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.0,
+    "snf": 8.9,
+    "rate": 62.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.0,
+    "snf": 9.0,
+    "rate": 63.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.0,
+    "snf": 9.1,
+    "rate": 63.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.0,
+    "snf": 9.2,
+    "rate": 63.65
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.0,
+    "snf": 9.3,
+    "rate": 63.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.0,
+    "snf": 9.4,
+    "rate": 63.75
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.0,
+    "snf": 9.5,
+    "rate": 63.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.0,
+    "snf": 9.6,
+    "rate": 63.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.0,
+    "snf": 9.7,
+    "rate": 63.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.0,
+    "snf": 9.8,
+    "rate": 63.95
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.0,
+    "snf": 9.9,
+    "rate": 64.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.0,
+    "snf": 10.0,
+    "rate": 64.05
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.1,
+    "snf": 8.0,
+    "rate": 59.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.1,
+    "snf": 8.1,
+    "rate": 60.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.1,
+    "snf": 8.2,
+    "rate": 60.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.1,
+    "snf": 8.3,
+    "rate": 60.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.1,
+    "snf": 8.4,
+    "rate": 61.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.1,
+    "snf": 8.5,
+    "rate": 61.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.1,
+    "snf": 8.6,
+    "rate": 61.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.1,
+    "snf": 8.7,
+    "rate": 61.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.1,
+    "snf": 8.8,
+    "rate": 62.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.1,
+    "snf": 8.9,
+    "rate": 62.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.1,
+    "snf": 9.0,
+    "rate": 63.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.1,
+    "snf": 9.1,
+    "rate": 63.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.1,
+    "snf": 9.2,
+    "rate": 63.95
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.1,
+    "snf": 9.3,
+    "rate": 64.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.1,
+    "snf": 9.4,
+    "rate": 64.05
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.1,
+    "snf": 9.5,
+    "rate": 64.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.1,
+    "snf": 9.6,
+    "rate": 64.15
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.1,
+    "snf": 9.7,
+    "rate": 64.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.1,
+    "snf": 9.8,
+    "rate": 64.25
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.1,
+    "snf": 9.9,
+    "rate": 64.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.1,
+    "snf": 10.0,
+    "rate": 64.35
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.2,
+    "snf": 8.0,
+    "rate": 60.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.2,
+    "snf": 8.1,
+    "rate": 60.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.2,
+    "snf": 8.2,
+    "rate": 60.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.2,
+    "snf": 8.3,
+    "rate": 61.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.2,
+    "snf": 8.4,
+    "rate": 61.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.2,
+    "snf": 8.5,
+    "rate": 61.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.2,
+    "snf": 8.6,
+    "rate": 61.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.2,
+    "snf": 8.7,
+    "rate": 62.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.2,
+    "snf": 8.8,
+    "rate": 62.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.2,
+    "snf": 8.9,
+    "rate": 62.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.2,
+    "snf": 9.0,
+    "rate": 64.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.2,
+    "snf": 9.1,
+    "rate": 64.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.2,
+    "snf": 9.2,
+    "rate": 64.25
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.2,
+    "snf": 9.3,
+    "rate": 64.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.2,
+    "snf": 9.4,
+    "rate": 64.35
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.2,
+    "snf": 9.5,
+    "rate": 64.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.2,
+    "snf": 9.6,
+    "rate": 64.45
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.2,
+    "snf": 9.7,
+    "rate": 64.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.2,
+    "snf": 9.8,
+    "rate": 64.55
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.2,
+    "snf": 9.9,
+    "rate": 64.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.2,
+    "snf": 10.0,
+    "rate": 64.65
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.3,
+    "snf": 8.0,
+    "rate": 60.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.3,
+    "snf": 8.1,
+    "rate": 60.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.3,
+    "snf": 8.2,
+    "rate": 61.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.3,
+    "snf": 8.3,
+    "rate": 61.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.3,
+    "snf": 8.4,
+    "rate": 61.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.3,
+    "snf": 8.5,
+    "rate": 61.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.3,
+    "snf": 8.6,
+    "rate": 62.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.3,
+    "snf": 8.7,
+    "rate": 62.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.3,
+    "snf": 8.8,
+    "rate": 62.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.3,
+    "snf": 8.9,
+    "rate": 63.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.3,
+    "snf": 9.0,
+    "rate": 64.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.3,
+    "snf": 9.1,
+    "rate": 64.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.3,
+    "snf": 9.2,
+    "rate": 64.55
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.3,
+    "snf": 9.3,
+    "rate": 64.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.3,
+    "snf": 9.4,
+    "rate": 64.65
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.3,
+    "snf": 9.5,
+    "rate": 64.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.3,
+    "snf": 9.6,
+    "rate": 64.75
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.3,
+    "snf": 9.7,
+    "rate": 64.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.3,
+    "snf": 9.8,
+    "rate": 64.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.3,
+    "snf": 9.9,
+    "rate": 64.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.3,
+    "snf": 10.0,
+    "rate": 64.95
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.4,
+    "snf": 8.0,
+    "rate": 60.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.4,
+    "snf": 8.1,
+    "rate": 61.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.4,
+    "snf": 8.2,
+    "rate": 61.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.4,
+    "snf": 8.3,
+    "rate": 61.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.4,
+    "snf": 8.4,
+    "rate": 61.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.4,
+    "snf": 8.5,
+    "rate": 62.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.4,
+    "snf": 8.6,
+    "rate": 62.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.4,
+    "snf": 8.7,
+    "rate": 62.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.4,
+    "snf": 8.8,
+    "rate": 63.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.4,
+    "snf": 8.9,
+    "rate": 63.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.4,
+    "snf": 9.0,
+    "rate": 64.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.4,
+    "snf": 9.1,
+    "rate": 64.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.4,
+    "snf": 9.2,
+    "rate": 64.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.4,
+    "snf": 9.3,
+    "rate": 64.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.4,
+    "snf": 9.4,
+    "rate": 64.95
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.4,
+    "snf": 9.5,
+    "rate": 65.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.4,
+    "snf": 9.6,
+    "rate": 65.05
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.4,
+    "snf": 9.7,
+    "rate": 65.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.4,
+    "snf": 9.8,
+    "rate": 65.15
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.4,
+    "snf": 9.9,
+    "rate": 65.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.4,
+    "snf": 10.0,
+    "rate": 65.25
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.5,
+    "snf": 8.0,
+    "rate": 61.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.5,
+    "snf": 8.1,
+    "rate": 61.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.5,
+    "snf": 8.2,
+    "rate": 61.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.5,
+    "snf": 8.3,
+    "rate": 61.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.5,
+    "snf": 8.4,
+    "rate": 62.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.5,
+    "snf": 8.5,
+    "rate": 62.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.5,
+    "snf": 8.6,
+    "rate": 62.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.5,
+    "snf": 8.7,
+    "rate": 63.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.5,
+    "snf": 8.8,
+    "rate": 63.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.5,
+    "snf": 8.9,
+    "rate": 63.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.5,
+    "snf": 9.0,
+    "rate": 65.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.5,
+    "snf": 9.1,
+    "rate": 65.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.5,
+    "snf": 9.2,
+    "rate": 65.15
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.5,
+    "snf": 9.3,
+    "rate": 65.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.5,
+    "snf": 9.4,
+    "rate": 65.25
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.5,
+    "snf": 9.5,
+    "rate": 65.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.5,
+    "snf": 9.6,
+    "rate": 65.35
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.5,
+    "snf": 9.7,
+    "rate": 65.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.5,
+    "snf": 9.8,
+    "rate": 65.45
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.5,
+    "snf": 9.9,
+    "rate": 65.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.5,
+    "snf": 10.0,
+    "rate": 65.55
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.6,
+    "snf": 8.0,
+    "rate": 61.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.6,
+    "snf": 8.1,
+    "rate": 61.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.6,
+    "snf": 8.2,
+    "rate": 61.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.6,
+    "snf": 8.3,
+    "rate": 62.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.6,
+    "snf": 8.4,
+    "rate": 62.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.6,
+    "snf": 8.5,
+    "rate": 62.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.6,
+    "snf": 8.6,
+    "rate": 63.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.6,
+    "snf": 8.7,
+    "rate": 63.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.6,
+    "snf": 8.8,
+    "rate": 63.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.6,
+    "snf": 8.9,
+    "rate": 64.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.6,
+    "snf": 9.0,
+    "rate": 65.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.6,
+    "snf": 9.1,
+    "rate": 65.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.6,
+    "snf": 9.2,
+    "rate": 65.45
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.6,
+    "snf": 9.3,
+    "rate": 65.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.6,
+    "snf": 9.4,
+    "rate": 65.55
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.6,
+    "snf": 9.5,
+    "rate": 65.65
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.6,
+    "snf": 9.6,
+    "rate": 65.65
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.6,
+    "snf": 9.7,
+    "rate": 65.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.6,
+    "snf": 9.8,
+    "rate": 65.75
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.6,
+    "snf": 9.9,
+    "rate": 65.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.6,
+    "snf": 10.0,
+    "rate": 65.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.7,
+    "snf": 8.0,
+    "rate": 61.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.7,
+    "snf": 8.1,
+    "rate": 61.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.7,
+    "snf": 8.2,
+    "rate": 62.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.7,
+    "snf": 8.3,
+    "rate": 62.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.7,
+    "snf": 8.4,
+    "rate": 62.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.7,
+    "snf": 8.5,
+    "rate": 63.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.7,
+    "snf": 8.6,
+    "rate": 63.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.7,
+    "snf": 8.7,
+    "rate": 63.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.7,
+    "snf": 8.8,
+    "rate": 64.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.7,
+    "snf": 8.9,
+    "rate": 64.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.7,
+    "snf": 9.0,
+    "rate": 65.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.7,
+    "snf": 9.1,
+    "rate": 65.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.7,
+    "snf": 9.2,
+    "rate": 65.75
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.7,
+    "snf": 9.3,
+    "rate": 65.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.7,
+    "snf": 9.4,
+    "rate": 65.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.7,
+    "snf": 9.5,
+    "rate": 65.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.7,
+    "snf": 9.6,
+    "rate": 65.95
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.7,
+    "snf": 9.7,
+    "rate": 66.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.7,
+    "snf": 9.8,
+    "rate": 66.05
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.7,
+    "snf": 9.9,
+    "rate": 65.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.7,
+    "snf": 10.0,
+    "rate": 66.15
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.8,
+    "snf": 8.0,
+    "rate": 61.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.8,
+    "snf": 8.1,
+    "rate": 62.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.8,
+    "snf": 8.2,
+    "rate": 62.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.8,
+    "snf": 8.3,
+    "rate": 62.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.8,
+    "snf": 8.4,
+    "rate": 63.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.8,
+    "snf": 8.5,
+    "rate": 63.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.8,
+    "snf": 8.6,
+    "rate": 63.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.8,
+    "snf": 8.7,
+    "rate": 64.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.8,
+    "snf": 8.8,
+    "rate": 64.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.8,
+    "snf": 8.9,
+    "rate": 64.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.8,
+    "snf": 9.0,
+    "rate": 65.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.8,
+    "snf": 9.1,
+    "rate": 66.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.8,
+    "snf": 9.2,
+    "rate": 66.05
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.8,
+    "snf": 9.3,
+    "rate": 66.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.8,
+    "snf": 9.4,
+    "rate": 66.15
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.8,
+    "snf": 9.5,
+    "rate": 66.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.8,
+    "snf": 9.6,
+    "rate": 66.25
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.8,
+    "snf": 9.7,
+    "rate": 66.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.8,
+    "snf": 9.8,
+    "rate": 66.35
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.8,
+    "snf": 9.9,
+    "rate": 65.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.8,
+    "snf": 10.0,
+    "rate": 66.45
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.9,
+    "snf": 8.0,
+    "rate": 62.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.9,
+    "snf": 8.1,
+    "rate": 62.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.9,
+    "snf": 8.2,
+    "rate": 62.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.9,
+    "snf": 8.3,
+    "rate": 63.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.9,
+    "snf": 8.4,
+    "rate": 63.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.9,
+    "snf": 8.5,
+    "rate": 63.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.9,
+    "snf": 8.6,
+    "rate": 64.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.9,
+    "snf": 8.7,
+    "rate": 64.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.9,
+    "snf": 8.8,
+    "rate": 64.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.9,
+    "snf": 8.9,
+    "rate": 64.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.9,
+    "snf": 9.0,
+    "rate": 66.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.9,
+    "snf": 9.1,
+    "rate": 66.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.9,
+    "snf": 9.2,
+    "rate": 66.35
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.9,
+    "snf": 9.3,
+    "rate": 66.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.9,
+    "snf": 9.4,
+    "rate": 66.45
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.9,
+    "snf": 9.5,
+    "rate": 66.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.9,
+    "snf": 9.6,
+    "rate": 66.55
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.9,
+    "snf": 9.7,
+    "rate": 66.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.9,
+    "snf": 9.8,
+    "rate": 66.65
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.9,
+    "snf": 9.9,
+    "rate": 65.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 8.9,
+    "snf": 10.0,
+    "rate": 66.75
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.0,
+    "snf": 8.0,
+    "rate": 62.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.0,
+    "snf": 8.1,
+    "rate": 62.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.0,
+    "snf": 8.2,
+    "rate": 63.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.0,
+    "snf": 8.3,
+    "rate": 63.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.0,
+    "snf": 8.4,
+    "rate": 63.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.0,
+    "snf": 8.5,
+    "rate": 64.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.0,
+    "snf": 8.6,
+    "rate": 64.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.0,
+    "snf": 8.7,
+    "rate": 64.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.0,
+    "snf": 8.8,
+    "rate": 64.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.0,
+    "snf": 8.9,
+    "rate": 65.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.0,
+    "snf": 9.0,
+    "rate": 66.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.0,
+    "snf": 9.1,
+    "rate": 66.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.0,
+    "snf": 9.2,
+    "rate": 66.65
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.0,
+    "snf": 9.3,
+    "rate": 66.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.0,
+    "snf": 9.4,
+    "rate": 66.75
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.0,
+    "snf": 9.5,
+    "rate": 66.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.0,
+    "snf": 9.6,
+    "rate": 66.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.0,
+    "snf": 9.7,
+    "rate": 66.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.0,
+    "snf": 9.8,
+    "rate": 66.95
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.0,
+    "snf": 9.9,
+    "rate": 65.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.0,
+    "snf": 10.0,
+    "rate": 67.05
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.1,
+    "snf": 8.0,
+    "rate": 62.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.1,
+    "snf": 8.1,
+    "rate": 63.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.1,
+    "snf": 8.2,
+    "rate": 63.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.1,
+    "snf": 8.3,
+    "rate": 63.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.1,
+    "snf": 8.4,
+    "rate": 64.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.1,
+    "snf": 8.5,
+    "rate": 64.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.1,
+    "snf": 8.6,
+    "rate": 64.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.1,
+    "snf": 8.7,
+    "rate": 64.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.1,
+    "snf": 8.8,
+    "rate": 65.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.1,
+    "snf": 8.9,
+    "rate": 65.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.1,
+    "snf": 9.0,
+    "rate": 66.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.1,
+    "snf": 9.1,
+    "rate": 66.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.1,
+    "snf": 9.2,
+    "rate": 66.95
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.1,
+    "snf": 9.3,
+    "rate": 67.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.1,
+    "snf": 9.4,
+    "rate": 67.05
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.1,
+    "snf": 9.5,
+    "rate": 67.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.1,
+    "snf": 9.6,
+    "rate": 67.15
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.1,
+    "snf": 9.7,
+    "rate": 67.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.1,
+    "snf": 9.8,
+    "rate": 67.25
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.1,
+    "snf": 9.9,
+    "rate": 65.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.1,
+    "snf": 10.0,
+    "rate": 67.35
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.2,
+    "snf": 8.0,
+    "rate": 63.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.2,
+    "snf": 8.1,
+    "rate": 63.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.2,
+    "snf": 8.2,
+    "rate": 63.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.2,
+    "snf": 8.3,
+    "rate": 64.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.2,
+    "snf": 8.4,
+    "rate": 64.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.2,
+    "snf": 8.5,
+    "rate": 64.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.2,
+    "snf": 8.6,
+    "rate": 64.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.2,
+    "snf": 8.7,
+    "rate": 65.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.2,
+    "snf": 8.8,
+    "rate": 65.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.2,
+    "snf": 8.9,
+    "rate": 65.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.2,
+    "snf": 9.0,
+    "rate": 67.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.2,
+    "snf": 9.1,
+    "rate": 67.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.2,
+    "snf": 9.2,
+    "rate": 67.25
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.2,
+    "snf": 9.3,
+    "rate": 67.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.2,
+    "snf": 9.4,
+    "rate": 67.35
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.2,
+    "snf": 9.5,
+    "rate": 67.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.2,
+    "snf": 9.6,
+    "rate": 67.45
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.2,
+    "snf": 9.7,
+    "rate": 67.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.2,
+    "snf": 9.8,
+    "rate": 67.55
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.2,
+    "snf": 9.9,
+    "rate": 65.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.2,
+    "snf": 10.0,
+    "rate": 67.65
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.3,
+    "snf": 8.0,
+    "rate": 63.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.3,
+    "snf": 8.1,
+    "rate": 63.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.3,
+    "snf": 8.2,
+    "rate": 64.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.3,
+    "snf": 8.3,
+    "rate": 64.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.3,
+    "snf": 8.4,
+    "rate": 64.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.3,
+    "snf": 8.5,
+    "rate": 64.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.3,
+    "snf": 8.6,
+    "rate": 65.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.3,
+    "snf": 8.7,
+    "rate": 65.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.3,
+    "snf": 8.8,
+    "rate": 65.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.3,
+    "snf": 8.9,
+    "rate": 66.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.3,
+    "snf": 9.0,
+    "rate": 67.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.3,
+    "snf": 9.1,
+    "rate": 67.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.3,
+    "snf": 9.2,
+    "rate": 67.55
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.3,
+    "snf": 9.3,
+    "rate": 67.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.3,
+    "snf": 9.4,
+    "rate": 67.65
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.3,
+    "snf": 9.5,
+    "rate": 67.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.3,
+    "snf": 9.6,
+    "rate": 67.75
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.3,
+    "snf": 9.7,
+    "rate": 67.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.3,
+    "snf": 9.8,
+    "rate": 67.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.3,
+    "snf": 9.9,
+    "rate": 65.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.3,
+    "snf": 10.0,
+    "rate": 67.95
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.4,
+    "snf": 8.0,
+    "rate": 63.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.4,
+    "snf": 8.1,
+    "rate": 64.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.4,
+    "snf": 8.2,
+    "rate": 64.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.4,
+    "snf": 8.3,
+    "rate": 64.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.4,
+    "snf": 8.4,
+    "rate": 64.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.4,
+    "snf": 8.5,
+    "rate": 65.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.4,
+    "snf": 8.6,
+    "rate": 65.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.4,
+    "snf": 8.7,
+    "rate": 65.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.4,
+    "snf": 8.8,
+    "rate": 66.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.4,
+    "snf": 8.9,
+    "rate": 66.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.4,
+    "snf": 9.0,
+    "rate": 67.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.4,
+    "snf": 9.1,
+    "rate": 67.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.4,
+    "snf": 9.2,
+    "rate": 67.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.4,
+    "snf": 9.3,
+    "rate": 67.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.4,
+    "snf": 9.4,
+    "rate": 67.95
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.4,
+    "snf": 9.5,
+    "rate": 68.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.4,
+    "snf": 9.6,
+    "rate": 68.05
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.4,
+    "snf": 9.7,
+    "rate": 68.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.4,
+    "snf": 9.8,
+    "rate": 68.15
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.4,
+    "snf": 9.9,
+    "rate": 65.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.4,
+    "snf": 10.0,
+    "rate": 68.25
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.5,
+    "snf": 8.0,
+    "rate": 64.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.5,
+    "snf": 8.1,
+    "rate": 64.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.5,
+    "snf": 8.2,
+    "rate": 64.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.5,
+    "snf": 8.3,
+    "rate": 64.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.5,
+    "snf": 8.4,
+    "rate": 65.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.5,
+    "snf": 8.5,
+    "rate": 65.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.5,
+    "snf": 8.6,
+    "rate": 65.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.5,
+    "snf": 8.7,
+    "rate": 66.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.5,
+    "snf": 8.8,
+    "rate": 66.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.5,
+    "snf": 8.9,
+    "rate": 66.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.5,
+    "snf": 9.0,
+    "rate": 68.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.5,
+    "snf": 9.1,
+    "rate": 68.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.5,
+    "snf": 9.2,
+    "rate": 68.15
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.5,
+    "snf": 9.3,
+    "rate": 68.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.5,
+    "snf": 9.4,
+    "rate": 68.25
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.5,
+    "snf": 9.5,
+    "rate": 68.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.5,
+    "snf": 9.6,
+    "rate": 68.35
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.5,
+    "snf": 9.7,
+    "rate": 68.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.5,
+    "snf": 9.8,
+    "rate": 68.45
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.5,
+    "snf": 9.9,
+    "rate": 65.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.5,
+    "snf": 10.0,
+    "rate": 68.55
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.6,
+    "snf": 8.0,
+    "rate": 64.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.6,
+    "snf": 8.1,
+    "rate": 64.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.6,
+    "snf": 8.2,
+    "rate": 64.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.6,
+    "snf": 8.3,
+    "rate": 65.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.6,
+    "snf": 8.4,
+    "rate": 65.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.6,
+    "snf": 8.5,
+    "rate": 65.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.6,
+    "snf": 8.6,
+    "rate": 66.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.6,
+    "snf": 8.7,
+    "rate": 66.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.6,
+    "snf": 8.8,
+    "rate": 66.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.6,
+    "snf": 8.9,
+    "rate": 67.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.6,
+    "snf": 9.0,
+    "rate": 68.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.6,
+    "snf": 9.1,
+    "rate": 68.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.6,
+    "snf": 9.2,
+    "rate": 68.45
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.6,
+    "snf": 9.3,
+    "rate": 68.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.6,
+    "snf": 9.4,
+    "rate": 68.55
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.6,
+    "snf": 9.5,
+    "rate": 68.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.6,
+    "snf": 9.6,
+    "rate": 68.65
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.6,
+    "snf": 9.7,
+    "rate": 68.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.6,
+    "snf": 9.8,
+    "rate": 68.75
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.6,
+    "snf": 9.9,
+    "rate": 65.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.6,
+    "snf": 10.0,
+    "rate": 68.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.7,
+    "snf": 8.0,
+    "rate": 64.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.7,
+    "snf": 8.1,
+    "rate": 64.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.7,
+    "snf": 8.2,
+    "rate": 65.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.7,
+    "snf": 8.3,
+    "rate": 65.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.7,
+    "snf": 8.4,
+    "rate": 65.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.7,
+    "snf": 8.5,
+    "rate": 66.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.7,
+    "snf": 8.6,
+    "rate": 66.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.7,
+    "snf": 8.7,
+    "rate": 66.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.7,
+    "snf": 8.8,
+    "rate": 67.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.7,
+    "snf": 8.9,
+    "rate": 67.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.7,
+    "snf": 9.0,
+    "rate": 68.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.7,
+    "snf": 9.1,
+    "rate": 68.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.7,
+    "snf": 9.2,
+    "rate": 68.75
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.7,
+    "snf": 9.3,
+    "rate": 68.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.7,
+    "snf": 9.4,
+    "rate": 68.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.7,
+    "snf": 9.5,
+    "rate": 68.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.7,
+    "snf": 9.6,
+    "rate": 68.95
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.7,
+    "snf": 9.7,
+    "rate": 69.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.7,
+    "snf": 9.8,
+    "rate": 69.05
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.7,
+    "snf": 9.9,
+    "rate": 65.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.7,
+    "snf": 10.0,
+    "rate": 69.15
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.8,
+    "snf": 8.0,
+    "rate": 64.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.8,
+    "snf": 8.1,
+    "rate": 65.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.8,
+    "snf": 8.2,
+    "rate": 65.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.8,
+    "snf": 8.3,
+    "rate": 65.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.8,
+    "snf": 8.4,
+    "rate": 66.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.8,
+    "snf": 8.5,
+    "rate": 66.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.8,
+    "snf": 8.6,
+    "rate": 66.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.8,
+    "snf": 8.7,
+    "rate": 67.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.8,
+    "snf": 8.8,
+    "rate": 67.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.8,
+    "snf": 8.9,
+    "rate": 67.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.8,
+    "snf": 9.0,
+    "rate": 68.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.8,
+    "snf": 9.1,
+    "rate": 69.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.8,
+    "snf": 9.2,
+    "rate": 69.05
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.8,
+    "snf": 9.3,
+    "rate": 69.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.8,
+    "snf": 9.4,
+    "rate": 69.15
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.8,
+    "snf": 9.5,
+    "rate": 69.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.8,
+    "snf": 9.6,
+    "rate": 69.25
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.8,
+    "snf": 9.7,
+    "rate": 69.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.8,
+    "snf": 9.8,
+    "rate": 69.35
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.8,
+    "snf": 9.9,
+    "rate": 65.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.8,
+    "snf": 10.0,
+    "rate": 69.45
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.9,
+    "snf": 8.0,
+    "rate": 65.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.9,
+    "snf": 8.1,
+    "rate": 65.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.9,
+    "snf": 8.2,
+    "rate": 65.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.9,
+    "snf": 8.3,
+    "rate": 66.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.9,
+    "snf": 8.4,
+    "rate": 66.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.9,
+    "snf": 8.5,
+    "rate": 66.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.9,
+    "snf": 8.6,
+    "rate": 67.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.9,
+    "snf": 8.7,
+    "rate": 67.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.9,
+    "snf": 8.8,
+    "rate": 67.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.9,
+    "snf": 8.9,
+    "rate": 67.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.9,
+    "snf": 9.0,
+    "rate": 69.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.9,
+    "snf": 9.1,
+    "rate": 69.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.9,
+    "snf": 9.2,
+    "rate": 69.35
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.9,
+    "snf": 9.3,
+    "rate": 69.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.9,
+    "snf": 9.4,
+    "rate": 69.45
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.9,
+    "snf": 9.5,
+    "rate": 69.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.9,
+    "snf": 9.6,
+    "rate": 69.55
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.9,
+    "snf": 9.7,
+    "rate": 69.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.9,
+    "snf": 9.8,
+    "rate": 69.65
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.9,
+    "snf": 9.9,
+    "rate": 65.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 9.9,
+    "snf": 10.0,
+    "rate": 69.75
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 10.0,
+    "snf": 8.0,
+    "rate": 65.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 10.0,
+    "snf": 8.1,
+    "rate": 65.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 10.0,
+    "snf": 8.2,
+    "rate": 66.1
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 10.0,
+    "snf": 8.3,
+    "rate": 66.4
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 10.0,
+    "snf": 8.4,
+    "rate": 66.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 10.0,
+    "snf": 8.5,
+    "rate": 67.0
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 10.0,
+    "snf": 8.6,
+    "rate": 67.3
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 10.0,
+    "snf": 8.7,
+    "rate": 67.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 10.0,
+    "snf": 8.8,
+    "rate": 67.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 10.0,
+    "snf": 8.9,
+    "rate": 68.2
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 10.0,
+    "snf": 9.0,
+    "rate": 69.5
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 10.0,
+    "snf": 9.1,
+    "rate": 69.6
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 10.0,
+    "snf": 9.2,
+    "rate": 69.65
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 10.0,
+    "snf": 9.3,
+    "rate": 69.7
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 10.0,
+    "snf": 9.4,
+    "rate": 69.75
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 10.0,
+    "snf": 9.5,
+    "rate": 69.8
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 10.0,
+    "snf": 9.6,
+    "rate": 69.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 10.0,
+    "snf": 9.7,
+    "rate": 69.9
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 10.0,
+    "snf": 9.8,
+    "rate": 69.95
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 10.0,
+    "snf": 9.9,
+    "rate": 65.85
+  },
+  {
+    "milkType": "buffalo",
+    "fat": 10.0,
+    "snf": 10.0,
+    "rate": 70.05
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.0,
+    "snf": 7.5,
+    "rate": 29.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.0,
+    "snf": 7.6,
+    "rate": 29.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.0,
+    "snf": 7.7,
+    "rate": 30.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.0,
+    "snf": 7.8,
+    "rate": 30.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.0,
+    "snf": 7.9,
+    "rate": 30.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.0,
+    "snf": 8.0,
+    "rate": 31.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.0,
+    "snf": 8.1,
+    "rate": 31.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.0,
+    "snf": 8.2,
+    "rate": 31.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.0,
+    "snf": 8.3,
+    "rate": 31.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.0,
+    "snf": 8.4,
+    "rate": 32.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.0,
+    "snf": 8.5,
+    "rate": 32.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.0,
+    "snf": 8.6,
+    "rate": 32.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.0,
+    "snf": 8.7,
+    "rate": 33.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.0,
+    "snf": 8.8,
+    "rate": 33.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.0,
+    "snf": 8.9,
+    "rate": 33.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.0,
+    "snf": 9.0,
+    "rate": 34.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.0,
+    "snf": 9.1,
+    "rate": 34.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.0,
+    "snf": 9.2,
+    "rate": 34.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.0,
+    "snf": 9.3,
+    "rate": 34.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.0,
+    "snf": 9.4,
+    "rate": 35.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.0,
+    "snf": 9.5,
+    "rate": 35.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.1,
+    "snf": 7.5,
+    "rate": 30.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.1,
+    "snf": 7.6,
+    "rate": 30.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.1,
+    "snf": 7.7,
+    "rate": 30.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.1,
+    "snf": 7.8,
+    "rate": 30.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.1,
+    "snf": 7.9,
+    "rate": 31.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.1,
+    "snf": 8.0,
+    "rate": 31.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.1,
+    "snf": 8.1,
+    "rate": 31.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.1,
+    "snf": 8.2,
+    "rate": 32.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.1,
+    "snf": 8.3,
+    "rate": 32.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.1,
+    "snf": 8.4,
+    "rate": 32.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.1,
+    "snf": 8.5,
+    "rate": 33.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.1,
+    "snf": 8.6,
+    "rate": 33.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.1,
+    "snf": 8.7,
+    "rate": 33.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.1,
+    "snf": 8.8,
+    "rate": 33.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.1,
+    "snf": 8.9,
+    "rate": 34.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.1,
+    "snf": 9.0,
+    "rate": 34.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.1,
+    "snf": 9.1,
+    "rate": 34.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.1,
+    "snf": 9.2,
+    "rate": 35.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.1,
+    "snf": 9.3,
+    "rate": 35.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.1,
+    "snf": 9.4,
+    "rate": 35.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.1,
+    "snf": 9.5,
+    "rate": 36.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.2,
+    "snf": 7.5,
+    "rate": 30.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.2,
+    "snf": 7.6,
+    "rate": 30.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.2,
+    "snf": 7.7,
+    "rate": 31.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.2,
+    "snf": 7.8,
+    "rate": 31.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.2,
+    "snf": 7.9,
+    "rate": 31.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.2,
+    "snf": 8.0,
+    "rate": 32.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.2,
+    "snf": 8.1,
+    "rate": 32.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.2,
+    "snf": 8.2,
+    "rate": 32.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.2,
+    "snf": 8.3,
+    "rate": 32.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.2,
+    "snf": 8.4,
+    "rate": 33.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.2,
+    "snf": 8.5,
+    "rate": 33.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.2,
+    "snf": 8.6,
+    "rate": 33.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.2,
+    "snf": 8.7,
+    "rate": 34.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.2,
+    "snf": 8.8,
+    "rate": 34.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.2,
+    "snf": 8.9,
+    "rate": 34.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.2,
+    "snf": 9.0,
+    "rate": 35.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.2,
+    "snf": 9.1,
+    "rate": 35.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.2,
+    "snf": 9.2,
+    "rate": 35.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.2,
+    "snf": 9.3,
+    "rate": 35.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.2,
+    "snf": 9.4,
+    "rate": 36.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.2,
+    "snf": 9.5,
+    "rate": 36.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.3,
+    "snf": 7.5,
+    "rate": 31.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.3,
+    "snf": 7.6,
+    "rate": 31.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.3,
+    "snf": 7.7,
+    "rate": 31.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.3,
+    "snf": 7.8,
+    "rate": 31.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.3,
+    "snf": 7.9,
+    "rate": 32.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.3,
+    "snf": 8.0,
+    "rate": 32.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.3,
+    "snf": 8.1,
+    "rate": 32.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.3,
+    "snf": 8.2,
+    "rate": 33.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.3,
+    "snf": 8.3,
+    "rate": 33.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.3,
+    "snf": 8.4,
+    "rate": 33.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.3,
+    "snf": 8.5,
+    "rate": 34.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.3,
+    "snf": 8.6,
+    "rate": 34.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.3,
+    "snf": 8.7,
+    "rate": 34.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.3,
+    "snf": 8.8,
+    "rate": 34.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.3,
+    "snf": 8.9,
+    "rate": 35.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.3,
+    "snf": 9.0,
+    "rate": 35.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.3,
+    "snf": 9.1,
+    "rate": 35.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.3,
+    "snf": 9.2,
+    "rate": 36.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.3,
+    "snf": 9.3,
+    "rate": 36.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.3,
+    "snf": 9.4,
+    "rate": 36.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.3,
+    "snf": 9.5,
+    "rate": 37.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.4,
+    "snf": 7.5,
+    "rate": 31.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.4,
+    "snf": 7.6,
+    "rate": 31.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.4,
+    "snf": 7.7,
+    "rate": 32.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.4,
+    "snf": 7.8,
+    "rate": 32.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.4,
+    "snf": 7.9,
+    "rate": 32.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.4,
+    "snf": 8.0,
+    "rate": 33.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.4,
+    "snf": 8.1,
+    "rate": 33.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.4,
+    "snf": 8.2,
+    "rate": 33.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.4,
+    "snf": 8.3,
+    "rate": 33.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.4,
+    "snf": 8.4,
+    "rate": 34.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.4,
+    "snf": 8.5,
+    "rate": 34.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.4,
+    "snf": 8.6,
+    "rate": 34.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.4,
+    "snf": 8.7,
+    "rate": 35.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.4,
+    "snf": 8.8,
+    "rate": 35.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.4,
+    "snf": 8.9,
+    "rate": 35.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.4,
+    "snf": 9.0,
+    "rate": 36.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.4,
+    "snf": 9.1,
+    "rate": 36.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.4,
+    "snf": 9.2,
+    "rate": 36.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.4,
+    "snf": 9.3,
+    "rate": 36.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.4,
+    "snf": 9.4,
+    "rate": 37.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.4,
+    "snf": 9.5,
+    "rate": 37.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.5,
+    "snf": 7.5,
+    "rate": 32.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.5,
+    "snf": 7.6,
+    "rate": 32.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.5,
+    "snf": 7.7,
+    "rate": 32.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.5,
+    "snf": 7.8,
+    "rate": 32.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.5,
+    "snf": 7.9,
+    "rate": 33.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.5,
+    "snf": 8.0,
+    "rate": 33.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.5,
+    "snf": 8.1,
+    "rate": 33.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.5,
+    "snf": 8.2,
+    "rate": 34.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.5,
+    "snf": 8.3,
+    "rate": 34.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.5,
+    "snf": 8.4,
+    "rate": 34.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.5,
+    "snf": 8.5,
+    "rate": 35.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.5,
+    "snf": 8.6,
+    "rate": 35.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.5,
+    "snf": 8.7,
+    "rate": 35.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.5,
+    "snf": 8.8,
+    "rate": 35.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.5,
+    "snf": 8.9,
+    "rate": 36.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.5,
+    "snf": 9.0,
+    "rate": 36.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.5,
+    "snf": 9.1,
+    "rate": 36.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.5,
+    "snf": 9.2,
+    "rate": 37.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.5,
+    "snf": 9.3,
+    "rate": 37.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.5,
+    "snf": 9.4,
+    "rate": 37.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.5,
+    "snf": 9.5,
+    "rate": 38.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.6,
+    "snf": 7.5,
+    "rate": 32.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.6,
+    "snf": 7.6,
+    "rate": 32.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.6,
+    "snf": 7.7,
+    "rate": 33.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.6,
+    "snf": 7.8,
+    "rate": 33.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.6,
+    "snf": 7.9,
+    "rate": 33.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.6,
+    "snf": 8.0,
+    "rate": 34.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.6,
+    "snf": 8.1,
+    "rate": 34.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.6,
+    "snf": 8.2,
+    "rate": 34.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.6,
+    "snf": 8.3,
+    "rate": 34.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.6,
+    "snf": 8.4,
+    "rate": 35.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.6,
+    "snf": 8.5,
+    "rate": 35.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.6,
+    "snf": 8.6,
+    "rate": 35.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.6,
+    "snf": 8.7,
+    "rate": 36.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.6,
+    "snf": 8.8,
+    "rate": 36.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.6,
+    "snf": 8.9,
+    "rate": 36.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.6,
+    "snf": 9.0,
+    "rate": 37.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.6,
+    "snf": 9.1,
+    "rate": 37.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.6,
+    "snf": 9.2,
+    "rate": 37.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.6,
+    "snf": 9.3,
+    "rate": 37.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.6,
+    "snf": 9.4,
+    "rate": 38.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.6,
+    "snf": 9.5,
+    "rate": 38.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.7,
+    "snf": 7.5,
+    "rate": 33.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.7,
+    "snf": 7.6,
+    "rate": 33.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.7,
+    "snf": 7.7,
+    "rate": 33.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.7,
+    "snf": 7.8,
+    "rate": 33.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.7,
+    "snf": 7.9,
+    "rate": 34.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.7,
+    "snf": 8.0,
+    "rate": 34.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.7,
+    "snf": 8.1,
+    "rate": 34.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.7,
+    "snf": 8.2,
+    "rate": 35.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.7,
+    "snf": 8.3,
+    "rate": 35.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.7,
+    "snf": 8.4,
+    "rate": 35.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.7,
+    "snf": 8.5,
+    "rate": 36.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.7,
+    "snf": 8.6,
+    "rate": 36.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.7,
+    "snf": 8.7,
+    "rate": 36.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.7,
+    "snf": 8.8,
+    "rate": 36.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.7,
+    "snf": 8.9,
+    "rate": 37.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.7,
+    "snf": 9.0,
+    "rate": 37.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.7,
+    "snf": 9.1,
+    "rate": 37.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.7,
+    "snf": 9.2,
+    "rate": 38.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.7,
+    "snf": 9.3,
+    "rate": 38.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.7,
+    "snf": 9.4,
+    "rate": 38.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.7,
+    "snf": 9.5,
+    "rate": 39.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.8,
+    "snf": 7.5,
+    "rate": 33.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.8,
+    "snf": 7.6,
+    "rate": 33.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.8,
+    "snf": 7.7,
+    "rate": 34.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.8,
+    "snf": 7.8,
+    "rate": 34.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.8,
+    "snf": 7.9,
+    "rate": 34.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.8,
+    "snf": 8.0,
+    "rate": 35.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.8,
+    "snf": 8.1,
+    "rate": 35.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.8,
+    "snf": 8.2,
+    "rate": 35.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.8,
+    "snf": 8.3,
+    "rate": 35.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.8,
+    "snf": 8.4,
+    "rate": 36.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.8,
+    "snf": 8.5,
+    "rate": 36.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.8,
+    "snf": 8.6,
+    "rate": 36.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.8,
+    "snf": 8.7,
+    "rate": 37.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.8,
+    "snf": 8.8,
+    "rate": 37.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.8,
+    "snf": 8.9,
+    "rate": 37.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.8,
+    "snf": 9.0,
+    "rate": 38.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.8,
+    "snf": 9.1,
+    "rate": 38.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.8,
+    "snf": 9.2,
+    "rate": 38.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.8,
+    "snf": 9.3,
+    "rate": 38.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.8,
+    "snf": 9.4,
+    "rate": 39.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.8,
+    "snf": 9.5,
+    "rate": 39.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.9,
+    "snf": 7.5,
+    "rate": 34.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.9,
+    "snf": 7.6,
+    "rate": 34.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.9,
+    "snf": 7.7,
+    "rate": 34.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.9,
+    "snf": 7.8,
+    "rate": 34.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.9,
+    "snf": 7.9,
+    "rate": 35.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.9,
+    "snf": 8.0,
+    "rate": 35.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.9,
+    "snf": 8.1,
+    "rate": 35.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.9,
+    "snf": 8.2,
+    "rate": 36.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.9,
+    "snf": 8.3,
+    "rate": 36.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.9,
+    "snf": 8.4,
+    "rate": 36.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.9,
+    "snf": 8.5,
+    "rate": 37.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.9,
+    "snf": 8.6,
+    "rate": 37.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.9,
+    "snf": 8.7,
+    "rate": 37.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.9,
+    "snf": 8.8,
+    "rate": 37.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.9,
+    "snf": 8.9,
+    "rate": 38.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.9,
+    "snf": 9.0,
+    "rate": 38.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.9,
+    "snf": 9.1,
+    "rate": 38.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.9,
+    "snf": 9.2,
+    "rate": 39.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.9,
+    "snf": 9.3,
+    "rate": 39.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.9,
+    "snf": 9.4,
+    "rate": 39.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 3.9,
+    "snf": 9.5,
+    "rate": 40.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.0,
+    "snf": 7.5,
+    "rate": 34.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.0,
+    "snf": 7.6,
+    "rate": 34.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.0,
+    "snf": 7.7,
+    "rate": 35.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.0,
+    "snf": 7.8,
+    "rate": 35.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.0,
+    "snf": 7.9,
+    "rate": 35.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.0,
+    "snf": 8.0,
+    "rate": 36.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.0,
+    "snf": 8.1,
+    "rate": 36.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.0,
+    "snf": 8.2,
+    "rate": 36.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.0,
+    "snf": 8.3,
+    "rate": 36.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.0,
+    "snf": 8.4,
+    "rate": 37.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.0,
+    "snf": 8.5,
+    "rate": 37.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.0,
+    "snf": 8.6,
+    "rate": 37.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.0,
+    "snf": 8.7,
+    "rate": 38.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.0,
+    "snf": 8.8,
+    "rate": 38.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.0,
+    "snf": 8.9,
+    "rate": 38.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.0,
+    "snf": 9.0,
+    "rate": 39.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.0,
+    "snf": 9.1,
+    "rate": 39.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.0,
+    "snf": 9.2,
+    "rate": 39.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.0,
+    "snf": 9.3,
+    "rate": 39.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.0,
+    "snf": 9.4,
+    "rate": 40.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.0,
+    "snf": 9.5,
+    "rate": 40.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.1,
+    "snf": 7.5,
+    "rate": 35.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.1,
+    "snf": 7.6,
+    "rate": 35.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.1,
+    "snf": 7.7,
+    "rate": 35.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.1,
+    "snf": 7.8,
+    "rate": 35.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.1,
+    "snf": 7.9,
+    "rate": 36.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.1,
+    "snf": 8.0,
+    "rate": 36.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.1,
+    "snf": 8.1,
+    "rate": 36.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.1,
+    "snf": 8.2,
+    "rate": 37.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.1,
+    "snf": 8.3,
+    "rate": 37.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.1,
+    "snf": 8.4,
+    "rate": 37.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.1,
+    "snf": 8.5,
+    "rate": 38.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.1,
+    "snf": 8.6,
+    "rate": 38.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.1,
+    "snf": 8.7,
+    "rate": 38.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.1,
+    "snf": 8.8,
+    "rate": 38.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.1,
+    "snf": 8.9,
+    "rate": 39.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.1,
+    "snf": 9.0,
+    "rate": 39.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.1,
+    "snf": 9.1,
+    "rate": 39.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.1,
+    "snf": 9.2,
+    "rate": 40.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.1,
+    "snf": 9.3,
+    "rate": 40.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.1,
+    "snf": 9.4,
+    "rate": 40.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.1,
+    "snf": 9.5,
+    "rate": 41.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.2,
+    "snf": 7.5,
+    "rate": 35.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.2,
+    "snf": 7.6,
+    "rate": 35.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.2,
+    "snf": 7.7,
+    "rate": 36.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.2,
+    "snf": 7.8,
+    "rate": 36.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.2,
+    "snf": 7.9,
+    "rate": 36.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.2,
+    "snf": 8.0,
+    "rate": 37.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.2,
+    "snf": 8.1,
+    "rate": 37.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.2,
+    "snf": 8.2,
+    "rate": 37.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.2,
+    "snf": 8.3,
+    "rate": 37.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.2,
+    "snf": 8.4,
+    "rate": 38.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.2,
+    "snf": 8.5,
+    "rate": 38.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.2,
+    "snf": 8.6,
+    "rate": 38.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.2,
+    "snf": 8.7,
+    "rate": 39.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.2,
+    "snf": 8.8,
+    "rate": 39.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.2,
+    "snf": 8.9,
+    "rate": 39.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.2,
+    "snf": 9.0,
+    "rate": 40.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.2,
+    "snf": 9.1,
+    "rate": 40.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.2,
+    "snf": 9.2,
+    "rate": 40.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.2,
+    "snf": 9.3,
+    "rate": 40.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.2,
+    "snf": 9.4,
+    "rate": 41.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.2,
+    "snf": 9.5,
+    "rate": 41.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.3,
+    "snf": 7.5,
+    "rate": 36.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.3,
+    "snf": 7.6,
+    "rate": 36.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.3,
+    "snf": 7.7,
+    "rate": 36.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.3,
+    "snf": 7.8,
+    "rate": 36.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.3,
+    "snf": 7.9,
+    "rate": 37.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.3,
+    "snf": 8.0,
+    "rate": 37.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.3,
+    "snf": 8.1,
+    "rate": 37.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.3,
+    "snf": 8.2,
+    "rate": 38.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.3,
+    "snf": 8.3,
+    "rate": 38.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.3,
+    "snf": 8.4,
+    "rate": 38.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.3,
+    "snf": 8.5,
+    "rate": 39.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.3,
+    "snf": 8.6,
+    "rate": 39.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.3,
+    "snf": 8.7,
+    "rate": 39.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.3,
+    "snf": 8.8,
+    "rate": 39.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.3,
+    "snf": 8.9,
+    "rate": 40.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.3,
+    "snf": 9.0,
+    "rate": 40.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.3,
+    "snf": 9.1,
+    "rate": 40.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.3,
+    "snf": 9.2,
+    "rate": 41.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.3,
+    "snf": 9.3,
+    "rate": 41.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.3,
+    "snf": 9.4,
+    "rate": 41.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.3,
+    "snf": 9.5,
+    "rate": 42.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.4,
+    "snf": 7.5,
+    "rate": 36.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.4,
+    "snf": 7.6,
+    "rate": 36.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.4,
+    "snf": 7.7,
+    "rate": 37.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.4,
+    "snf": 7.8,
+    "rate": 37.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.4,
+    "snf": 7.9,
+    "rate": 37.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.4,
+    "snf": 8.0,
+    "rate": 38.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.4,
+    "snf": 8.1,
+    "rate": 38.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.4,
+    "snf": 8.2,
+    "rate": 38.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.4,
+    "snf": 8.3,
+    "rate": 38.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.4,
+    "snf": 8.4,
+    "rate": 39.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.4,
+    "snf": 8.5,
+    "rate": 39.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.4,
+    "snf": 8.6,
+    "rate": 39.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.4,
+    "snf": 8.7,
+    "rate": 40.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.4,
+    "snf": 8.8,
+    "rate": 40.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.4,
+    "snf": 8.9,
+    "rate": 40.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.4,
+    "snf": 9.0,
+    "rate": 41.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.4,
+    "snf": 9.1,
+    "rate": 41.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.4,
+    "snf": 9.2,
+    "rate": 41.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.4,
+    "snf": 9.3,
+    "rate": 41.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.4,
+    "snf": 9.4,
+    "rate": 42.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.4,
+    "snf": 9.5,
+    "rate": 42.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.5,
+    "snf": 7.5,
+    "rate": 37.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.5,
+    "snf": 7.6,
+    "rate": 37.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.5,
+    "snf": 7.7,
+    "rate": 37.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.5,
+    "snf": 7.8,
+    "rate": 37.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.5,
+    "snf": 7.9,
+    "rate": 38.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.5,
+    "snf": 8.0,
+    "rate": 38.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.5,
+    "snf": 8.1,
+    "rate": 38.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.5,
+    "snf": 8.2,
+    "rate": 39.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.5,
+    "snf": 8.3,
+    "rate": 39.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.5,
+    "snf": 8.4,
+    "rate": 39.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.5,
+    "snf": 8.5,
+    "rate": 40.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.5,
+    "snf": 8.6,
+    "rate": 40.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.5,
+    "snf": 8.7,
+    "rate": 40.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.5,
+    "snf": 8.8,
+    "rate": 40.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.5,
+    "snf": 8.9,
+    "rate": 41.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.5,
+    "snf": 9.0,
+    "rate": 41.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.5,
+    "snf": 9.1,
+    "rate": 41.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.5,
+    "snf": 9.2,
+    "rate": 42.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.5,
+    "snf": 9.3,
+    "rate": 42.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.5,
+    "snf": 9.4,
+    "rate": 42.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.5,
+    "snf": 9.5,
+    "rate": 43.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.6,
+    "snf": 7.5,
+    "rate": 37.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.6,
+    "snf": 7.6,
+    "rate": 37.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.6,
+    "snf": 7.7,
+    "rate": 38.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.6,
+    "snf": 7.8,
+    "rate": 38.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.6,
+    "snf": 7.9,
+    "rate": 38.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.6,
+    "snf": 8.0,
+    "rate": 39.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.6,
+    "snf": 8.1,
+    "rate": 39.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.6,
+    "snf": 8.2,
+    "rate": 39.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.6,
+    "snf": 8.3,
+    "rate": 39.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.6,
+    "snf": 8.4,
+    "rate": 40.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.6,
+    "snf": 8.5,
+    "rate": 40.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.6,
+    "snf": 8.6,
+    "rate": 40.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.6,
+    "snf": 8.7,
+    "rate": 41.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.6,
+    "snf": 8.8,
+    "rate": 41.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.6,
+    "snf": 8.9,
+    "rate": 41.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.6,
+    "snf": 9.0,
+    "rate": 42.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.6,
+    "snf": 9.1,
+    "rate": 42.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.6,
+    "snf": 9.2,
+    "rate": 42.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.6,
+    "snf": 9.3,
+    "rate": 42.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.6,
+    "snf": 9.4,
+    "rate": 43.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.6,
+    "snf": 9.5,
+    "rate": 43.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.7,
+    "snf": 7.5,
+    "rate": 38.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.7,
+    "snf": 7.6,
+    "rate": 38.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.7,
+    "snf": 7.7,
+    "rate": 38.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.7,
+    "snf": 7.8,
+    "rate": 38.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.7,
+    "snf": 7.9,
+    "rate": 39.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.7,
+    "snf": 8.0,
+    "rate": 39.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.7,
+    "snf": 8.1,
+    "rate": 39.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.7,
+    "snf": 8.2,
+    "rate": 40.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.7,
+    "snf": 8.3,
+    "rate": 40.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.7,
+    "snf": 8.4,
+    "rate": 40.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.7,
+    "snf": 8.5,
+    "rate": 41.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.7,
+    "snf": 8.6,
+    "rate": 41.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.7,
+    "snf": 8.7,
+    "rate": 41.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.7,
+    "snf": 8.8,
+    "rate": 41.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.7,
+    "snf": 8.9,
+    "rate": 42.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.7,
+    "snf": 9.0,
+    "rate": 42.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.7,
+    "snf": 9.1,
+    "rate": 42.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.7,
+    "snf": 9.2,
+    "rate": 43.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.7,
+    "snf": 9.3,
+    "rate": 43.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.7,
+    "snf": 9.4,
+    "rate": 43.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.7,
+    "snf": 9.5,
+    "rate": 44.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.8,
+    "snf": 7.5,
+    "rate": 38.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.8,
+    "snf": 7.6,
+    "rate": 38.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.8,
+    "snf": 7.7,
+    "rate": 39.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.8,
+    "snf": 7.8,
+    "rate": 39.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.8,
+    "snf": 7.9,
+    "rate": 39.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.8,
+    "snf": 8.0,
+    "rate": 40.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.8,
+    "snf": 8.1,
+    "rate": 40.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.8,
+    "snf": 8.2,
+    "rate": 40.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.8,
+    "snf": 8.3,
+    "rate": 40.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.8,
+    "snf": 8.4,
+    "rate": 41.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.8,
+    "snf": 8.5,
+    "rate": 41.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.8,
+    "snf": 8.6,
+    "rate": 41.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.8,
+    "snf": 8.7,
+    "rate": 42.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.8,
+    "snf": 8.8,
+    "rate": 42.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.8,
+    "snf": 8.9,
+    "rate": 42.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.8,
+    "snf": 9.0,
+    "rate": 43.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.8,
+    "snf": 9.1,
+    "rate": 43.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.8,
+    "snf": 9.2,
+    "rate": 43.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.8,
+    "snf": 9.3,
+    "rate": 43.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.8,
+    "snf": 9.4,
+    "rate": 44.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.8,
+    "snf": 9.5,
+    "rate": 44.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.9,
+    "snf": 7.5,
+    "rate": 39.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.9,
+    "snf": 7.6,
+    "rate": 39.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.9,
+    "snf": 7.7,
+    "rate": 39.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.9,
+    "snf": 7.8,
+    "rate": 39.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.9,
+    "snf": 7.9,
+    "rate": 40.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.9,
+    "snf": 8.0,
+    "rate": 40.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.9,
+    "snf": 8.1,
+    "rate": 40.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.9,
+    "snf": 8.2,
+    "rate": 41.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.9,
+    "snf": 8.3,
+    "rate": 41.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.9,
+    "snf": 8.4,
+    "rate": 41.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.9,
+    "snf": 8.5,
+    "rate": 42.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.9,
+    "snf": 8.6,
+    "rate": 42.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.9,
+    "snf": 8.7,
+    "rate": 42.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.9,
+    "snf": 8.8,
+    "rate": 42.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.9,
+    "snf": 8.9,
+    "rate": 43.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.9,
+    "snf": 9.0,
+    "rate": 43.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.9,
+    "snf": 9.1,
+    "rate": 43.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.9,
+    "snf": 9.2,
+    "rate": 44.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.9,
+    "snf": 9.3,
+    "rate": 44.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.9,
+    "snf": 9.4,
+    "rate": 44.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 4.9,
+    "snf": 9.5,
+    "rate": 45.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 5.0,
+    "snf": 7.5,
+    "rate": 39.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 5.0,
+    "snf": 7.6,
+    "rate": 39.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 5.0,
+    "snf": 7.7,
+    "rate": 40.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 5.0,
+    "snf": 7.8,
+    "rate": 40.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 5.0,
+    "snf": 7.9,
+    "rate": 40.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 5.0,
+    "snf": 8.0,
+    "rate": 41.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 5.0,
+    "snf": 8.1,
+    "rate": 41.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 5.0,
+    "snf": 8.2,
+    "rate": 41.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 5.0,
+    "snf": 8.3,
+    "rate": 41.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 5.0,
+    "snf": 8.4,
+    "rate": 42.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 5.0,
+    "snf": 8.5,
+    "rate": 42.5
+  },
+  {
+    "milkType": "cow",
+    "fat": 5.0,
+    "snf": 8.6,
+    "rate": 42.8
+  },
+  {
+    "milkType": "cow",
+    "fat": 5.0,
+    "snf": 8.7,
+    "rate": 43.1
+  },
+  {
+    "milkType": "cow",
+    "fat": 5.0,
+    "snf": 8.8,
+    "rate": 43.4
+  },
+  {
+    "milkType": "cow",
+    "fat": 5.0,
+    "snf": 8.9,
+    "rate": 43.7
+  },
+  {
+    "milkType": "cow",
+    "fat": 5.0,
+    "snf": 9.0,
+    "rate": 44.0
+  },
+  {
+    "milkType": "cow",
+    "fat": 5.0,
+    "snf": 9.1,
+    "rate": 44.3
+  },
+  {
+    "milkType": "cow",
+    "fat": 5.0,
+    "snf": 9.2,
+    "rate": 44.6
+  },
+  {
+    "milkType": "cow",
+    "fat": 5.0,
+    "snf": 9.3,
+    "rate": 44.9
+  },
+  {
+    "milkType": "cow",
+    "fat": 5.0,
+    "snf": 9.4,
+    "rate": 45.2
+  },
+  {
+    "milkType": "cow",
+    "fat": 5.0,
+    "snf": 9.5,
+    "rate": 45.5
+  }
+]
