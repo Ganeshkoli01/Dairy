@@ -74,8 +74,8 @@ const PORT = process.env.PORT || 5000;
 
 // Connect to Database
 connectDB().then(() => {
-  // Only listen on a port if we are NOT running on Vercel
-  if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+  // Only skip listening on a port if we are explicitly running on Vercel
+  if (!process.env.VERCEL) {
     app.listen(PORT, () => {
       console.log(`[Express] Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
     });
