@@ -12,7 +12,7 @@ export const Navbar: React.FC = () => {
       <div className="flex items-center space-x-6">
         <div className="flex items-center space-x-3">
           <img 
-            src="/gk_dairy_logo.jpg" 
+            src="/gk_dairy_logo.png" 
             alt="GK Dairy Logo" 
             className="h-12 w-auto object-contain rounded-xl shadow-lg" 
           />
