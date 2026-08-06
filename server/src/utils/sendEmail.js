@@ -10,15 +10,18 @@ dotenv.config();
 export const sendEmail = async ({ to, subject, html, text }) => {
   let transporter;
 
+  const emailUser = process.env.EMAIL_USER || process.env.SMTP_EMAIL;
+  const emailPass = process.env.EMAIL_PASS || process.env.SMTP_PASSWORD;
+
   // Use configured credentials if they look valid, else use a generated test account
-  if (process.env.SMTP_EMAIL && process.env.SMTP_EMAIL !== 'test@ethereal.email') {
+  if (emailUser && emailUser !== 'test@ethereal.email') {
     transporter = nodemailer.createTransport({
       host: process.env.EMAIL_HOST || 'smtp.gmail.com', // fallback to gmail
       port: process.env.EMAIL_PORT || 587,
       secure: process.env.EMAIL_PORT === '465',
       auth: {
-        user: process.env.SMTP_EMAIL,
-        pass: process.env.SMTP_PASSWORD,
+        user: emailUser,
+        pass: emailPass,
       },
     });
   } else {
@@ -36,7 +39,7 @@ export const sendEmail = async ({ to, subject, html, text }) => {
   }
 
   const mailOptions = {
-    from: `"${process.env.FROM_NAME || 'GK Dairy Management'}" <${process.env.FROM_EMAIL || process.env.SMTP_EMAIL || 'no-reply@gkdairy.com'}>`,
+    from: `"${process.env.FROM_NAME || 'GK Dairy Management'}" <${process.env.FROM_EMAIL || emailUser || 'no-reply@gkdairy.com'}>`,
     to,
     subject,
     html,
@@ -49,7 +52,7 @@ export const sendEmail = async ({ to, subject, html, text }) => {
   
   // If we are using Ethereal, log the preview URL for testing
   let previewUrl = null;
-  if (info.messageId.includes('ethereal') || process.env.SMTP_EMAIL === 'test@ethereal.email') {
+  if (info.messageId.includes('ethereal') || emailUser === 'test@ethereal.email') {
     previewUrl = nodemailer.getTestMessageUrl(info);
     console.log('Preview URL: %s', previewUrl);
   }
