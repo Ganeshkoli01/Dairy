@@ -16,17 +16,17 @@ router.use(authenticateToken);
 router.post('/lookup', lookupRate);
 
 // Matrix bulk clear endpoint (Owner & Admin)
-router.delete('/bulk-clear', authorizeRole(['admin', 'owner']), clearRateChartMatrix);
+router.delete('/bulk-clear', authorizeRole(['admin', 'dairyOwner']), clearRateChartMatrix);
 
 // Base rate chart collection endpoints
 router
   .route('/')
   .get(getRateCharts)
-  .post(authorizeRole(['admin', 'owner']), saveRateChart);
+  .post(authorizeRole(['admin', 'dairyOwner']), saveRateChart);
 
 // Individual entry endpoints (Owner & Admin)
 router
   .route('/:id')
-  .delete(authorizeRole(['admin', 'owner']), deleteRateChart);
+  .delete(authorizeRole(['admin', 'dairyOwner']), deleteRateChart);
 
 export default router;

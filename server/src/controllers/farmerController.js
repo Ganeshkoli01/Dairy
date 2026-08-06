@@ -1,6 +1,9 @@
 import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
 import { Farmer } from '../models/Farmer.js';
 import { Branch } from '../models/Branch.js';
+import { User } from '../models/User.js';
+import { Otp } from '../models/Otp.js';
 
 let memoryFarmers = [
   {
@@ -35,7 +38,19 @@ let memoryFarmers = [
 
 export const getFarmers = async (req, res) => {
   try {
-    const { branch, search, isActive } = req.query;
+    let { branch, search, isActive } = req.query;
+
+    if (req.user && req.user.role === 'dairyOwner') {
+      const branchCode = req.user.dairyOwnerProfile?.branchNumber;
+      if (mongoose.connection.readyState === 1) {
+        const ownerBranch = await Branch.findOne({ code: new RegExp('^' + branchCode + '$', 'i') }).catch(() => null);
+        if (ownerBranch) {
+          branch = ownerBranch._id.toString();
+        } else {
+          return res.json({ success: true, count: 0, data: [] }); // Owner has no valid branch yet
+        }
+      }
+    }
 
     if (mongoose.connection.readyState === 1) {
       const filter = {};
@@ -79,9 +94,22 @@ export const getFarmerByBranchAndCode = async (req, res) => {
     const { branchId, code } = req.params;
 
     if (mongoose.connection.readyState === 1) {
-      const farmer = await Farmer.findOne({ branch: branchId, farmerCode: code.trim() })
+      let filter = { branch: branchId, farmerCode: code.trim() };
+      if (req.query.milkType) {
+        filter.defaultMilkType = req.query.milkType;
+      }
+      
+      let farmer = await Farmer.findOne(filter)
         .populate('branch', 'name code')
         .catch(() => null);
+        
+      // If specific milk type not found, fallback to any milk type for this code
+      if (!farmer && req.query.milkType) {
+        farmer = await Farmer.findOne({ branch: branchId, farmerCode: code.trim() })
+          .populate('branch', 'name code')
+          .catch(() => null);
+      }
+      
       if (farmer) return res.json({ success: true, data: farmer });
     }
 
@@ -101,7 +129,19 @@ export const getFarmerByBranchAndCode = async (req, res) => {
 
 export const createFarmer = async (req, res) => {
   try {
-    const { farmerCode, name, branch, defaultMilkType, mobile, isActive, joinedDate } = req.body;
+    let { farmerCode, name, branch, defaultMilkType, mobile, email, password, otp, isActive, joinedDate } = req.body;
+
+    if (req.user && req.user.role === 'dairyOwner') {
+      const branchCode = req.user.dairyOwnerProfile?.branchNumber;
+      if (mongoose.connection.readyState === 1) {
+        const ownerBranch = await Branch.findOne({ code: new RegExp('^' + branchCode + '$', 'i') }).catch(() => null);
+        if (ownerBranch) {
+          branch = ownerBranch._id.toString();
+        } else {
+          return res.status(403).json({ success: false, message: 'You do not have a valid branch assigned.' });
+        }
+      }
+    }
 
     if (!farmerCode || !name || !branch) {
       return res.status(400).json({ success: false, message: 'Farmer code, name, and branch are required' });
@@ -109,18 +149,54 @@ export const createFarmer = async (req, res) => {
 
     const formattedCode = String(farmerCode).trim();
 
+    const targetMilkType = defaultMilkType || 'cow';
+
     const memExisting = memoryFarmers.find(
-      (f) => String(f.branch._id || f.branch) === String(branch) && String(f.farmerCode) === formattedCode
+      (f) => String(f.branch._id || f.branch) === String(branch) && String(f.farmerCode) === formattedCode && f.defaultMilkType === targetMilkType
     );
 
     if (memExisting) {
-      return res.status(400).json({ success: false, message: `Farmer code '${formattedCode}' already exists in this branch` });
+      return res.status(400).json({ success: false, message: `Farmer code '${formattedCode}' with milk type '${targetMilkType}' already exists` });
     }
 
     if (mongoose.connection.readyState === 1) {
-      const existing = await Farmer.findOne({ branch, farmerCode: formattedCode }).catch(() => null);
+      const existing = await Farmer.findOne({ branch, farmerCode: formattedCode, defaultMilkType: targetMilkType }).catch(() => null);
       if (existing) {
-        return res.status(400).json({ success: false, message: `Farmer code '${formattedCode}' already exists in this branch` });
+        return res.status(400).json({ success: false, message: `Farmer code '${formattedCode}' with milk type '${targetMilkType}' already exists` });
+      }
+
+      if (email && password) {
+        const cleanEmail = String(email).trim().toLowerCase();
+        const userExists = await User.findOne({ email: cleanEmail }).catch(() => null);
+        if (userExists) {
+          return res.status(400).json({ success: false, message: 'Email already registered for a user account' });
+        }
+        
+        if (!otp) {
+          return res.status(400).json({ success: false, message: 'OTP is required when creating a farmer account with email' });
+        }
+
+        const otpRecord = await Otp.findOne({ email: cleanEmail }).sort({ createdAt: -1 });
+        if (!otpRecord) {
+          return res.status(400).json({ success: false, field: 'otp', message: 'No OTP found or OTP expired. Please resend.' });
+        }
+        if (otpRecord.otp !== String(otp).trim()) {
+          return res.status(400).json({ success: false, field: 'otp', message: 'Invalid OTP' });
+        }
+        await Otp.deleteOne({ _id: otpRecord._id });
+        
+        await User.create({
+          email: cleanEmail,
+          password: String(password).trim(),
+          role: 'farmer',
+          phone: mobile?.trim() || '',
+          farmerProfile: {
+            farmerCode: formattedCode,
+            farmerName: name.trim(),
+            milkType: defaultMilkType || 'cow',
+            branch: branch
+          }
+        }).catch((err) => console.error('Failed to create farmer user account:', err));
       }
 
       const farmer = await Farmer.create({
@@ -158,18 +234,35 @@ export const createFarmer = async (req, res) => {
 
 export const updateFarmer = async (req, res) => {
   try {
-    const { farmerCode, name, branch, defaultMilkType, mobile, isActive, joinedDate } = req.body;
+    let { farmerCode, name, branch, defaultMilkType, mobile, isActive, joinedDate } = req.body;
+
+    if (req.user && req.user.role === 'dairyOwner') {
+      const branchCode = req.user.dairyOwnerProfile?.branchNumber;
+      if (mongoose.connection.readyState === 1) {
+        const ownerBranch = await Branch.findOne({ code: branchCode }).catch(() => null);
+        if (ownerBranch) {
+           // Enforce branch to be owner's branch
+           branch = ownerBranch._id.toString();
+        }
+      }
+    }
 
     if (mongoose.connection.readyState === 1) {
       const farmer = await Farmer.findById(req.params.id).catch(() => null);
       if (farmer) {
+        // Double check owner is modifying a farmer in their own branch
+        if (req.user && req.user.role === 'dairyOwner' && String(farmer.branch) !== String(branch)) {
+           return res.status(403).json({ success: false, message: 'You can only update farmers in your own branch.' });
+        }
+
         const targetBranch = branch || farmer.branch;
         const targetCode = farmerCode ? String(farmerCode).trim() : farmer.farmerCode;
+        const targetMilkType = defaultMilkType || farmer.defaultMilkType;
 
-        if (String(targetBranch) !== String(farmer.branch) || targetCode !== farmer.farmerCode) {
-          const duplicate = await Farmer.findOne({ _id: { $ne: farmer._id }, branch: targetBranch, farmerCode: targetCode }).catch(() => null);
+        if (String(targetBranch) !== String(farmer.branch) || targetCode !== farmer.farmerCode || targetMilkType !== farmer.defaultMilkType) {
+          const duplicate = await Farmer.findOne({ _id: { $ne: farmer._id }, branch: targetBranch, farmerCode: targetCode, defaultMilkType: targetMilkType }).catch(() => null);
           if (duplicate) {
-            return res.status(400).json({ success: false, message: `Farmer code '${targetCode}' is already taken in the selected branch` });
+            return res.status(400).json({ success: false, message: `Farmer code '${targetCode}' for milk type '${targetMilkType}' already exists` });
           }
         }
 
@@ -193,13 +286,14 @@ export const updateFarmer = async (req, res) => {
 
     const targetBranch = branch || memoryFarmers[memIndex].branch._id || memoryFarmers[memIndex].branch;
     const targetCode = farmerCode ? String(farmerCode).trim() : memoryFarmers[memIndex].farmerCode;
+    const targetMilkType = defaultMilkType || memoryFarmers[memIndex].defaultMilkType;
 
     const duplicateMem = memoryFarmers.find(
-      (f) => f._id !== req.params.id && String(f.branch._id || f.branch) === String(targetBranch) && String(f.farmerCode) === String(targetCode)
+      (f) => f._id !== req.params.id && String(f.branch._id || f.branch) === String(targetBranch) && String(f.farmerCode) === String(targetCode) && f.defaultMilkType === targetMilkType
     );
 
     if (duplicateMem) {
-      return res.status(400).json({ success: false, message: `Farmer code '${targetCode}' is already taken in the selected branch` });
+      return res.status(400).json({ success: false, message: `Farmer code '${targetCode}' for milk type '${targetMilkType}' already exists` });
     }
 
     if (name) memoryFarmers[memIndex].name = name.trim();
@@ -220,6 +314,19 @@ export const deleteFarmer = async (req, res) => {
     if (mongoose.connection.readyState === 1) {
       const farmer = await Farmer.findById(req.params.id).catch(() => null);
       if (farmer) {
+        if (req.user && req.user.role === 'dairyOwner') {
+          const branchCode = req.user.dairyOwnerProfile?.branchNumber;
+          const ownerBranch = await Branch.findOne({ code: new RegExp('^' + branchCode + '$', 'i') }).catch(() => null);
+          if (String(farmer.branch) !== String(ownerBranch?._id)) {
+            return res.status(403).json({ success: false, message: 'You can only delete farmers in your own branch.' });
+          }
+        }
+        // Attempt to delete the associated user account if one exists
+        await User.findOneAndDelete({ 
+          'farmerProfile.farmerCode': farmer.farmerCode, 
+          'farmerProfile.branch': farmer.branch 
+        }).catch((err) => console.error('Failed to delete associated user:', err));
+
         await Farmer.findByIdAndDelete(req.params.id);
         return res.json({ success: true, message: 'Farmer record deleted successfully' });
       }

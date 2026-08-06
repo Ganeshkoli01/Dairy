@@ -33,7 +33,7 @@ export const DashboardPage: React.FC = () => {
       <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center space-x-3 mb-1">
-            <h1 className="text-2xl font-bold text-slate-100">Welcome, {user?.name}</h1>
+            <h1 className="text-2xl font-bold text-slate-100 mb-1">Welcome back, {user?.displayName || user?.email}</h1>
             <span className={`text-xs px-2.5 py-1 rounded-full font-semibold border ${
               user?.role === 'admin'
                 ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30'

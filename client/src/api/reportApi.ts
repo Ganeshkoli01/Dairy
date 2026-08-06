@@ -44,13 +44,12 @@ export const reportApi = {
   exportCSV: async (reportType: 'farmer-ledger' | 'branch-summary' | 'payment-due', params: any) => {
     const response = await api.get(`/reports/${reportType}`, {
       params: { ...params, export: 'csv' },
-      responseType: 'blob',
+      responseType: 'text',
     });
 
-    const blob = new Blob([response.data], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
+    const csvContent = 'data:text/csv;charset=utf-8,' + encodeURIComponent(response.data);
     const link = document.createElement('a');
-    link.href = url;
+    link.setAttribute('href', csvContent);
     link.setAttribute('download', `${reportType}_report.csv`);
     document.body.appendChild(link);
     link.click();

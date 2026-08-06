@@ -5,7 +5,9 @@ export const branchApi = {
   getBranches: async (isActive?: boolean): Promise<Branch[]> => {
     const params = isActive !== undefined ? { isActive } : {};
     const response = await api.get<{ success: boolean; data: Branch[] }>('/branches', { params });
-    return response.data.data;
+    let branches = response.data.data;
+
+    return branches;
   },
 
   getBranchById: async (id: string): Promise<Branch> => {

@@ -5,16 +5,18 @@ import { LogOut, Milk, UserCheck, Shield, Building2, LayoutDashboard, Grid, Scal
 
 export const Navbar: React.FC = () => {
   const { user, logout } = useAuth();
-  const isOwner = user?.role === 'owner' || user?.role === 'admin';
+  const isOwner = user?.role === 'dairyOwner' || user?.role === 'admin';
 
   return (
     <nav className="bg-slate-900 border-b border-slate-800 px-6 py-4 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-md">
       <div className="flex items-center space-x-6">
         <div className="flex items-center space-x-3">
-          <div className="p-2 bg-gradient-to-tr from-cyan-500 to-blue-600 rounded-xl text-white shadow-lg shadow-cyan-500/20">
-            <Milk className="w-6 h-6" />
-          </div>
-          <div>
+          <img 
+            src="/gk_dairy_logo.jpg" 
+            alt="GK Dairy Logo" 
+            className="h-12 w-auto object-contain rounded-xl shadow-lg" 
+          />
+          <div className="hidden sm:block">
             <h1 className="font-bold text-lg text-slate-100 leading-tight">Dairy Collection</h1>
             <p className="text-xs text-slate-400">Milk Management System</p>
           </div>
@@ -22,55 +24,11 @@ export const Navbar: React.FC = () => {
 
         {user && (
           <div className="flex flex-wrap items-center space-x-1 pl-4 border-l border-slate-800">
-            <NavLink
-              to={isOwner ? '/admin/dashboard' : '/dashboard'}
-              className={({ isActive }) =>
-                `flex items-center space-x-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
-                  isActive
-                    ? 'bg-slate-800 text-cyan-400 border border-slate-700'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
-                }`
-              }
-            >
-              <LayoutDashboard className="w-4 h-4" />
-              <span>Dashboard</span>
-            </NavLink>
-
-            {/* Milk Collection Entry Link for ALL authenticated users */}
-            <NavLink
-              to="/collection/entry"
-              className={({ isActive }) =>
-                `flex items-center space-x-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
-                  isActive
-                    ? 'bg-slate-800 text-emerald-400 border border-slate-700'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
-                }`
-              }
-            >
-              <Scale className="w-4 h-4" />
-              <span>Milk Entry</span>
-            </NavLink>
-
-            {/* Reports Link for ALL authenticated users */}
-            <NavLink
-              to="/reports"
-              className={({ isActive }) =>
-                `flex items-center space-x-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
-                  isActive
-                    ? 'bg-slate-800 text-cyan-400 border border-slate-700'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
-                }`
-              }
-            >
-              <FileText className="w-4 h-4" />
-              <span>Reports &amp; Billing</span>
-            </NavLink>
-
-            {/* Owner-only Links */}
-            {isOwner && (
+            {/* Non-Farmer Specific Links */}
+            {user.role !== 'farmer' && (
               <>
                 <NavLink
-                  to="/admin/branches"
+                  to={user.role === 'admin' ? '/admin/dashboard' : user.role === 'dairyOwner' ? '/owner/dashboard' : '/dashboard'}
                   className={({ isActive }) =>
                     `flex items-center space-x-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
                       isActive
@@ -79,12 +37,78 @@ export const Navbar: React.FC = () => {
                     }`
                   }
                 >
-                  <Building2 className="w-4 h-4" />
-                  <span>Branches</span>
+                  <LayoutDashboard className="w-4 h-4" />
+                  <span>Dashboard</span>
                 </NavLink>
 
                 <NavLink
-                  to="/admin/farmers"
+                  to="/collection/entry"
+                  className={({ isActive }) =>
+                    `flex items-center space-x-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
+                      isActive
+                        ? 'bg-slate-800 text-emerald-400 border border-slate-700'
+                        : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+                    }`
+                  }
+                >
+                  <Scale className="w-4 h-4" />
+                  <span>Milk Entry</span>
+                </NavLink>
+
+                <NavLink
+                  to="/reports"
+                  className={({ isActive }) =>
+                    `flex items-center space-x-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
+                      isActive
+                        ? 'bg-slate-800 text-cyan-400 border border-slate-700'
+                        : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+                    }`
+                  }
+                >
+                  <FileText className="w-4 h-4" />
+                  <span>Reports &amp; Billing</span>
+                </NavLink>
+              </>
+            )}
+
+            {/* Farmer Specific Link */}
+            {user.role === 'farmer' && (
+              <NavLink
+                to="/farmer/collections"
+                className={({ isActive }) =>
+                  `flex items-center space-x-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
+                    isActive
+                      ? 'bg-slate-800 text-cyan-400 border border-slate-700'
+                      : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+                  }`
+                }
+              >
+                <FileText className="w-4 h-4" />
+                <span>My Collections</span>
+              </NavLink>
+            )}
+
+            {/* Owner-only Links */}
+            {isOwner && (
+              <>
+                {user.role === 'admin' && (
+                  <NavLink
+                    to="/admin/branches"
+                    className={({ isActive }) =>
+                      `flex items-center space-x-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
+                        isActive
+                          ? 'bg-slate-800 text-cyan-400 border border-slate-700'
+                          : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+                      }`
+                    }
+                  >
+                    <Building2 className="w-4 h-4" />
+                    <span>Branches</span>
+                  </NavLink>
+                )}
+
+                <NavLink
+                  to={user.role === 'admin' ? '/admin/farmers' : '/owner/farmers'}
                   className={({ isActive }) =>
                     `flex items-center space-x-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
                       isActive
@@ -98,7 +122,7 @@ export const Navbar: React.FC = () => {
                 </NavLink>
 
                 <NavLink
-                  to="/admin/rate-chart"
+                  to={user.role === 'admin' ? '/admin/rate-chart' : '/owner/rate-chart'}
                   className={({ isActive }) =>
                     `flex items-center space-x-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
                       isActive
@@ -125,13 +149,13 @@ export const Navbar: React.FC = () => {
               <UserCheck className="w-4 h-4 text-emerald-400" />
             )}
             <div className="text-sm">
-              <span className="text-slate-200 font-medium">{user.name}</span>
+              <span className="text-slate-200 font-medium">{user.displayName || user.email}</span>
               <span className={`ml-2 text-xs px-2 py-0.5 rounded-full font-semibold ${
                 isOwner
                   ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30' 
                   : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
               }`}>
-                {isOwner ? 'OWNER' : 'USER'}
+                {user.role.toUpperCase()}
               </span>
             </div>
           </div>

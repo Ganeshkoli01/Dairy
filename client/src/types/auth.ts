@@ -1,19 +1,34 @@
-export type Role = 'owner' | 'user' | 'admin' | 'operator';
+export type Role = 'farmer' | 'dairyOwner' | 'admin';
 
 export interface User {
   id: string;
-  name: string;
   email: string;
   role: Role;
-  phone?: string;
+  name?: string; // legacy support
+  displayName?: string;
+  farmerProfile?: {
+    farmerCode: string;
+    farmerName: string;
+    branch: string;
+  };
+  dairyOwnerProfile?: {
+    ownerName: string;
+    branchName: string;
+    branchNumber: string;
+  };
+  adminProfile?: {
+    name: string;
+  };
 }
 
 export interface AuthResponse {
   success: boolean;
   token: string;
   role: Role;
+  displayName: string;
   user: User;
   message?: string;
+  field?: string; // used for field-level errors
 }
 
 export interface LoginCredentials {
@@ -22,12 +37,25 @@ export interface LoginCredentials {
 }
 
 export interface RegisterCredentials {
-  name: string;
+  role: Role;
   email: string;
   password: string;
   phone?: string;
-  role: Role;
+  
+  // Farmer specific
+  farmerCode?: string;
+  farmerName?: string;
+  milkType?: 'cow' | 'buffalo' | 'both';
   branch?: string;
+
+  // Dairy Owner specific
+  ownerName?: string;
+  branchName?: string;
+  branchNumber?: string;
+
+  // Admin specific
+  name?: string;
+  adminSignupSecret?: string;
 }
 
 export interface HealthCheckResponse {

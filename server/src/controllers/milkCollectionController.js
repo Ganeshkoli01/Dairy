@@ -52,9 +52,9 @@ let memoryCollections = [
 const getStartAndEndOfDay = (dateStr) => {
   const target = dateStr ? new Date(dateStr) : new Date();
   const start = new Date(target);
-  start.setHours(0, 0, 0, 0);
+  start.setUTCHours(0, 0, 0, 0);
   const end = new Date(target);
-  end.setHours(23, 59, 59, 999);
+  end.setUTCHours(23, 59, 59, 999);
   return { start, end, formatted: start.toISOString().split('T')[0] };
 };
 
@@ -106,12 +106,18 @@ export const createMilkCollection = async (req, res) => {
     let fId = farmerId;
     let fName = farmerName;
     let fCode = String(farmerCode).trim();
+    let targetBranch = branch;
 
-    if ((!fId || !fName) && mongoose.connection.readyState === 1) {
-      const farmerObj = await Farmer.findOne({ branch, farmerCode: fCode }).catch(() => null);
-      if (farmerObj) {
-        fId = farmerObj._id;
-        fName = farmerObj.name;
+    if (mongoose.connection.readyState === 1) {
+      if ((!fId || !fName)) {
+        let farmerObj = await Farmer.findOne({ branch: targetBranch, farmerCode: fCode, defaultMilkType: milkType }).catch(() => null);
+        if (!farmerObj) {
+           farmerObj = await Farmer.findOne({ branch: targetBranch, farmerCode: fCode }).catch(() => null);
+        }
+        if (farmerObj) {
+          fId = farmerObj._id;
+          fName = farmerObj.name;
+        }
       }
     }
 

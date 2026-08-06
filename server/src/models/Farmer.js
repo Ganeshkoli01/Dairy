@@ -41,7 +41,7 @@ const farmerSchema = new mongoose.Schema(
   }
 );
 
-// Compound index: farmerCode must be unique per branch
-farmerSchema.index({ branch: 1, farmerCode: 1 }, { unique: true });
+// Compound index: farmerCode must be unique per branch AND milkType
+farmerSchema.index({ branch: 1, farmerCode: 1, defaultMilkType: 1 }, { unique: true });
 
 export const Farmer = mongoose.model('Farmer', farmerSchema);

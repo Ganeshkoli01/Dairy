@@ -3,11 +3,6 @@ import bcrypt from 'bcryptjs';
 
 const userSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      required: [true, 'Name is required'],
-      trim: true,
-    },
     email: {
       type: String,
       required: [true, 'Email is required'],
@@ -22,21 +17,35 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ['owner', 'user', 'admin', 'operator'],
-      default: 'user',
-    },
-    branch: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Branch',
-      required: false,
+      enum: ['farmer', 'dairyOwner', 'admin'],
+      required: [true, 'Role is required'],
     },
     phone: {
       type: String,
-      default: '',
+      default: '', // optional, primarily for farmer
     },
     isActive: {
       type: Boolean,
       default: true,
+    },
+
+    // Role-specific nested profiles
+    farmerProfile: {
+      farmerCode: { type: String, trim: true },
+      farmerName: { type: String, trim: true },
+      milkType: { type: String, enum: ['cow', 'buffalo', 'both'] },
+      branch: { type: mongoose.Schema.Types.ObjectId, ref: 'Branch' },
+    },
+
+    dairyOwnerProfile: {
+      ownerName: { type: String, trim: true },
+      branchName: { type: String, trim: true },
+      branchNumber: { type: String, trim: true },
+      branchId: { type: mongoose.Schema.Types.ObjectId, ref: 'Branch' },
+    },
+
+    adminProfile: {
+      name: { type: String, trim: true },
     },
   },
   {

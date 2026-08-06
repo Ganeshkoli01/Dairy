@@ -20,11 +20,21 @@ const jsonToCsv = (data, fields) => {
 
 // Helper for Date range parsing
 const parseDateRange = (fromStr, toStr) => {
-  const from = fromStr ? new Date(fromStr) : new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
-  from.setHours(0, 0, 0, 0);
+  let from;
+  if (fromStr) {
+    from = new Date(`${fromStr}T00:00:00.000Z`);
+  } else {
+    from = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+    from.setUTCHours(0, 0, 0, 0);
+  }
 
-  const to = toStr ? new Date(toStr) : new Date();
-  to.setHours(23, 59, 59, 999);
+  let to;
+  if (toStr) {
+    to = new Date(`${toStr}T23:59:59.999Z`);
+  } else {
+    to = new Date();
+    to.setUTCHours(23, 59, 59, 999);
+  }
 
   return { from, to };
 };
@@ -48,44 +58,23 @@ export const getFarmerLedgerReport = async (req, res) => {
 
     let entries = [];
     if (mongoose.connection.readyState === 1) {
+      const orCondition = [{ farmerCode: String(code).trim() }];
+      if (mongoose.Types.ObjectId.isValid(code)) {
+        orCondition.push({ farmer: code });
+      }
+
       entries = await MilkCollection.find({
-        $or: [{ farmerCode: String(code).trim() }, { farmer: code }],
+        $or: orCondition,
         date: { $gte: fromDate, $lte: toDate },
       })
         .sort({ date: 1, createdAt: 1 })
-        .catch(() => []);
+        .catch((err) => {
+          console.error('Ledger query error:', err);
+          return [];
+        });
     }
 
-    if (entries.length === 0) {
-      entries = [
-        {
-          _id: 'col_ledger_1',
-          date: fromDate,
-          session: 'morning',
-          farmerCode: String(code).trim(),
-          farmerName: 'Ramesh Patil',
-          milkType: 'cow',
-          weight: 12.5,
-          fat: 3.8,
-          snf: 8.5,
-          rate: 36.5,
-          amount: 456.25,
-        },
-        {
-          _id: 'col_ledger_2',
-          date: toDate,
-          session: 'evening',
-          farmerCode: String(code).trim(),
-          farmerName: 'Ramesh Patil',
-          milkType: 'cow',
-          weight: 11.0,
-          fat: 3.7,
-          snf: 8.5,
-          rate: 36.0,
-          amount: 396.0,
-        },
-      ];
-    }
+    // Removed dummy data fallback for entries
 
     let totalLiters = 0;
     let totalAmount = 0;
@@ -198,20 +187,7 @@ export const getBranchSummaryReport = async (req, res) => {
       ]).catch(() => []);
     }
 
-    if (dayGroups.length === 0) {
-      dayGroups = [
-        {
-          _id: fromDate.toISOString().split('T')[0],
-          totalLiters: 45.0,
-          totalAmount: 1850.0,
-          cowLiters: 30.0,
-          buffaloLiters: 15.0,
-          fatWeightSum: 195.0,
-          snfWeightSum: 382.5,
-          entryCount: 4,
-        },
-      ];
-    }
+    // Removed dummy data fallback
 
     const data = dayGroups.map((d) => {
       const liters = d.totalLiters || 0;
@@ -296,32 +272,7 @@ export const getPaymentDueReport = async (req, res) => {
       ]).catch(() => []);
     }
 
-    if (farmerTotals.length === 0) {
-      farmerTotals = [
-        {
-          _id: '101',
-          farmerName: 'Ramesh Patil',
-          totalLiters: 125.5,
-          totalAmount: 4580.0,
-          cowLiters: 125.5,
-          buffaloLiters: 0,
-          fatWeightSum: 464.35,
-          snfWeightSum: 1066.75,
-          entryCount: 10,
-        },
-        {
-          _id: '102',
-          farmerName: 'Suresh Deshmukh',
-          totalLiters: 90.0,
-          totalAmount: 5220.0,
-          cowLiters: 0,
-          buffaloLiters: 90.0,
-          fatWeightSum: 585.0,
-          snfWeightSum: 810.0,
-          entryCount: 8,
-        },
-      ];
-    }
+    // Removed dummy data fallback
 
     const data = farmerTotals.map((f) => {
       const liters = f.totalLiters || 0;
@@ -385,65 +336,59 @@ export const getPaymentDueReport = async (req, res) => {
 // @access  Private (Admin only)
 export const getAdminDashboardStats = async (req, res) => {
   try {
-    const todayStart = new Date();
-    todayStart.setHours(0, 0, 0, 0);
-    const todayEnd = new Date();
-    todayEnd.setHours(23, 59, 59, 999);
+    const userRole = req.user.role;
+    let branchFilter = {};
 
-    const fourteenDaysAgo = new Date(Date.now() - 13 * 24 * 60 * 60 * 1000);
-    fourteenDaysAgo.setHours(0, 0, 0, 0);
+    if (userRole === 'dairyOwner') {
+      const branchNum = req.user.dairyOwnerProfile?.branchNumber;
+      if (!branchNum) {
+        return res.status(400).json({ success: false, message: 'Branch info missing for owner' });
+      }
+      const branchDoc = await Branch.findOne({ code: branchNum });
+      if (!branchDoc) {
+         return res.status(400).json({ success: false, message: 'Branch not found' });
+      }
+      branchFilter = { branch: branchDoc._id };
+    }
+
+    const todayStart = new Date();
+    todayStart.setUTCHours(0, 0, 0, 0);
+    const todayEnd = new Date();
+    todayEnd.setUTCHours(23, 59, 59, 999);
+
+    const tenDaysAgo = new Date(Date.now() - 9 * 24 * 60 * 60 * 1000);
+    tenDaysAgo.setUTCHours(0, 0, 0, 0);
 
     let todayTotals = {
-      totalLiters: 485.5,
-      totalAmount: 19420.0,
-      totalEntries: 42,
-      cowLiters: 310.5,
-      cowAmount: 11488.5,
-      buffaloLiters: 175.0,
-      buffaloAmount: 7931.5,
+      totalLiters: 0,
+      totalAmount: 0,
+      totalEntries: 0,
+      cowLiters: 0,
+      cowAmount: 0,
+      buffaloLiters: 0,
+      buffaloAmount: 0,
     };
 
-    let branchWiseToday = [
-      {
-        _id: '60d5ec49f1b2c81128765411',
-        branchName: 'Central Dairy Branch',
-        branchCode: 'BR001',
-        totalLiters: 285.5,
-        cowLiters: 185.0,
-        buffaloLiters: 100.5,
-        totalAmount: 11420.0,
-        entryCount: 25,
-      },
-      {
-        _id: '60d5ec49f1b2c81128765412',
-        branchName: 'North Valley Branch',
-        branchCode: 'BR002',
-        totalLiters: 200.0,
-        cowLiters: 125.5,
-        buffaloLiters: 74.5,
-        totalAmount: 8000.0,
-        entryCount: 17,
-      },
-    ];
+    let branchWiseToday = [];
 
     let trend14Days = [];
-    for (let i = 13; i >= 0; i--) {
+    // Initialize last 10 days with 0
+    for (let i = 9; i >= 0; i--) {
       const d = new Date(Date.now() - i * 24 * 60 * 60 * 1000);
       const dateStr = d.toISOString().split('T')[0];
-      const base = 400 + Math.floor(Math.sin(i) * 50);
       trend14Days.push({
         date: dateStr,
-        cowLiters: Math.round(base * 0.6),
-        buffaloLiters: Math.round(base * 0.4),
-        totalLiters: base,
-        totalAmount: base * 40,
+        cowLiters: 0,
+        buffaloLiters: 0,
+        totalLiters: 0,
+        totalAmount: 0,
       });
     }
 
     if (mongoose.connection.readyState === 1) {
       // 1. Today Totals
       const todayAgg = await MilkCollection.aggregate([
-        { $match: { date: { $gte: todayStart, $lte: todayEnd } } },
+        { $match: { date: { $gte: todayStart, $lte: todayEnd }, ...branchFilter } },
         {
           $group: {
             _id: null,
@@ -473,7 +418,7 @@ export const getAdminDashboardStats = async (req, res) => {
 
       // 2. Branch-Wise Today
       const branchAgg = await MilkCollection.aggregate([
-        { $match: { date: { $gte: todayStart, $lte: todayEnd } } },
+        { $match: { date: { $gte: todayStart, $lte: todayEnd }, ...branchFilter } },
         {
           $group: {
             _id: '$branch',
@@ -510,9 +455,9 @@ export const getAdminDashboardStats = async (req, res) => {
         });
       }
 
-      // 3. 14 Days Trend
+      // 3. 10 Days Trend
       const trendAgg = await MilkCollection.aggregate([
-        { $match: { date: { $gte: fourteenDaysAgo } } },
+        { $match: { date: { $gte: tenDaysAgo, $lte: todayEnd }, ...branchFilter } },
         {
           $group: {
             _id: { $dateToString: { format: '%Y-%m-%d', date: '$date' } },
@@ -526,13 +471,18 @@ export const getAdminDashboardStats = async (req, res) => {
       ]).catch(() => []);
 
       if (trendAgg.length > 0) {
-        trend14Days = trendAgg.map((d) => ({
-          date: d._id,
-          totalLiters: Math.round(d.totalLiters * 100) / 100,
-          cowLiters: Math.round(d.cowLiters * 100) / 100,
-          buffaloLiters: Math.round(d.buffaloLiters * 100) / 100,
-          totalAmount: Math.round(d.totalAmount * 100) / 100,
-        }));
+        trendAgg.forEach((d) => {
+          const trendIndex = trend14Days.findIndex((t) => t.date === d._id);
+          if (trendIndex !== -1) {
+            trend14Days[trendIndex] = {
+              date: d._id,
+              totalLiters: Math.round(d.totalLiters * 100) / 100,
+              cowLiters: Math.round(d.cowLiters * 100) / 100,
+              buffaloLiters: Math.round(d.buffaloLiters * 100) / 100,
+              totalAmount: Math.round(d.totalAmount * 100) / 100,
+            };
+          }
+        });
       }
     }
 

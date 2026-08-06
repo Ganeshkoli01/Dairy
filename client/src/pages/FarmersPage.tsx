@@ -3,13 +3,17 @@ import { farmerApi } from '../api/farmerApi';
 import { branchApi } from '../api/branchApi';
 import { Farmer, FarmerInput, MilkType } from '../types/farmer';
 import { Branch } from '../types/branch';
-import { UserCheck, Plus, Edit2, Trash2, Search, Filter, Phone, Calendar, AlertCircle, X, Loader2 } from 'lucide-react';
+import { authApi } from '../api/authApi';
+import { useAuth } from '../context/AuthContext';
+import { UserCheck, Plus, Edit2, Trash2, Search, Filter, Phone, Calendar, AlertCircle, X, Loader2, Mail, Key, Lock, Check } from 'lucide-react';
 
 export const FarmersPage: React.FC = () => {
   const [farmers, setFarmers] = useState<Farmer[]>([]);
   const [branches, setBranches] = useState<Branch[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  
+  const { user } = useAuth();
 
   // Filters
   const [selectedBranch, setSelectedBranch] = useState<string>('');
@@ -24,19 +28,34 @@ export const FarmersPage: React.FC = () => {
     branch: '',
     defaultMilkType: 'cow',
     mobile: '',
+    email: '',
+    password: '',
+    otp: '',
     isActive: true,
   });
   const [formError, setFormError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState<boolean>(false);
+  const [otpSent, setOtpSent] = useState<boolean>(false);
+  const [sendingOtp, setSendingOtp] = useState<boolean>(false);
+  const [formSuccess, setFormSuccess] = useState<string | null>(null);
+
+  // Delete Confirmation State
+  const [deletingFarmer, setDeletingFarmer] = useState<{ id: string; name: string } | null>(null);
 
   const loadData = async () => {
     setLoading(true);
     setError(null);
     try {
-      const [farmersData, branchesData] = await Promise.all([
-        farmerApi.getFarmers({ branch: selectedBranch || undefined, search: searchTerm || undefined }),
-        branchApi.getBranches(),
-      ]);
+      const branchesData = await branchApi.getBranches();
+      
+      let currentSelectedBranch = selectedBranch;
+      if (user?.role === 'dairyOwner' && branchesData.length > 0 && !selectedBranch) {
+        currentSelectedBranch = branchesData[0]._id;
+        setSelectedBranch(currentSelectedBranch);
+      }
+
+      const farmersData = await farmerApi.getFarmers({ branch: currentSelectedBranch || undefined, search: searchTerm || undefined });
+
       setFarmers(farmersData);
       setBranches(branchesData);
       if (branchesData.length > 0 && !formData.branch) {
@@ -63,12 +82,17 @@ export const FarmersPage: React.FC = () => {
     setFormData({
       farmerCode: '',
       name: '',
-      branch: branches.length > 0 ? branches[0]._id : '',
+      branch: selectedBranch || (branches.length > 0 ? branches[0]._id : ''),
       defaultMilkType: 'cow',
       mobile: '',
+      email: '',
+      password: '',
+      otp: '',
       isActive: true,
     });
     setFormError(null);
+    setFormSuccess(null);
+    setOtpSent(false);
     setIsModalOpen(true);
   };
 
@@ -79,9 +103,11 @@ export const FarmersPage: React.FC = () => {
       farmerCode: farmer.farmerCode,
       name: farmer.name,
       branch: branchId,
-      defaultMilkType: farmer.defaultMilkType,
+      defaultMilkType: farmer.defaultMilkType || 'cow',
       mobile: farmer.mobile || '',
-      isActive: farmer.isActive,
+      email: '', // Don't prefill password or email on edit for security/simplicity unless returned by backend
+      password: '',
+      isActive: farmer.isActive ?? true,
     });
     setFormError(null);
     setIsModalOpen(true);
@@ -107,11 +133,35 @@ export const FarmersPage: React.FC = () => {
     }
   };
 
-  const handleDelete = async (id: string, name: string) => {
-    if (!window.confirm(`Are you sure you want to delete farmer "${name}"?`)) return;
+  const handleSendOtp = async () => {
+    if (!formData.email) {
+      setFormError('Please enter email first to send OTP');
+      return;
+    }
+    setSendingOtp(true);
+    setFormError(null);
+    setFormSuccess(null);
     try {
-      await farmerApi.deleteFarmer(id);
+      const res = await authApi.sendOtp(formData.email);
+      setOtpSent(true);
+      setFormSuccess(res.message + (res.previewUrl ? ` (Preview: ${res.previewUrl})` : ''));
+    } catch (err: any) {
+      setFormError(err.response?.data?.message || 'Failed to send OTP');
+    } finally {
+      setSendingOtp(false);
+    }
+  };
+
+  const handleDelete = (id: string, name: string) => {
+    setDeletingFarmer({ id, name });
+  };
+
+  const confirmDelete = async () => {
+    if (!deletingFarmer) return;
+    try {
+      await farmerApi.deleteFarmer(deletingFarmer.id);
       loadData();
+      setDeletingFarmer(null);
     } catch (err: any) {
       alert(err.response?.data?.message || 'Failed to delete farmer');
     }
@@ -147,9 +197,12 @@ export const FarmersPage: React.FC = () => {
           <select
             value={selectedBranch}
             onChange={(e) => setSelectedBranch(e.target.value)}
-            className="bg-transparent border-none text-slate-200 text-sm focus:outline-none w-full"
+            disabled={user?.role === 'dairyOwner'}
+            className="bg-transparent border-none text-slate-200 text-sm focus:outline-none w-full disabled:opacity-50"
           >
-            <option value="" className="bg-slate-900 text-slate-200">All Branches</option>
+            {user?.role !== 'dairyOwner' && (
+              <option value="" className="bg-slate-900 text-slate-200">All Branches</option>
+            )}
             {branches.map((b) => (
               <option key={b._id} value={b._id} className="bg-slate-900 text-slate-200">
                 {b.name} ({b.code})
@@ -324,9 +377,12 @@ export const FarmersPage: React.FC = () => {
                   required
                   value={formData.branch}
                   onChange={(e) => setFormData({ ...formData, branch: e.target.value })}
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-emerald-500 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 outline-none"
+                  disabled={user?.role === 'dairyOwner'}
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-emerald-500 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 outline-none disabled:opacity-50"
                 >
-                  <option value="" disabled>Select branch...</option>
+                  {user?.role !== 'dairyOwner' && (
+                    <option value="" disabled>Select branch...</option>
+                  )}
                   {branches.map((b) => (
                     <option key={b._id} value={b._id}>
                       {b.name} ({b.code})
@@ -394,7 +450,67 @@ export const FarmersPage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="flex items-center space-x-3 pt-2">
+              {formSuccess && (
+                <div className="mb-4 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs flex items-center space-x-2">
+                  <Check className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                  <span>{formSuccess}</span>
+                </div>
+              )}
+
+              <div className="grid grid-cols-2 gap-3 mt-3">
+                <div>
+                  <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                    Email Address (Optional)
+                  </label>
+                  <div className="flex space-x-2">
+                    <div className="relative flex-1">
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                      <input
+                        type="email"
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        disabled={!!editingFarmer}
+                        placeholder="farmer@dairy.com"
+                        className="w-full bg-slate-950 border border-slate-800 focus:border-emerald-500 rounded-xl py-2.5 pl-9 pr-3.5 text-sm text-slate-100 outline-none disabled:opacity-50"
+                      />
+                    </div>
+                    {!editingFarmer && formData.email && (
+                      <button type="button" onClick={handleSendOtp} disabled={sendingOtp} className="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium rounded-xl border border-slate-700 transition-colors whitespace-nowrap flex items-center justify-center min-w-[80px]">
+                        {sendingOtp ? <Loader2 className="w-4 h-4 animate-spin" /> : (otpSent ? 'Resend' : 'Send OTP')}
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                    Login Password (Optional)
+                  </label>
+                  <div className="relative">
+                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                    <input
+                      type="password"
+                      value={formData.password}
+                      disabled={!!editingFarmer}
+                      onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                      placeholder="Secure password"
+                      className="w-full bg-slate-950 border border-slate-800 focus:border-emerald-500 rounded-xl py-2.5 pl-9 pr-3.5 text-sm text-slate-100 outline-none disabled:opacity-50"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {!editingFarmer && otpSent && (
+                <div className="animate-in fade-in slide-in-from-top-2 mt-3">
+                  <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">6-Digit OTP *</label>
+                  <div className="relative">
+                    <Key className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-emerald-500" />
+                    <input type="text" required maxLength={6} value={formData.otp} onChange={(e) => setFormData({ ...formData, otp: e.target.value })} placeholder="------" className="w-full bg-slate-950 border border-emerald-500/50 focus:border-emerald-500 rounded-xl py-2.5 pl-9 pr-3.5 text-sm tracking-widest text-slate-100 outline-none" />
+                  </div>
+                </div>
+              )}
+
+              <div className="flex items-center space-x-3 pt-2 mt-3">
                 <input
                   type="checkbox"
                   id="farmerIsActive"
@@ -425,6 +541,35 @@ export const FarmersPage: React.FC = () => {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {deletingFarmer && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-sm w-full p-6 shadow-2xl relative animate-in fade-in zoom-in duration-150 text-center">
+            <div className="w-12 h-12 rounded-full bg-rose-500/10 text-rose-500 flex items-center justify-center mx-auto mb-4">
+              <Trash2 className="w-6 h-6" />
+            </div>
+            <h3 className="text-lg font-bold text-slate-100 mb-2">Delete Farmer</h3>
+            <p className="text-sm text-slate-400 mb-6">
+              Are you sure you want to delete <span className="font-semibold text-slate-200">"{deletingFarmer.name}"</span>? This action cannot be undone.
+            </p>
+            <div className="flex items-center justify-center space-x-3">
+              <button
+                onClick={() => setDeletingFarmer(null)}
+                className="px-4 py-2 rounded-xl border border-slate-700 text-slate-300 text-sm font-medium hover:bg-slate-800 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmDelete}
+                className="px-4 py-2 rounded-xl bg-rose-500 hover:bg-rose-600 text-white text-sm font-medium transition-colors shadow-lg shadow-rose-500/20"
+              >
+                Delete Farmer
+              </button>
+            </div>
           </div>
         </div>
       )}

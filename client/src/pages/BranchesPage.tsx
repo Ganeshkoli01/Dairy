@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { branchApi } from '../api/branchApi';
 import { Branch, BranchInput } from '../types/branch';
-import { Plus, Edit2, Trash2, Building2, MapPin, Search, AlertCircle, X, Check, Loader2 } from 'lucide-react';
+import { authApi } from '../api/authApi';
+import { Plus, Edit2, Trash2, Building2, MapPin, Search, AlertCircle, X, Check, Loader2, UserPlus, Mail, Phone, Lock, Key } from 'lucide-react';
 
 export const BranchesPage: React.FC = () => {
   const [branches, setBranches] = useState<Branch[]>([]);
@@ -21,6 +22,28 @@ export const BranchesPage: React.FC = () => {
   const [formError, setFormError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState<boolean>(false);
 
+  // Branch Expansion State
+  const [expandedBranchId, setExpandedBranchId] = useState<string | null>(null);
+  const [branchOwners, setBranchOwners] = useState<any[]>([]);
+  const [loadingOwners, setLoadingOwners] = useState<boolean>(false);
+
+  // Owner Modal State
+  const [isOwnerModalOpen, setIsOwnerModalOpen] = useState<boolean>(false);
+  const [selectedBranchForOwner, setSelectedBranchForOwner] = useState<Branch | null>(null);
+  const [editingOwner, setEditingOwner] = useState<any | null>(null);
+  const [ownerFormData, setOwnerFormData] = useState({
+    ownerName: '',
+    email: '',
+    password: '',
+    phone: '',
+    otp: ''
+  });
+  const [ownerFormError, setOwnerFormError] = useState<string | null>(null);
+  const [ownerFormSuccess, setOwnerFormSuccess] = useState<string | null>(null);
+  const [submittingOwner, setSubmittingOwner] = useState<boolean>(false);
+  const [otpSent, setOtpSent] = useState<boolean>(false);
+  const [sendingOtp, setSendingOtp] = useState<boolean>(false);
+
   const fetchBranches = async () => {
     setLoading(true);
     setError(null);
@@ -37,6 +60,24 @@ export const BranchesPage: React.FC = () => {
   useEffect(() => {
     fetchBranches();
   }, []);
+
+  const handleToggleExpand = async (branchId: string) => {
+    if (expandedBranchId === branchId) {
+      setExpandedBranchId(null);
+      setBranchOwners([]);
+    } else {
+      setExpandedBranchId(branchId);
+      setLoadingOwners(true);
+      try {
+        const res = await authApi.getOwnersByBranch(branchId);
+        setBranchOwners(res.data || []);
+      } catch (err: any) {
+        console.error('Failed to fetch owners:', err);
+      } finally {
+        setLoadingOwners(false);
+      }
+    }
+  };
 
   const handleOpenAddModal = () => {
     setEditingBranch(null);
@@ -84,6 +125,100 @@ export const BranchesPage: React.FC = () => {
       fetchBranches();
     } catch (err: any) {
       alert(err.response?.data?.message || 'Failed to delete branch');
+    }
+  };
+
+  const handleOpenOwnerModal = (branch: Branch) => {
+    setSelectedBranchForOwner(branch);
+    setOwnerFormData({ ownerName: '', email: '', password: '', phone: '', otp: '' });
+    setOwnerFormError(null);
+    setOwnerFormSuccess(null);
+    setOtpSent(false);
+    setIsOwnerModalOpen(true);
+  };
+
+  const handleSendOwnerOtp = async () => {
+    if (!ownerFormData.email) {
+      setOwnerFormError('Please enter email first');
+      return;
+    }
+    setSendingOtp(true);
+    setOwnerFormError(null);
+    setOwnerFormSuccess(null);
+    try {
+      const res = await authApi.sendOtp(ownerFormData.email);
+      setOtpSent(true);
+      setOwnerFormSuccess(res.message + (res.previewUrl ? ` (Preview: ${res.previewUrl})` : ''));
+    } catch (err: any) {
+      setOwnerFormError(err.response?.data?.message || 'Failed to send OTP');
+    } finally {
+      setSendingOtp(false);
+    }
+  };
+
+  const handleOpenEditOwnerModal = (owner: any, branch: Branch) => {
+    setEditingOwner(owner);
+    setSelectedBranchForOwner(branch);
+    setOwnerFormData({
+      ownerName: owner.name || '',
+      email: owner.email || '',
+      password: '',
+      phone: owner.phone || '',
+      otp: ''
+    });
+    setOwnerFormError(null);
+    setOwnerFormSuccess(null);
+    setOtpSent(false);
+    setIsOwnerModalOpen(true);
+  };
+
+  const handleDeleteOwner = async (id: string, name: string) => {
+    if (!window.confirm(`Are you sure you want to delete owner "${name}"?`)) return;
+    try {
+      await authApi.deleteOwner(id);
+      if (expandedBranchId) {
+        const res = await authApi.getOwnersByBranch(expandedBranchId);
+        setBranchOwners(res.data || []);
+      }
+    } catch (err: any) {
+      alert(err.response?.data?.message || 'Failed to delete owner');
+    }
+  };
+
+  const handleCreateOwner = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setOwnerFormError(null);
+    setSubmittingOwner(true);
+
+    if (!selectedBranchForOwner) return;
+
+    try {
+      if (editingOwner) {
+        await authApi.updateOwner(editingOwner._id, {
+          ownerName: ownerFormData.ownerName,
+          phone: ownerFormData.phone,
+        });
+        if (expandedBranchId) {
+          const res = await authApi.getOwnersByBranch(expandedBranchId);
+          setBranchOwners(res.data || []);
+        }
+        setIsOwnerModalOpen(false);
+      } else {
+        await authApi.adminCreateOwner({
+          ownerName: ownerFormData.ownerName,
+          email: ownerFormData.email,
+          password: ownerFormData.password,
+          phone: ownerFormData.phone,
+          branchId: selectedBranchForOwner._id,
+          otp: ownerFormData.otp
+        });
+        setIsOwnerModalOpen(false);
+        setOwnerFormSuccess('Dairy owner created successfully!');
+      }
+    } catch (err: any) {
+      setOwnerFormError(err.response?.data?.message || 'Failed to save Dairy Owner');
+    } finally {
+      setSubmittingOwner(false);
     }
   };
 
@@ -165,11 +300,12 @@ export const BranchesPage: React.FC = () => {
               </thead>
               <tbody className="divide-y divide-slate-800/60 text-sm">
                 {filteredBranches.map((branch) => (
-                  <tr key={branch._id} className="hover:bg-slate-800/40 transition-colors">
+                  <React.Fragment key={branch._id}>
+                  <tr className="hover:bg-slate-800/40 transition-colors">
                     <td className="py-4 px-6 font-mono font-semibold text-cyan-400">
                       {branch.code}
                     </td>
-                    <td className="py-4 px-6 font-medium text-slate-200">
+                    <td className="py-4 px-6 font-medium text-emerald-400 hover:text-emerald-300 cursor-pointer transition-colors" onClick={() => handleToggleExpand(branch._id)} title="Click to view/manage owners">
                       {branch.name}
                     </td>
                     <td className="py-4 px-6 text-slate-400 flex items-center space-x-1.5">
@@ -188,6 +324,13 @@ export const BranchesPage: React.FC = () => {
                     <td className="py-4 px-6 text-right">
                       <div className="flex items-center justify-end space-x-2">
                         <button
+                          onClick={() => handleOpenOwnerModal(branch)}
+                          className="p-1.5 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 hover:text-emerald-300 rounded-lg transition-colors border border-emerald-500/20"
+                          title="Add Dairy Owner"
+                        >
+                          <UserPlus className="w-4 h-4" />
+                        </button>
+                        <button
                           onClick={() => handleOpenEditModal(branch)}
                           className="p-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-cyan-300 rounded-lg transition-colors border border-slate-700"
                           title="Edit Branch"
@@ -204,7 +347,80 @@ export const BranchesPage: React.FC = () => {
                       </div>
                     </td>
                   </tr>
-                ))}
+                  {expandedBranchId === branch._id && (
+                    <tr className="bg-slate-900/50">
+                      <td colSpan={5} className="p-0 border-b border-slate-800/50">
+                        <div className="bg-slate-950/80 p-5 border-l-2 border-emerald-500 mx-6 my-3 rounded-xl shadow-inner">
+                          <div className="flex items-center justify-between mb-4">
+                            <h4 className="text-sm font-bold text-slate-200 flex items-center gap-2">
+                              <Building2 className="w-4 h-4 text-emerald-400" />
+                              Dairy Owners for {branch.name}
+                            </h4>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setEditingOwner(null);
+                                setSelectedBranchForOwner(branch);
+                                setOwnerFormData({ ownerName: '', email: '', password: '', phone: '', otp: '' });
+                                setOwnerFormError(null);
+                                setOwnerFormSuccess(null);
+                                setOtpSent(false);
+                                setIsOwnerModalOpen(true);
+                              }}
+                              className="text-xs font-semibold text-emerald-400 hover:text-emerald-300 flex items-center gap-1.5 bg-emerald-500/10 px-3 py-1.5 rounded-lg transition-colors border border-emerald-500/20 hover:bg-emerald-500/20"
+                            >
+                              <UserPlus className="w-3.5 h-3.5" />
+                              Add Owner
+                            </button>
+                          </div>
+                          
+                          {loadingOwners ? (
+                            <div className="flex items-center justify-center p-6 text-slate-500 text-sm">
+                              <Loader2 className="w-5 h-5 animate-spin mr-2 text-cyan-400" /> Loading owners...
+                            </div>
+                          ) : branchOwners.length === 0 ? (
+                            <div className="text-center p-6 text-sm text-slate-500 bg-slate-900/50 rounded-lg border border-slate-800 border-dashed">
+                              No owners assigned to this branch yet.
+                            </div>
+                          ) : (
+                            <div className="overflow-x-auto rounded-xl border border-slate-800/50">
+                              <table className="w-full text-left text-sm whitespace-nowrap">
+                                <thead className="bg-slate-900 text-slate-400 text-xs uppercase tracking-wider">
+                                  <tr>
+                                    <th className="px-5 py-3 font-medium">Name</th>
+                                    <th className="px-5 py-3 font-medium">Email</th>
+                                    <th className="px-5 py-3 font-medium">Phone</th>
+                                    <th className="px-5 py-3 font-medium text-right">Actions</th>
+                                  </tr>
+                                </thead>
+                                <tbody className="divide-y divide-slate-800/50">
+                                  {branchOwners.map(owner => (
+                                    <tr key={owner._id} className="hover:bg-slate-800/40 transition-colors">
+                                      <td className="px-5 py-3 font-medium text-slate-200">{owner.name}</td>
+                                      <td className="px-5 py-3 text-slate-400">{owner.email}</td>
+                                      <td className="px-5 py-3 text-slate-400">{owner.phone || '-'}</td>
+                                      <td className="px-5 py-3 text-right">
+                                        <div className="flex items-center justify-end space-x-2">
+                                          <button onClick={(e) => { e.stopPropagation(); handleOpenEditOwnerModal(owner, branch); }} className="p-1.5 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-cyan-400 transition-colors rounded-lg border border-slate-700" title="Edit Owner">
+                                            <Edit2 className="w-3.5 h-3.5" />
+                                          </button>
+                                          <button onClick={(e) => { e.stopPropagation(); handleDeleteOwner(owner._id, owner.name); }} className="p-1.5 bg-slate-800 hover:bg-rose-950 text-slate-400 hover:text-rose-400 transition-colors rounded-lg border border-slate-700" title="Delete Owner">
+                                            <Trash2 className="w-3.5 h-3.5" />
+                                          </button>
+                                        </div>
+                                      </td>
+                                    </tr>
+                                  ))}
+                                </tbody>
+                              </table>
+                            </div>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  )}
+                </React.Fragment>
+              ))}
               </tbody>
             </table>
           </div>
@@ -307,6 +523,94 @@ export const BranchesPage: React.FC = () => {
                 >
                   {submitting && <Loader2 className="w-4 h-4 animate-spin" />}
                   <span>{editingBranch ? 'Update Branch' : 'Create Branch'}</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Add Owner Modal */}
+      {isOwnerModalOpen && selectedBranchForOwner && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl relative animate-in fade-in zoom-in duration-150">
+            <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-800">
+              <div className="flex items-center space-x-2.5">
+                <UserPlus className="w-5 h-5 text-emerald-400" />
+                <h2 className="text-lg font-bold text-slate-100">{editingOwner ? 'Edit Owner in' : 'Add Owner to'} {selectedBranchForOwner.name}</h2>
+              </div>
+              <button onClick={() => setIsOwnerModalOpen(false)} className="text-slate-400 hover:text-slate-200 transition-colors p-1">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {ownerFormError && (
+              <div className="mb-4 p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs flex items-center space-x-2">
+                <AlertCircle className="w-4 h-4 text-rose-400 flex-shrink-0" />
+                <span>{ownerFormError}</span>
+              </div>
+            )}
+            
+            {ownerFormSuccess && (
+              <div className="mb-4 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs flex items-center space-x-2">
+                <Check className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                <span>{ownerFormSuccess}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleCreateOwner} className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Owner Name *</label>
+                  <input type="text" required value={ownerFormData.ownerName} onChange={(e) => setOwnerFormData({ ...ownerFormData, ownerName: e.target.value })} placeholder="John Doe" className="w-full bg-slate-950 border border-slate-800 focus:border-emerald-500 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 outline-none" />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Phone</label>
+                  <input type="tel" value={ownerFormData.phone} onChange={(e) => setOwnerFormData({ ...ownerFormData, phone: e.target.value })} placeholder="9876543210" className="w-full bg-slate-950 border border-slate-800 focus:border-emerald-500 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 outline-none" />
+                </div>
+                {!editingOwner && (
+                  <>
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Email Address *</label>
+                      <div className="flex space-x-2">
+                        <div className="relative flex-1">
+                          <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                          <input type="email" required value={ownerFormData.email} onChange={(e) => setOwnerFormData({ ...ownerFormData, email: e.target.value })} placeholder="owner@dairy.com" className="w-full bg-slate-950 border border-slate-800 focus:border-emerald-500 rounded-xl py-2.5 pl-9 pr-3.5 text-sm text-slate-100 outline-none" />
+                        </div>
+                        <button type="button" onClick={handleSendOwnerOtp} disabled={sendingOtp || !ownerFormData.email} className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-medium rounded-xl border border-slate-700 transition-colors whitespace-nowrap flex items-center justify-center min-w-[100px]">
+                          {sendingOtp ? <Loader2 className="w-4 h-4 animate-spin" /> : (otpSent ? 'Resend' : 'Send OTP')}
+                        </button>
+                      </div>
+                    </div>
+
+                    {otpSent && (
+                      <div className="animate-in fade-in slide-in-from-top-2">
+                        <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">6-Digit OTP *</label>
+                        <div className="relative">
+                          <Key className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-emerald-500" />
+                          <input type="text" required maxLength={6} value={ownerFormData.otp} onChange={(e) => setOwnerFormData({ ...ownerFormData, otp: e.target.value })} placeholder="------" className="w-full bg-slate-950 border border-emerald-500/50 focus:border-emerald-500 rounded-xl py-2.5 pl-9 pr-3.5 text-sm tracking-widest text-slate-100 outline-none" />
+                        </div>
+                      </div>
+                    )}
+
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Temporary Password *</label>
+                      <div className="relative">
+                        <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                        <input type="password" required minLength={6} value={ownerFormData.password} onChange={(e) => setOwnerFormData({ ...ownerFormData, password: e.target.value })} placeholder="••••••••" className="w-full bg-slate-950 border border-slate-800 focus:border-emerald-500 rounded-xl py-2.5 pl-9 pr-3.5 text-sm text-slate-100 outline-none" />
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+
+              <div className="flex items-center justify-end space-x-3 pt-6 border-t border-slate-800 mt-6">
+                <button type="button" onClick={() => setIsOwnerModalOpen(false)} className="px-4 py-2.5 rounded-xl border border-slate-700 text-slate-300 text-sm hover:bg-slate-800 transition-colors">
+                  Cancel
+                </button>
+                <button type="submit" disabled={submittingOwner || (!editingOwner && !otpSent)} className="flex items-center space-x-2 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-medium text-sm px-5 py-2.5 rounded-xl shadow-lg shadow-emerald-500/20 transition-all disabled:opacity-50">
+                  {submittingOwner && <Loader2 className="w-4 h-4 animate-spin" />}
+                  <span>{editingOwner ? 'Update Owner' : 'Create Owner'}</span>
                 </button>
               </div>
             </form>

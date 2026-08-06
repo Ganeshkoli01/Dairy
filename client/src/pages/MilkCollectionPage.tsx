@@ -3,6 +3,7 @@ import { milkCollectionApi } from '../api/milkCollectionApi';
 import { branchApi } from '../api/branchApi';
 import { farmerApi } from '../api/farmerApi';
 import { rateChartApi } from '../api/rateChartApi';
+import { useAuth } from '../context/AuthContext';
 import { serialHardware, HardwareReadings, HardwareStatus } from '../utils/webSerial';
 import { Branch } from '../types/branch';
 import { MilkType } from '../types/farmer';
@@ -31,10 +32,11 @@ import {
 } from 'lucide-react';
 
 export const MilkCollectionPage: React.FC = () => {
+  const { user } = useAuth();
   // Top Bar State
   const [selectedBranch, setSelectedBranch] = useState<string>('');
   const [selectedDate, setSelectedDate] = useState<string>(
-    new Date().toISOString().split('T')[0]
+    new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().split('T')[0]
   );
   const [selectedSession, setSelectedSession] = useState<SessionType>('morning');
   const [branches, setBranches] = useState<Branch[]>([]);
@@ -64,6 +66,9 @@ export const MilkCollectionPage: React.FC = () => {
   // Previous Session Reference Line
   const [prevSessionEntry, setPrevSessionEntry] = useState<MilkCollectionEntry | null>(null);
   const [loadingFarmer, setLoadingFarmer] = useState<boolean>(false);
+  
+  // Farmers List for Dropdown
+  const [farmersList, setFarmersList] = useState<any[]>([]);
 
   // Today's Grid Data & Summary
   const [entries, setEntries] = useState<MilkCollectionEntry[]>([]);
@@ -143,7 +148,20 @@ export const MilkCollectionPage: React.FC = () => {
   };
 
   useEffect(() => {
-    loadGridAndSummary();
+    const fetchFarmers = async () => {
+      if (!selectedBranch) return;
+      try {
+        const list = await farmerApi.getFarmers({ branch: selectedBranch });
+        setFarmersList(list);
+      } catch (err) {
+        console.error('Failed to load farmers for branch', err);
+      }
+    };
+    
+    if (selectedBranch) {
+      loadGridAndSummary();
+      fetchFarmers();
+    }
   }, [selectedBranch, selectedDate, selectedSession]);
 
   // 3. Auto SNF Calculation from FAT + CLR
@@ -201,33 +219,44 @@ export const MilkCollectionPage: React.FC = () => {
   }, [milkType, fat, snf, weight, selectedBranch, selectedDate]);
 
   // 5. Lookup Farmer Name & Previous History on Code Blur or Enter
-  const handleLookupFarmer = async () => {
-    if (!farmerCode || !selectedBranch) return;
+  const handleLookupFarmer = async (overrideCode?: string, overrideMilkType?: string) => {
+    const codeToLookup = overrideCode || farmerCode;
+    const typeToLookup = overrideMilkType || milkType;
+    if (!codeToLookup || !selectedBranch) return;
     setLoadingFarmer(true);
     setFormError(null);
     try {
       const [farmerObj, prevHistory] = await Promise.all([
-        farmerApi.getFarmerByBranchAndCode(selectedBranch, farmerCode.trim()).catch(() => null),
-        milkCollectionApi.getFarmerPreviousSession(farmerCode.trim()).catch(() => null),
+        farmerApi.getFarmerByBranchAndCode(selectedBranch, codeToLookup.trim(), typeToLookup).catch(() => null),
+        milkCollectionApi.getFarmerPreviousSession(codeToLookup.trim()).catch(() => null),
       ]);
 
       if (farmerObj) {
         setFarmerName(farmerObj.name);
         setFarmerId(farmerObj._id);
-        if (farmerObj.defaultMilkType && farmerObj.defaultMilkType !== 'both') {
+        if (farmerObj.defaultMilkType && farmerObj.defaultMilkType !== 'both' && !overrideMilkType) {
           setMilkType(farmerObj.defaultMilkType as MilkType);
         }
       } else {
-        setFormError(`Farmer code '${farmerCode}' not found in selected branch`);
+        setFormError(`Farmer code '${codeToLookup}' not found in selected branch`);
+        setFarmerName('');
       }
 
       setPrevSessionEntry(prevHistory);
     } catch (err: any) {
-      setFormError(`Farmer code '${farmerCode}' lookup failed`);
+      setFormError(`Farmer code '${codeToLookup}' lookup failed`);
+      setFarmerName('');
     } finally {
       setLoadingFarmer(false);
     }
   };
+
+  // Re-fetch farmer when milk type changes to ensure we have the correct sub-account
+  useEffect(() => {
+    if (farmerCode && !loadingFarmer) {
+       handleLookupFarmer(farmerCode, milkType);
+    }
+  }, [milkType]);
 
   // 6. Handle Form Submit (Save Entry)
   const handleSubmit = async (e?: React.FormEvent) => {
@@ -350,17 +379,25 @@ export const MilkCollectionPage: React.FC = () => {
           {/* Branch Dropdown */}
           <div className="flex items-center space-x-2 bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2">
             <Building2 className="w-4 h-4 text-cyan-400" />
-            <select
-              value={selectedBranch}
-              onChange={(e) => setSelectedBranch(e.target.value)}
-              className="bg-transparent border-none text-slate-100 text-sm font-semibold focus:outline-none"
-            >
-              {branches.map((b) => (
-                <option key={b._id} value={b._id} className="bg-slate-900 text-slate-200">
-                  {b.name} ({b.code})
-                </option>
-              ))}
-            </select>
+            {user?.role === 'dairyOwner' ? (
+              <div className="text-slate-100 text-sm font-semibold">
+                {branches.find((b) => b._id === selectedBranch) 
+                  ? `${branches.find((b) => b._id === selectedBranch)?.name} (${branches.find((b) => b._id === selectedBranch)?.code})` 
+                  : 'Loading Branch...'}
+              </div>
+            ) : (
+              <select
+                value={selectedBranch}
+                onChange={(e) => setSelectedBranch(e.target.value)}
+                className="bg-transparent border-none text-slate-100 text-sm font-semibold focus:outline-none"
+              >
+                {branches.map((b) => (
+                  <option key={b._id} value={b._id} className="bg-slate-900 text-slate-200">
+                    {b.name} ({b.code})
+                  </option>
+                ))}
+              </select>
+            )}
           </div>
 
           {/* Date Picker */}
@@ -528,25 +565,33 @@ export const MilkCollectionPage: React.FC = () => {
                 <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
                   Farmer Code *
                 </label>
-                <div className="relative">
-                  <input
-                    ref={farmerCodeRef}
-                    type="text"
-                    required
-                    autoFocus
-                    value={farmerCode}
-                    onChange={(e) => setFarmerCode(e.target.value)}
-                    onBlur={handleLookupFarmer}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter') {
-                        e.preventDefault();
-                        handleLookupFarmer();
-                        weightRef.current?.focus();
-                      }
-                    }}
-                    placeholder="e.g. 101"
-                    className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3.5 py-2.5 text-sm font-mono font-bold text-cyan-400 outline-none"
-                  />
+                <div className="relative group">
+                  {user?.role === 'farmer' ? (
+                    <input
+                      ref={farmerCodeRef}
+                      type="text"
+                      value={farmerCode}
+                      disabled
+                      className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm font-mono font-bold text-slate-500 outline-none cursor-not-allowed"
+                    />
+                  ) : (
+                    <input
+                      ref={farmerCodeRef}
+                      type="text"
+                      value={farmerCode}
+                      onChange={(e) => setFarmerCode(e.target.value)}
+                      onBlur={() => handleLookupFarmer()}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault();
+                          handleLookupFarmer();
+                          weightRef.current?.focus();
+                        }
+                      }}
+                      placeholder="e.g. 101"
+                      className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3.5 py-2.5 text-sm font-mono font-bold text-cyan-400 outline-none"
+                    />
+                  )}
                   {loadingFarmer && (
                     <Loader2 className="w-4 h-4 animate-spin text-cyan-400 absolute right-3 top-1/2 -translate-y-1/2" />
                   )}
@@ -916,9 +961,9 @@ export const MilkCollectionPage: React.FC = () => {
                   </span>
                 </div>
                 <div>
-                  <span className="text-slate-400 block">Weighted Avg FAT:</span>
+                  <span className="text-slate-400 block">Weighted Avg FAT / SNF:</span>
                   <span className="font-mono font-semibold text-slate-200">
-                    {summary?.combined?.weightedAvgFat || 0}%
+                    {summary?.combined?.weightedAvgFat || 0}% / {summary?.combined?.weightedAvgSnf || 0}%
                   </span>
                 </div>
                 <div>

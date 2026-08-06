@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { rateChartApi } from '../api/rateChartApi';
 import { branchApi } from '../api/branchApi';
+import { useAuth } from '../context/AuthContext';
 import { MilkType } from '../types/farmer';
 import { Branch } from '../types/branch';
 import { RateChartEntry, RateLookupResponse } from '../types/rateChart';
@@ -35,11 +36,12 @@ const parseNum = (val: any): number | null => {
 };
 
 export const RateChartPage: React.FC = () => {
+  const { user } = useAuth();
   const [milkType, setMilkType] = useState<MilkType>('buffalo');
   const [numeralLang, setNumeralLang] = useState<NumeralLang>('en');
   const [selectedBranch, setSelectedBranch] = useState<string>('');
   const [effectiveFrom, setEffectiveFrom] = useState<string>(
-    new Date().toISOString().split('T')[0]
+    new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().split('T')[0]
   );
   const [branches, setBranches] = useState<Branch[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -347,29 +349,7 @@ export const RateChartPage: React.FC = () => {
             className="hidden"
           />
 
-          <button
-            onClick={handleAutoFillBlanks}
-            className="flex items-center space-x-1.5 bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-400 hover:to-indigo-500 text-white font-semibold text-xs px-3.5 py-2 rounded-xl shadow-lg shadow-indigo-500/20 transition-all"
-          >
-            <Sparkles className="w-4 h-4" />
-            <span>{numeralLang === 'mr' ? 'रिक्त जागा भरा (Auto-Fill)' : 'Auto-Fill Blanks'}</span>
-          </button>
 
-          <button
-            onClick={() => fileInputRef.current?.click()}
-            className="flex items-center space-x-1.5 bg-slate-800 hover:bg-slate-700 text-cyan-300 text-xs font-semibold px-3.5 py-2 rounded-xl border border-slate-700 transition-colors"
-          >
-            <Upload className="w-4 h-4 text-cyan-400" />
-            <span>Import price.xlsx</span>
-          </button>
-
-          <button
-            onClick={handleExportCSV}
-            className="flex items-center space-x-1.5 bg-slate-800 hover:bg-slate-700 text-emerald-300 text-xs font-semibold px-3.5 py-2 rounded-xl border border-slate-700 transition-colors"
-          >
-            <Download className="w-4 h-4 text-emerald-400" />
-            <span>Export CSV</span>
-          </button>
 
           <button
             onClick={handleSaveMatrix}
@@ -422,20 +402,26 @@ export const RateChartPage: React.FC = () => {
           </label>
           <div className="flex items-center space-x-2 bg-slate-950 border border-slate-800 rounded-xl px-3 py-1.5">
             <Filter className="w-4 h-4 text-slate-500" />
-            <select
-              value={selectedBranch}
-              onChange={(e) => setSelectedBranch(e.target.value)}
-              className="bg-transparent border-none text-slate-200 text-xs font-semibold focus:outline-none w-full"
-            >
-              <option value="" className="bg-slate-900 text-slate-200">
-                Global (All Branches)
-              </option>
-              {branches.map((b) => (
-                <option key={b._id} value={b._id} className="bg-slate-900 text-slate-200">
-                  {b.name} ({b.code})
+            {user?.role === 'dairyOwner' ? (
+              <div className="text-slate-200 text-xs font-semibold w-full">
+                {branches.length > 0 ? `${branches[0].name} (${branches[0].code})` : 'Loading...'}
+              </div>
+            ) : (
+              <select
+                value={selectedBranch}
+                onChange={(e) => setSelectedBranch(e.target.value)}
+                className="bg-transparent border-none text-slate-200 text-xs font-semibold focus:outline-none w-full"
+              >
+                <option value="" className="bg-slate-900 text-slate-200">
+                  Global (All Branches)
                 </option>
-              ))}
-            </select>
+                {branches.map((b) => (
+                  <option key={b._id} value={b._id} className="bg-slate-900 text-slate-200">
+                    {b.name} ({b.code})
+                  </option>
+                ))}
+              </select>
+            )}
           </div>
         </div>
 

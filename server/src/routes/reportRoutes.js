@@ -12,7 +12,7 @@ const router = express.Router();
 router.use(authenticateToken);
 
 // Owner / Admin dashboard overview statistics
-router.get('/admin-dashboard', authorizeRole(['admin', 'owner']), getAdminDashboardStats);
+router.get('/admin-dashboard', authorizeRole(['admin', 'dairyOwner']), getAdminDashboardStats);
 
 // Report endpoints
 router.get('/farmer-ledger', getFarmerLedgerReport);

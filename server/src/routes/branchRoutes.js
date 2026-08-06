@@ -10,13 +10,15 @@ import { authenticateToken, authorizeRole } from '../middleware/authMiddleware.j
 
 const router = express.Router();
 
-// Apply auth to all branch routes
+// Publicly accessible branch list for Farmer registration dropdown
+router.get('/', getBranches);
+
+// Apply auth to remaining branch routes
 router.use(authenticateToken);
 
 // Branch CRUD routes (Admin only)
 router
   .route('/')
-  .get(getBranches) // Read access for logged in users
   .post(authorizeRole(['admin']), createBranch);
 
 router

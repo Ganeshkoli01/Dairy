@@ -21,5 +21,8 @@ export interface FarmerInput {
   branch: string;
   defaultMilkType: MilkType;
   mobile?: string;
+  email?: string;
+  password?: string;
+  otp?: string;
   isActive?: boolean;
 }

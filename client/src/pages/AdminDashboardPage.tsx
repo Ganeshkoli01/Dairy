@@ -99,7 +99,7 @@ export const AdminDashboardPage: React.FC = () => {
               </span>
             </div>
             <p className="text-xs text-slate-400 mt-0.5">
-              Real-time daily collection metrics, branch performance, and 14-day trends
+              Real-time daily collection metrics, branch performance, and 10-day trends
             </p>
           </div>
         </div>
@@ -195,13 +195,13 @@ export const AdminDashboardPage: React.FC = () => {
         </div>
       </div>
 
-      {/* 2. RECHARTS: 14-DAY COLLECTION TREND CHART */}
+      {/* 2. RECHARTS: 10-DAY COLLECTION TREND CHART */}
       <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
         <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-800">
           <div className="flex items-center space-x-2">
             <TrendingUp className="w-5 h-5 text-cyan-400" />
             <h2 className="text-lg font-bold text-slate-100">
-              14-Day Collection Trend (Liters over Time)
+              10-Day Collection Trend (Liters over Time)
             </h2>
           </div>
           <span className="text-xs font-mono text-slate-400">Cow vs Buffalo Breakdown</span>

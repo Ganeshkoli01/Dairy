@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { reportApi } from '../api/reportApi';
 import { branchApi } from '../api/branchApi';
+import { farmerApi } from '../api/farmerApi';
+import { useAuth } from '../context/AuthContext';
 import { Branch } from '../types/branch';
+import { Farmer } from '../types/farmer';
 import { FarmerLedgerResponse, BranchSummaryResponse, PaymentDueResponse } from '../types/reports';
 import {
   FileText,
@@ -19,16 +22,20 @@ import {
 type ReportTab = 'farmer-ledger' | 'branch-summary' | 'payment-due';
 
 export const ReportsPage: React.FC = () => {
+  const { user } = useAuth();
   const [activeTab, setActiveTab] = useState<ReportTab>('farmer-ledger');
 
   // Filter States
   const [fromDate, setFromDate] = useState<string>(
-    new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+    new Date(Date.now() - 15 * 24 * 60 * 60 * 1000 - new Date().getTimezoneOffset() * 60000).toISOString().split('T')[0]
   );
-  const [toDate, setToDate] = useState<string>(new Date().toISOString().split('T')[0]);
+  const [toDate, setToDate] = useState<string>(
+    new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().split('T')[0]
+  );
   const [selectedBranch, setSelectedBranch] = useState<string>('');
-  const [farmerCode, setFarmerCode] = useState<string>('101');
+  const [farmerCode, setFarmerCode] = useState<string>('');
   const [branches, setBranches] = useState<Branch[]>([]);
+  const [farmers, setFarmers] = useState<Farmer[]>([]);
 
   // Report Data States
   const [ledgerData, setLedgerData] = useState<FarmerLedgerResponse | null>(null);
@@ -49,15 +56,38 @@ export const ReportsPage: React.FC = () => {
       }
     };
     fetchBranches();
-  }, []);
+
+    // Set farmerCode if logged in as farmer
+    if (user?.role === 'farmer' && user?.farmerProfile?.farmerCode) {
+       setFarmerCode(user.farmerProfile.farmerCode);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (selectedBranch) {
+      farmerApi.getFarmers({ branch: selectedBranch }).then(list => {
+        setFarmers(list);
+        if (list.length > 0 && !farmerCode) {
+          setFarmerCode(list[0].farmerCode);
+        }
+      }).catch(console.error);
+    } else {
+      setFarmers([]);
+    }
+  }, [selectedBranch]);
 
   const loadReport = async () => {
     setLoading(true);
     setError(null);
     try {
       if (activeTab === 'farmer-ledger') {
+        if (farmers.length === 0 && user?.role !== 'farmer') {
+          setError('No farmers registered in this branch. Please add farmers first.');
+          setLoading(false);
+          return;
+        }
         if (!farmerCode) {
-          setError('Please enter a farmer code for ledger report');
+          setError('Please select a farmer code for the ledger report.');
           setLoading(false);
           return;
         }
@@ -86,13 +116,18 @@ export const ReportsPage: React.FC = () => {
     loadReport();
   };
 
-  const handleExportCSV = () => {
-    const params: any = { from: fromDate, to: toDate };
-    if (activeTab === 'farmer-ledger') params.farmerCode = farmerCode;
-    if (activeTab === 'branch-summary' || activeTab === 'payment-due') {
-      if (selectedBranch) params.branch = selectedBranch;
+  const handleExportCSV = async () => {
+    try {
+      const params: any = { from: fromDate, to: toDate };
+      if (activeTab === 'farmer-ledger') params.farmerCode = farmerCode;
+      if (activeTab === 'branch-summary' || activeTab === 'payment-due') {
+        if (selectedBranch) params.branch = selectedBranch;
+      }
+      await reportApi.exportCSV(activeTab, params);
+    } catch (err: any) {
+      console.error('Export CSV Error:', err);
+      setError('Failed to export CSV. Check console for details.');
     }
-    reportApi.exportCSV(activeTab, params);
   };
 
   return (
@@ -118,44 +153,50 @@ export const ReportsPage: React.FC = () => {
         </button>
       </div>
 
-      {/* 3 TABS NAV BAR */}
-      <div className="flex items-center space-x-2 bg-slate-900 border border-slate-800 rounded-2xl p-1.5 shadow-lg">
-        <button
-          onClick={() => setActiveTab('farmer-ledger')}
-          className={`flex-1 py-2.5 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-2 ${
-            activeTab === 'farmer-ledger'
-              ? 'bg-slate-800 text-cyan-400 border border-slate-700 shadow'
-              : 'text-slate-400 hover:text-slate-200'
-          }`}
-        >
-          <User className="w-4 h-4" />
-          <span>1. Farmer Ledger (सभासद खाते)</span>
-        </button>
+      {/* TABS */}
+      {user?.role !== 'farmer' ? (
+        <div className="flex items-center space-x-2 bg-slate-900 border border-slate-800 rounded-2xl p-1.5 shadow-lg">
+          <button
+            onClick={() => setActiveTab('farmer-ledger')}
+            className={`flex-1 py-2.5 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-2 ${
+              activeTab === 'farmer-ledger'
+                ? 'bg-slate-800 text-cyan-400 border border-slate-700 shadow'
+                : 'text-slate-400 hover:text-slate-200'
+            }`}
+          >
+            <User className="w-4 h-4" />
+            <span>1. Farmer Ledger (सभासद खाते)</span>
+          </button>
 
-        <button
-          onClick={() => setActiveTab('branch-summary')}
-          className={`flex-1 py-2.5 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-2 ${
-            activeTab === 'branch-summary'
-              ? 'bg-slate-800 text-amber-400 border border-slate-700 shadow'
-              : 'text-slate-400 hover:text-slate-200'
-          }`}
-        >
-          <TrendingUp className="w-4 h-4" />
-          <span>2. Branch Day-Wise Summary</span>
-        </button>
+          <button
+            onClick={() => setActiveTab('branch-summary')}
+            className={`flex-1 py-2.5 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-2 ${
+              activeTab === 'branch-summary'
+                ? 'bg-slate-800 text-amber-400 border border-slate-700 shadow'
+                : 'text-slate-400 hover:text-slate-200'
+            }`}
+          >
+            <TrendingUp className="w-4 h-4" />
+            <span>2. Branch Day-Wise Summary</span>
+          </button>
 
-        <button
-          onClick={() => setActiveTab('payment-due')}
-          className={`flex-1 py-2.5 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-2 ${
-            activeTab === 'payment-due'
-              ? 'bg-slate-800 text-emerald-400 border border-slate-700 shadow'
-              : 'text-slate-400 hover:text-slate-200'
-          }`}
-        >
-          <DollarSign className="w-4 h-4" />
-          <span>3. Payment Due Register (बिल रजिस्टर)</span>
-        </button>
-      </div>
+          <button
+            onClick={() => setActiveTab('payment-due')}
+            className={`flex-1 py-2.5 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-2 ${
+              activeTab === 'payment-due'
+                ? 'bg-slate-800 text-emerald-400 border border-slate-700 shadow'
+                : 'text-slate-400 hover:text-slate-200'
+            }`}
+          >
+            <DollarSign className="w-4 h-4" />
+            <span>3. Payment Due Register (बिल रजिस्टर)</span>
+          </button>
+        </div>
+      ) : (
+        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 text-center">
+            <p className="text-sm text-cyan-400 font-semibold">Farmer Ledger Report</p>
+        </div>
+      )}
 
       {/* FILTER CONTROL BAR */}
       <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 md:grid-cols-4 gap-3 bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-md">
@@ -192,42 +233,61 @@ export const ReportsPage: React.FC = () => {
         </div>
 
         {/* Conditional Input per Tab */}
-        {activeTab === 'farmer-ledger' ? (
-          <div>
-            <label className="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">
-              Farmer Code *
-            </label>
-            <div className="flex items-center space-x-2 bg-slate-950 border border-slate-800 rounded-xl px-3 py-2">
-              <User className="w-4 h-4 text-cyan-400" />
-              <input
-                type="text"
-                required
-                value={farmerCode}
-                onChange={(e) => setFarmerCode(e.target.value)}
-                placeholder="e.g. 101"
-                className="bg-transparent border-none text-slate-100 text-xs font-mono font-bold focus:outline-none w-full"
-              />
+        {activeTab === 'farmer-ledger' && (
+          <div className="space-y-1">
+            <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider ml-1">Farmer Code</label>
+            <div className="relative group">
+              <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 group-focus-within:text-cyan-500 transition-colors" />
+              {user?.role === 'farmer' ? (
+                <input
+                  type="text"
+                  className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 pl-10 pr-4 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all disabled:opacity-60"
+                  placeholder="e.g. 101"
+                  value={farmerCode}
+                  onChange={(e) => setFarmerCode(e.target.value)}
+                  disabled
+                />
+              ) : (
+                <select
+                  className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 pl-10 pr-4 text-sm text-slate-200 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all cursor-pointer"
+                  value={farmerCode}
+                  onChange={(e) => setFarmerCode(e.target.value)}
+                >
+                  <option value="" disabled>Select a Farmer...</option>
+                  {farmers.map(f => (
+                    <option key={f._id} value={f.farmerCode}>{f.name} ({f.farmerCode})</option>
+                  ))}
+                </select>
+              )}
             </div>
           </div>
-        ) : (
+        )}
+
+        {activeTab !== 'farmer-ledger' && (
           <div>
             <label className="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">
               Branch Filter
             </label>
             <div className="flex items-center space-x-2 bg-slate-950 border border-slate-800 rounded-xl px-3 py-2">
               <Building2 className="w-4 h-4 text-slate-500" />
-              <select
-                value={selectedBranch}
-                onChange={(e) => setSelectedBranch(e.target.value)}
-                className="bg-transparent border-none text-slate-200 text-xs focus:outline-none w-full"
-              >
-                <option value="" className="bg-slate-900 text-slate-200">All Branches</option>
-                {branches.map((b) => (
-                  <option key={b._id} value={b._id} className="bg-slate-900 text-slate-200">
-                    {b.name} ({b.code})
-                  </option>
-                ))}
-              </select>
+              {user?.role === 'dairyOwner' ? (
+                <div className="text-slate-200 text-xs font-semibold w-full">
+                  {branches.length > 0 ? `${branches[0].name} (${branches[0].code})` : 'Loading...'}
+                </div>
+              ) : (
+                <select
+                  value={selectedBranch}
+                  onChange={(e) => setSelectedBranch(e.target.value)}
+                  className="bg-transparent border-none text-slate-200 text-xs focus:outline-none w-full"
+                >
+                  <option value="" className="bg-slate-900 text-slate-200">All Branches</option>
+                  {branches.map((b) => (
+                    <option key={b._id} value={b._id} className="bg-slate-900 text-slate-200">
+                      {b.name} ({b.code})
+                    </option>
+                  ))}
+                </select>
+              )}
             </div>
           </div>
         )}

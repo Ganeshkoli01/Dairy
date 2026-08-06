@@ -22,9 +22,15 @@ let memoryBranches = [
 
 export const getBranches = async (req, res) => {
   try {
-    const { isActive } = req.query;
+    let { isActive, branchCode } = req.query;
+
+    if (req.user && req.user.role === 'dairyOwner') {
+      branchCode = req.user.dairyOwnerProfile?.branchNumber;
+    }
+
     if (mongoose.connection.readyState === 1) {
       const filter = {};
+      if (branchCode) filter.code = new RegExp('^' + branchCode + '$', 'i');
       if (isActive !== undefined) filter.isActive = isActive === 'true';
       const branches = await Branch.find(filter).sort({ name: 1 }).catch(() => null);
       if (branches) {

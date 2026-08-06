@@ -45,10 +45,18 @@ export const getRateCharts = async (req, res) => {
       if (milkType) filter.milkType = milkType;
       if (branch !== undefined) filter.branch = branch === 'null' || !branch ? null : branch;
 
-      const charts = await RateChart.find(filter)
+      let charts = await RateChart.find(filter)
         .populate('branch', 'name code')
         .sort({ fat: 1, snf: 1 })
         .catch(() => null);
+
+      // Fallback to global (owner) rate chart if branch-specific chart is empty
+      if ((!charts || charts.length === 0) && filter.branch !== null) {
+        charts = await RateChart.find({ milkType: filter.milkType, branch: null })
+          .populate('branch', 'name code')
+          .sort({ fat: 1, snf: 1 })
+          .catch(() => null);
+      }
 
       if (charts && charts.length > 0) {
         return res.json({
@@ -63,18 +71,30 @@ export const getRateCharts = async (req, res) => {
     if (milkType) {
       filtered = filtered.filter((r) => r.milkType === milkType);
     }
+    
+    let branchFiltered = filtered;
     if (branch !== undefined) {
       const bId = branch === 'null' || !branch ? null : String(branch);
-      filtered = filtered.filter((r) => {
+      branchFiltered = filtered.filter((r) => {
         const rBranch = r.branch?._id || r.branch || null;
         return String(rBranch) === String(bId);
       });
+      
+      // Fallback to global (owner) rate chart if branch-specific chart is empty
+      if (branchFiltered.length === 0 && bId !== null) {
+        branchFiltered = filtered.filter((r) => {
+          const rBranch = r.branch?._id || r.branch || null;
+          return rBranch === null || rBranch === 'null';
+        });
+      }
+    } else {
+      branchFiltered = filtered;
     }
 
     return res.json({
       success: true,
-      count: filtered.length,
-      data: filtered,
+      count: branchFiltered.length,
+      data: branchFiltered,
     });
   } catch (error) {
     return res.status(500).json({

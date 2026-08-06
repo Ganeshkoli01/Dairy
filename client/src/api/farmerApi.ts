@@ -7,8 +7,12 @@ export const farmerApi = {
     return response.data.data;
   },
 
-  getFarmerByBranchAndCode: async (branchId: string, code: string): Promise<Farmer> => {
-    const response = await api.get<{ success: boolean; data: Farmer }>(`/farmers/${branchId}/${code}`);
+  getFarmerByBranchAndCode: async (branchId: string, code: string, milkType?: string): Promise<Farmer> => {
+    let url = `/farmers/${branchId}/${code}`;
+    if (milkType) {
+      url += `?milkType=${milkType}`;
+    }
+    const response = await api.get<{ success: boolean; data: Farmer }>(url);
     return response.data.data;
   },
 

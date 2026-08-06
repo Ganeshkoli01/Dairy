@@ -26,6 +26,6 @@ router.get('/:branchId/:code', getFarmerByBranchAndCode);
 router
   .route('/:id')
   .put(updateFarmer)
-  .delete(authorizeRole(['admin']), deleteFarmer);
+  .delete(authorizeRole(['admin', 'dairyOwner']), deleteFarmer);
 
 export default router;

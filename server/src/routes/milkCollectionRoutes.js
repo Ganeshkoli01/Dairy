@@ -21,6 +21,9 @@ router
   .get(getMilkCollections)
   .post(createMilkCollection);
 
+// Farmer previous session history endpoint
+router.get('/farmer/:farmerCode/history', getMilkCollections);
+
 // Single collection record endpoints
 router
   .route('/:id')

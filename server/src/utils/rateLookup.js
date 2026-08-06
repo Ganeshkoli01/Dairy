@@ -17,6 +17,7 @@ export const getRate = async ({
   const fatVal = Number(fat);
   const snfVal = Number(snf);
   const targetDate = new Date(date);
+  targetDate.setHours(23, 59, 59, 999); // Include charts seeded anytime today
 
   if (isNaN(fatVal) || isNaN(snfVal)) {
     return {
@@ -100,7 +101,10 @@ export const getRate = async ({
 /**
  * Helper function for matching rate entries in an array (in-memory)
  */
-export const matchFromList = (entries, milkType, fatVal, snfVal, branchId, targetDate) => {
+export const matchFromList = (entries, milkType, fatVal, snfVal, branchId, targetDateRaw) => {
+  const targetDate = new Date(targetDateRaw);
+  targetDate.setHours(23, 59, 59, 999);
+
   // Filter eligible entries
   const eligible = entries.filter((e) => {
     if (e.milkType !== milkType) return false;
