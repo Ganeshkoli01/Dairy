@@ -125,6 +125,9 @@ export const getMe = async (req, res) => {
           email: req.user.email,
           role: req.user.role,
           displayName: getDisplayName(req.user),
+          farmerProfile: req.user.farmerProfile,
+          dairyOwnerProfile: req.user.dairyOwnerProfile,
+          adminProfile: req.user.adminProfile,
         },
       });
     }

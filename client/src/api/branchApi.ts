@@ -7,6 +7,19 @@ export const branchApi = {
     const response = await api.get<{ success: boolean; data: Branch[] }>('/branches', { params });
     let branches = response.data.data;
 
+    // Filter branches so Dairy Owners only see their assigned branch
+    try {
+      const userStr = localStorage.getItem('user');
+      if (userStr) {
+        const user = JSON.parse(userStr);
+        if (user.role === 'dairyOwner' && user.dairyOwnerProfile?.branchId) {
+          branches = branches.filter(b => b._id === user.dairyOwnerProfile.branchId);
+        }
+      }
+    } catch (e) {
+      console.error("Error filtering branches for dairyOwner", e);
+    }
+
     return branches;
   },
 

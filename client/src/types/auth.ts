@@ -15,6 +15,7 @@ export interface User {
     ownerName: string;
     branchName: string;
     branchNumber: string;
+    branchId?: string;
   };
   adminProfile?: {
     name: string;
