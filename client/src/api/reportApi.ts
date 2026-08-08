@@ -9,12 +9,14 @@ export const reportApi = {
   },
 
   getFarmerLedger: async (
+    branch: string | undefined,
     farmerCode: string,
     from?: string,
-    to?: string
+    to?: string,
+    milkType?: string
   ): Promise<FarmerLedgerResponse> => {
     const response = await api.get<FarmerLedgerResponse>('/reports/farmer-ledger', {
-      params: { farmerCode, from, to },
+      params: { branch, farmerCode, from, to, milkType },
     });
     return response.data;
   },

@@ -44,7 +44,7 @@ const parseDateRange = (fromStr, toStr) => {
 // @access  Private (Admin & Operator)
 export const getFarmerLedgerReport = async (req, res) => {
   try {
-    const { farmerId, farmerCode, from, to, export: exportFormat } = req.query;
+    const { farmerId, farmerCode, from, to, branch, milkType, export: exportFormat } = req.query;
     const code = farmerCode || farmerId;
 
     if (!code) {
@@ -63,10 +63,32 @@ export const getFarmerLedgerReport = async (req, res) => {
         orCondition.push({ farmer: code });
       }
 
-      entries = await MilkCollection.find({
+      const query = {
         $or: orCondition,
         date: { $gte: fromDate, $lte: toDate },
-      })
+      };
+      
+      // Filter by branch if provided, otherwise fallback to user's branch if they are a dairy owner or farmer
+      let queryBranch = branch;
+      if (!queryBranch && req.user && req.user.role === 'dairyOwner') {
+        queryBranch = req.user.dairyOwnerProfile?.branchId;
+      } else if (!queryBranch && req.user && req.user.role === 'farmer') {
+        queryBranch = req.user.farmerProfile?.branch;
+        
+        if (req.user.farmerProfile?.milkType && req.user.farmerProfile.milkType !== 'both') {
+          query.milkType = req.user.farmerProfile.milkType;
+        }
+      }
+      
+      if (queryBranch) {
+        query.branch = queryBranch;
+      }
+      
+      if (milkType && milkType !== 'all') {
+        query.milkType = milkType;
+      }
+
+      entries = await MilkCollection.find(query)
         .sort({ date: 1, createdAt: 1 })
         .catch((err) => {
           console.error('Ledger query error:', err);
@@ -136,7 +158,7 @@ export const getFarmerLedgerReport = async (req, res) => {
 
     return res.json({
       success: true,
-      farmerCode: code,
+      farmerCode: formattedEntries[0]?.farmerCode || (mongoose.Types.ObjectId.isValid(code) ? 'Unknown' : code),
       farmerName: formattedEntries[0]?.farmerName || `Farmer #${code}`,
       period: { from: fromDate.toISOString().split('T')[0], to: toDate.toISOString().split('T')[0] },
       summary,
@@ -253,7 +275,8 @@ export const getPaymentDueReport = async (req, res) => {
         { $match: matchStage },
         {
           $group: {
-            _id: '$farmerCode',
+            _id: '$farmer',
+            farmerCode: { $first: '$farmerCode' },
             farmerName: { $first: '$farmerName' },
             totalLiters: { $sum: '$weight' },
             totalAmount: { $sum: '$amount' },
@@ -268,7 +291,7 @@ export const getPaymentDueReport = async (req, res) => {
             entryCount: { $sum: 1 },
           },
         },
-        { $sort: { _id: 1 } },
+        { $sort: { farmerCode: 1 } },
       ]).catch(() => []);
     }
 
@@ -278,8 +301,8 @@ export const getPaymentDueReport = async (req, res) => {
       const liters = f.totalLiters || 0;
       const amount = f.totalAmount || 0;
       return {
-        farmerCode: f._id,
-        farmerName: f.farmerName || `Farmer #${f._id}`,
+        farmerCode: f.farmerCode || String(f._id),
+        farmerName: f.farmerName || `Farmer #${f.farmerCode || f._id}`,
         totalLiters: Math.round(liters * 100) / 100,
         cowLiters: Math.round((f.cowLiters || 0) * 100) / 100,
         buffaloLiters: Math.round((f.buffaloLiters || 0) * 100) / 100,

@@ -17,6 +17,7 @@ export const FarmersPage: React.FC = () => {
 
   // Filters
   const [selectedBranch, setSelectedBranch] = useState<string>('');
+  const [selectedMilkType, setSelectedMilkType] = useState<string>('');
   const [searchTerm, setSearchTerm] = useState<string>('');
 
   // Modal State
@@ -56,7 +57,12 @@ export const FarmersPage: React.FC = () => {
 
       const farmersData = await farmerApi.getFarmers({ branch: currentSelectedBranch || undefined, search: searchTerm || undefined });
 
-      setFarmers(farmersData);
+      let filteredFarmers = farmersData;
+      if (selectedMilkType) {
+        filteredFarmers = farmersData.filter(f => f.defaultMilkType === selectedMilkType);
+      }
+
+      setFarmers(filteredFarmers);
       setBranches(branchesData);
       if (branchesData.length > 0 && !formData.branch) {
         setFormData((prev) => ({ ...prev, branch: branchesData[0]._id }));
@@ -70,7 +76,7 @@ export const FarmersPage: React.FC = () => {
 
   useEffect(() => {
     loadData();
-  }, [selectedBranch]);
+  }, [selectedBranch, selectedMilkType]);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -191,7 +197,7 @@ export const FarmersPage: React.FC = () => {
       </div>
 
       {/* Filter & Search Bar */}
-      <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 md:grid-cols-3 gap-3 bg-slate-900 border border-slate-800 rounded-xl p-4">
+      <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 md:grid-cols-4 gap-3 bg-slate-900 border border-slate-800 rounded-xl p-4">
         <div className="flex items-center space-x-2 bg-slate-950 border border-slate-800 rounded-xl px-3 py-2">
           <Filter className="w-4 h-4 text-slate-500" />
           <select
@@ -208,6 +214,20 @@ export const FarmersPage: React.FC = () => {
                 {b.name} ({b.code})
               </option>
             ))}
+          </select>
+        </div>
+
+        <div className="flex items-center space-x-2 bg-slate-950 border border-slate-800 rounded-xl px-3 py-2">
+          <Filter className="w-4 h-4 text-slate-500" />
+          <select
+            value={selectedMilkType}
+            onChange={(e) => setSelectedMilkType(e.target.value)}
+            className="bg-transparent border-none text-slate-200 text-sm focus:outline-none w-full"
+          >
+            <option value="" className="bg-slate-900 text-slate-200">All Milk Types</option>
+            <option value="cow" className="bg-slate-900 text-slate-200">Cow (गाय)</option>
+            <option value="buffalo" className="bg-slate-900 text-slate-200">Buffalo (म्हैस)</option>
+            <option value="both" className="bg-slate-900 text-slate-200">Both (दोन्ही)</option>
           </select>
         </div>
 
@@ -467,6 +487,7 @@ export const FarmersPage: React.FC = () => {
                       <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                       <input
                         type="email"
+                        autoComplete="off"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         disabled={!!editingFarmer}
@@ -490,6 +511,7 @@ export const FarmersPage: React.FC = () => {
                     <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                     <input
                       type="password"
+                      autoComplete="new-password"
                       value={formData.password}
                       disabled={!!editingFarmer}
                       onChange={(e) => setFormData({ ...formData, password: e.target.value })}

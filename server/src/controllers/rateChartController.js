@@ -3,35 +3,12 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { RateChart } from '../models/RateChart.js';
-import { getRate, matchFromList } from '../utils/rateLookup.js';
+import { getRate, matchFromList, memoryRateCharts } from '../utils/rateLookup.js';
 import { calculateSnfFromClr } from '../utils/snfFromClr.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const jsonPath = path.join(__dirname, '../../../full_rate_entries.json');
-
-// In-memory fallback matrix store for development & instant tests
-let memoryRateCharts = [];
-
-// Pre-load all 1512 complete rate chart entries from full_rate_entries.json if available
-if (fs.existsSync(jsonPath)) {
-  try {
-    const raw = fs.readFileSync(jsonPath, 'utf-8');
-    const parsed = JSON.parse(raw);
-    memoryRateCharts = parsed.map((e, idx) => ({
-      _id: `rc_full_${idx}`,
-      milkType: e.milkType,
-      fat: e.fat,
-      snf: e.snf,
-      rate: e.rate,
-      branch: null,
-      effectiveFrom: new Date('2026-08-03').toISOString(),
-    }));
-    console.log(`[RateChart Controller] Pre-loaded ${memoryRateCharts.length} complete rate chart entries into memory!`);
-  } catch (err) {
-    console.error('[RateChart Controller] Failed to read full_rate_entries.json:', err.message);
-  }
-}
+// Memory rate charts are now exported and loaded from rateLookup.js
 
 // @desc    Get rate chart entries
 // @route   GET /api/rate-chart?milkType=xxx&branch=xxx
@@ -326,11 +303,13 @@ export const deleteRateChart = async (req, res) => {
     }
 
     const prevCount = memoryRateCharts.length;
-    memoryRateCharts = memoryRateCharts.filter((r) => {
+    const keptCharts = memoryRateCharts.filter((r) => {
       if (milkType && r.milkType !== milkType) return true;
       if (branch !== undefined && String(r.branch) !== String(branch)) return true;
       return false;
     });
+    memoryRateCharts.length = 0;
+    memoryRateCharts.push(...keptCharts);
 
     return res.json({
       success: true,

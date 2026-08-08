@@ -1,5 +1,33 @@
 import mongoose from 'mongoose';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { RateChart } from '../models/RateChart.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const jsonPath = path.join(__dirname, '../../../full_rate_entries.json');
+
+// In-memory fallback matrix store for development & instant tests
+export let memoryRateCharts = [];
+
+if (fs.existsSync(jsonPath)) {
+  try {
+    const raw = fs.readFileSync(jsonPath, 'utf-8');
+    const parsed = JSON.parse(raw);
+    memoryRateCharts = parsed.map((e, idx) => ({
+      _id: `rc_full_${idx}`,
+      milkType: e.milkType,
+      fat: e.fat,
+      snf: e.snf,
+      rate: e.rate,
+      branch: null,
+      effectiveFrom: new Date('2026-08-03').toISOString(),
+    }));
+  } catch (err) {
+    console.error('[RateLookup] Failed to read full_rate_entries.json:', err.message);
+  }
+}
 
 /**
  * Rate Lookup Logic with Round-Down Matching
@@ -33,6 +61,7 @@ export const getRate = async ({
   }
 
   // Otherwise query MongoDB if connected
+  let dbFailed = false;
   if (mongoose.connection.readyState === 1) {
     try {
       // Step 1: Attempt Branch-Specific lookup first if branchId is provided
@@ -88,7 +117,14 @@ export const getRate = async ({
       }
     } catch (err) {
       console.error('[RateLookup DB Error]', err.message);
+      dbFailed = true;
     }
+  }
+
+  // Step 3: If DB lookup failed or returned no results, fallback to memory
+  const memoryResult = matchFromList(memoryRateCharts, milkType, fatVal, snfVal, branchId, targetDate);
+  if (memoryResult.success) {
+    return memoryResult;
   }
 
   return {

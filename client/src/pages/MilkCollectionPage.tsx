@@ -46,6 +46,17 @@ export const MilkCollectionPage: React.FC = () => {
   const [hwMessage, setHwMessage] = useState<string>('');
   const [autoWeight, setAutoWeight] = useState<boolean>(false);
   const [autoFat, setAutoFat] = useState<boolean>(false);
+  const autoWeightRef = useRef<boolean>(autoWeight);
+  const autoFatRef = useRef<boolean>(autoFat);
+
+  useEffect(() => {
+    autoWeightRef.current = autoWeight;
+  }, [autoWeight]);
+
+  useEffect(() => {
+    autoFatRef.current = autoFat;
+  }, [autoFat]);
+
   const [lastRawReading, setLastRawReading] = useState<string>('');
 
   // Form Entry State
@@ -107,12 +118,12 @@ export const MilkCollectionPage: React.FC = () => {
         setLastRawReading(readings.rawString || '');
 
         // Auto-fill Weight if Auto Weight checkbox is enabled
-        if (autoWeight && readings.weight !== undefined) {
+        if (autoWeightRef.current && readings.weight !== undefined) {
           setWeight(readings.weight.toString());
         }
 
         // Auto-fill FAT & SNF if Auto FAT checkbox is enabled
-        if (autoFat) {
+        if (autoFatRef.current) {
           if (readings.fat !== undefined) setFat(readings.fat.toString());
           if (readings.snf !== undefined) setSnf(readings.snf.toString());
           if (readings.clr !== undefined) setDegree(readings.clr.toString());
@@ -127,7 +138,7 @@ export const MilkCollectionPage: React.FC = () => {
     return () => {
       serialHardware.disconnect();
     };
-  }, [autoWeight, autoFat]);
+  }, []);
 
   // 2. Fetch Today's Grid Entries & Aggregation Summary whenever Top Bar changes
   const loadGridAndSummary = async () => {
@@ -643,7 +654,12 @@ export const MilkCollectionPage: React.FC = () => {
                       name="milkType"
                       value="cow"
                       checked={milkType === 'cow'}
-                      onChange={() => setMilkType('cow')}
+                      onChange={() => {
+                        setMilkType('cow');
+                        if (farmerCode.trim()) {
+                          handleLookupFarmer(undefined, 'cow');
+                        }
+                      }}
                       className="text-amber-500 focus:ring-amber-500"
                     />
                     <span className="text-sm font-bold text-amber-300">🐮 Cow (गाय)</span>
@@ -655,7 +671,12 @@ export const MilkCollectionPage: React.FC = () => {
                       name="milkType"
                       value="buffalo"
                       checked={milkType === 'buffalo'}
-                      onChange={() => setMilkType('buffalo')}
+                      onChange={() => {
+                        setMilkType('buffalo');
+                        if (farmerCode.trim()) {
+                          handleLookupFarmer(undefined, 'buffalo');
+                        }
+                      }}
                       className="text-purple-500 focus:ring-purple-500"
                     />
                     <span className="text-sm font-bold text-purple-300">🦬 Buffalo (म्हैस)</span>
@@ -1023,8 +1044,19 @@ export const MilkCollectionPage: React.FC = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-800/60 text-xs font-mono">
-                {entries.map((entry) => (
-                  <tr key={entry._id} className="hover:bg-slate-800/40 transition-colors">
+                {(['cow', 'buffalo'] as const).map(type => {
+                  const typeEntries = entries.filter(e => e.milkType === type);
+                  if (typeEntries.length === 0) return null;
+                  
+                  return (
+                    <React.Fragment key={type}>
+                      <tr className={type === 'cow' ? 'bg-amber-500/5' : 'bg-purple-500/5'}>
+                        <td colSpan={10} className={`py-2.5 px-4 font-bold uppercase tracking-wider text-[11px] border-b border-slate-800/50 ${type === 'cow' ? 'text-amber-400' : 'text-purple-400'}`}>
+                          {type === 'cow' ? '🐮 Cow Milk Entries' : '🦬 Buffalo Milk Entries'} ({typeEntries.length})
+                        </td>
+                      </tr>
+                      {typeEntries.map((entry) => (
+                        <tr key={entry._id} className="hover:bg-slate-800/40 transition-colors">
                     <td className="py-3.5 px-4 font-bold text-cyan-400">
                       {entry.farmerCode}
                     </td>
@@ -1078,6 +1110,9 @@ export const MilkCollectionPage: React.FC = () => {
                     </td>
                   </tr>
                 ))}
+                    </React.Fragment>
+                  );
+                })}
               </tbody>
             </table>
           </div>

@@ -47,8 +47,12 @@ export const LoginPage: React.FC = () => {
 
       <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl relative z-10">
         <div className="flex flex-col items-center text-center mb-6">
-          <div className="p-3 bg-gradient-to-tr from-cyan-500 to-blue-600 rounded-2xl text-white shadow-lg shadow-cyan-500/20 mb-3">
-            <Milk className="w-8 h-8" />
+          <div className="mb-4 flex justify-center">
+            <img 
+              src="/gk_dairy_logo.jpg" 
+              alt="GK Dairy Logo" 
+              className="h-20 w-auto object-contain rounded-2xl drop-shadow-xl bg-white p-2" 
+            />
           </div>
           <h1 className="text-2xl font-bold text-slate-100 tracking-tight">Dairy Login</h1>
           <p className="text-xs text-slate-400 mt-1">Enter your credentials to access your dashboard</p>
