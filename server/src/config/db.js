@@ -2,12 +2,6 @@ import mongoose from 'mongoose';
 import { User } from '../models/User.js';
 import { Branch } from '../models/Branch.js';
 
-let cached = global.mongoose;
-
-if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null };
-}
-
 export const connectDB = async () => {
   try {
     const mongoUri = process.env.MONGO_URI;
@@ -15,22 +9,8 @@ export const connectDB = async () => {
       throw new Error("MONGO_URI is not defined in environment variables");
     }
     
-    if (cached.conn) {
-      return cached.conn;
-    }
-
-    if (!cached.promise) {
-      const opts = {
-        bufferCommands: false,
-      };
-      cached.promise = mongoose.connect(mongoUri, opts).then((mongoose) => {
-        return mongoose;
-      });
-    }
-    
-    cached.conn = await cached.promise;
-    console.log(`[MongoDB] Connected Successfully to Atlas: ${cached.conn.connection.host}`);
-
+    const conn = await mongoose.connect(mongoUri);
+    console.log(`[MongoDB] Connected Successfully to Atlas: ${conn.connection.host}`);
 
     // Seed/Update Admin User in MongoDB
     let admin = await User.findOne({ email: 'ganeshkoli0149@gmail.com' });

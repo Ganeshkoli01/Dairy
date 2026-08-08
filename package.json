@@ -2,29 +2,18 @@
   "name": "dairy-milk-collection",
   "version": "1.0.0",
   "description": "MERN stack application for dairy milk collection management",
-  "type": "module",
   "private": true,
   "scripts": {
     "start": "npm run dev",
     "dev:server": "npm --prefix server run dev",
     "dev:client": "npm --prefix client run dev",
     "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
-    "install:all": "npm install && npm --prefix server install && npm --prefix client install",
-    "build": "npm install --prefix server && npm install --prefix client && npm run build --prefix client"
+    "install:all": "npm install && npm --prefix server install && npm --prefix client install"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
   },
   "dependencies": {
-    "bcryptjs": "^3.0.3",
-    "cors": "^2.8.6",
-    "dotenv": "^17.4.2",
-    "express": "^5.2.1",
-    "jsonwebtoken": "^9.0.3",
-    "mongodb": "^7.5.0",
-    "mongoose": "^9.9.1",
-    "nodemailer": "^9.0.5",
-    "serverless-http": "^4.0.0",
-    "xlsx": "^0.18.5"
+    "mongodb": "^7.5.0"
   }
 }

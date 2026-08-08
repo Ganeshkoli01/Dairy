@@ -14,16 +14,7 @@ dotenv.config();
 
 const app = express();
 
-// Database Connection Middleware (crucial for Vercel Serverless cold starts)
-app.use(async (req, res, next) => {
-  try {
-    await connectDB();
-    next();
-  } catch (error) {
-    console.error('DB Connection Middleware Error:', error);
-    res.status(500).json({ success: false, message: 'Database connection failed' });
-  }
-});
+// Database Connection will be initialized before server start
 
 // Middleware
 const clientOrigin = process.env.CLIENT_ORIGIN || 'http://localhost:5173';
