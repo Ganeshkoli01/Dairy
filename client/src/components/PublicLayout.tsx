@@ -1,13 +1,11 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import { Navbar } from './Navbar';
 import { Footer } from './Footer';
 
-export const Layout: React.FC = () => {
+export const PublicLayout: React.FC = () => {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
-      <Navbar />
-      <main className="flex-1 max-w-7xl w-full mx-auto p-6">
+      <main className="flex-1 w-full mx-auto">
         <Outlet />
       </main>
       <Footer />
