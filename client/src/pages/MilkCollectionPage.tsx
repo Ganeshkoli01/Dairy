@@ -57,6 +57,8 @@ export const MilkCollectionPage: React.FC = () => {
     autoFatRef.current = autoFat;
   }, [autoFat]);
 
+
+
   const [lastRawReading, setLastRawReading] = useState<string>('');
 
   // Form Entry State
@@ -64,6 +66,11 @@ export const MilkCollectionPage: React.FC = () => {
   const [farmerName, setFarmerName] = useState<string>('');
   const [farmerId, setFarmerId] = useState<string>('');
   const [milkType, setMilkType] = useState<MilkType>('cow');
+  
+  useEffect(() => {
+    serialHardware.currentMilkType = milkType;
+  }, [milkType]);
+
   const [weight, setWeight] = useState<string>('');
   const [fat, setFat] = useState<string>('');
   const [snf, setSnf] = useState<string>('');

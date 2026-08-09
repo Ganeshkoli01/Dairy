@@ -24,6 +24,8 @@ export class SerialHardwareManager {
   private onDataCallback: ((readings: HardwareReadings) => void) | null = null;
   private onStatusCallback: ((status: HardwareStatus, message?: string) => void) | null = null;
 
+  public currentMilkType: 'cow' | 'buffalo' = 'cow';
+
   public status: HardwareStatus = 'disconnected';
 
   constructor() {
@@ -168,10 +170,18 @@ export class SerialHardwareManager {
     this.updateStatus('simulating', 'Hardware Simulator Active (Generating realistic readings)');
 
     this.simulationInterval = setInterval(() => {
-      // Generate realistic milk collection ranges
+      // Generate realistic milk collection ranges based on milk type
       const simWeight = Math.round((8 + Math.random() * 15) * 10) / 10; // 8.0L to 23.0L
-      const simFat = Math.round((3.2 + Math.random() * 2.5) * 10) / 10; // 3.2% to 5.7%
-      const simSnf = Math.round((8.2 + Math.random() * 1.0) * 10) / 10; // 8.2% to 9.2%
+      
+      let simFat, simSnf;
+      if (this.currentMilkType === 'buffalo') {
+        simFat = Math.round((5.0 + Math.random() * 5.0) * 10) / 10; // 5.0 to 10.0
+        simSnf = Math.round((8.0 + Math.random() * 2.0) * 10) / 10; // 8.0 to 10.0
+      } else {
+        simFat = Math.round((3.0 + Math.random() * 2.0) * 10) / 10; // 3.0 to 5.0
+        simSnf = Math.round((7.5 + Math.random() * 2.0) * 10) / 10; // 7.5 to 9.5
+      }
+      
       const simClr = Math.round(26 + Math.random() * 5); // 26 to 31
 
       const readings: HardwareReadings = {

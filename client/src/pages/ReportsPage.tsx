@@ -75,6 +75,10 @@ export const ReportsPage: React.FC = () => {
   }, [selectedBranch]);
 
   const loadReport = async () => {
+    if (!selectedBranch && user?.role === 'dairyOwner') {
+      return; // Wait for branch to be set
+    }
+    
     setLoading(true);
     setError(null);
     try {

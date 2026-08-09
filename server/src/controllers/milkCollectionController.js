@@ -3,6 +3,8 @@ import { MilkCollection } from '../models/MilkCollection.js';
 import { Farmer } from '../models/Farmer.js';
 import { getRate } from '../utils/rateLookup.js';
 import { calculateSnfFromClr } from '../utils/snfFromClr.js';
+import { User } from '../models/User.js';
+import { sendEmail } from '../utils/sendEmail.js';
 
 // In-memory store for development & instant tests when MongoDB Atlas is unpopulated or offline
 let memoryCollections = [
@@ -182,6 +184,77 @@ export const createMilkCollection = async (req, res) => {
         createdAt: new Date().toISOString(),
       };
       memoryCollections.unshift(newEntry);
+    }
+
+    if (mongoose.connection.readyState === 1) {
+      try {
+        const farmerUser = await User.findOne({
+          role: 'farmer',
+          'farmerProfile.farmerCode': fCode,
+          'farmerProfile.branch': branch,
+          'farmerProfile.milkType': milkType
+        }).catch(() => null);
+
+        if (farmerUser && farmerUser.email) {
+          const emailSubject = `Milk Collection Receipt - ${targetDate.toISOString().split('T')[0]} (${session || 'morning'})`;
+          
+          const emailHtml = `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;">
+              <h2 style="color: #0ea5e9; text-align: center;">Milk Collection Receipt</h2>
+              <p>Dear <strong>${fName}</strong>,</p>
+              <p>Your milk collection entry has been successfully recorded. Here are the details:</p>
+              
+              <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                <tr style="background-color: #f8fafc;">
+                  <td style="padding: 10px; border: 1px solid #cbd5e1; font-weight: bold;">Date</td>
+                  <td style="padding: 10px; border: 1px solid #cbd5e1;">${targetDate.toISOString().split('T')[0]}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px; border: 1px solid #cbd5e1; font-weight: bold;">Session</td>
+                  <td style="padding: 10px; border: 1px solid #cbd5e1; text-transform: capitalize;">${session || 'morning'}</td>
+                </tr>
+                <tr style="background-color: #f8fafc;">
+                  <td style="padding: 10px; border: 1px solid #cbd5e1; font-weight: bold;">Milk Type</td>
+                  <td style="padding: 10px; border: 1px solid #cbd5e1; text-transform: capitalize;">${milkType}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px; border: 1px solid #cbd5e1; font-weight: bold;">Quantity (Liters)</td>
+                  <td style="padding: 10px; border: 1px solid #cbd5e1;">${numWeight.toFixed(1)}</td>
+                </tr>
+                <tr style="background-color: #f8fafc;">
+                  <td style="padding: 10px; border: 1px solid #cbd5e1; font-weight: bold;">FAT</td>
+                  <td style="padding: 10px; border: 1px solid #cbd5e1;">${numFat.toFixed(1)}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px; border: 1px solid #cbd5e1; font-weight: bold;">SNF</td>
+                  <td style="padding: 10px; border: 1px solid #cbd5e1;">${numSnf.toFixed(1)}</td>
+                </tr>
+                <tr style="background-color: #f0f9ff;">
+                  <td style="padding: 10px; border: 1px solid #bae6fd; font-weight: bold; color: #0369a1;">Rate (₹)</td>
+                  <td style="padding: 10px; border: 1px solid #bae6fd; font-weight: bold; color: #0369a1;">₹${rate.toFixed(2)}</td>
+                </tr>
+                <tr style="background-color: #e0f2fe;">
+                  <td style="padding: 10px; border: 1px solid #7dd3fc; font-weight: bold; font-size: 1.1em; color: #0284c7;">Total Amount</td>
+                  <td style="padding: 10px; border: 1px solid #7dd3fc; font-weight: bold; font-size: 1.1em; color: #0284c7;">₹${amount.toFixed(2)}</td>
+                </tr>
+              </table>
+              
+              <p style="color: #64748b; font-size: 12px; text-align: center; margin-top: 30px;">
+                Thank you for your business!<br>
+                This is an automated message from the GK Dairy Management System.
+              </p>
+            </div>
+          `;
+
+          sendEmail({
+            to: farmerUser.email,
+            subject: emailSubject,
+            html: emailHtml,
+          }).catch(err => console.error('Failed to send milk collection email to farmer:', err));
+        }
+      } catch (emailErr) {
+        console.error('Error during email notification logic:', emailErr);
+      }
     }
 
     return res.status(201).json({
