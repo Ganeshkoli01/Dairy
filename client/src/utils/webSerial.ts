@@ -4,6 +4,8 @@
  * or simulated hardware stream for testing UI without physical USB hardware.
  */
 
+import { MilkType } from '../types/farmer';
+
 export interface HardwareReadings {
   weight?: number;
   fat?: number;
@@ -24,7 +26,7 @@ export class SerialHardwareManager {
   private onDataCallback: ((readings: HardwareReadings) => void) | null = null;
   private onStatusCallback: ((status: HardwareStatus, message?: string) => void) | null = null;
 
-  public currentMilkType: 'cow' | 'buffalo' = 'cow';
+  public currentMilkType: MilkType = 'cow';
 
   public status: HardwareStatus = 'disconnected';
 
