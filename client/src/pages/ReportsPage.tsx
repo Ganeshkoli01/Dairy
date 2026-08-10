@@ -50,17 +50,32 @@ export const ReportsPage: React.FC = () => {
     const fetchBranches = async () => {
       try {
         const list = await branchApi.getBranches();
-        setBranches(list);
-        if (list.length > 0) setSelectedBranch(list[0]._id);
+        if (user?.role === 'farmer') {
+          const farmerBranchId = user?.farmerProfile?.branch;
+          if (farmerBranchId) {
+            const farmerBranch = list.find(b => b._id === farmerBranchId);
+            if (farmerBranch) {
+              setBranches([farmerBranch]);
+              setSelectedBranch(farmerBranch._id);
+            } else {
+              setBranches([]);
+            }
+          }
+        } else {
+          setBranches(list);
+          if (list.length > 0) setSelectedBranch(list[0]._id);
+        }
       } catch (err) {
         console.error('Failed to load branches', err);
       }
     };
     fetchBranches();
 
-    // Set farmerCode if logged in as farmer
-    if (user?.role === 'farmer' && user?.farmerProfile?.farmerCode) {
-       setFarmerCode(user.farmerProfile.farmerCode);
+    if (user?.role === 'farmer') {
+      setActiveTab('farmer-ledger');
+      if (user?.farmerProfile?.farmerCode) {
+        setFarmerCode(user.farmerProfile.farmerCode);
+      }
     }
   }, [user]);
 
