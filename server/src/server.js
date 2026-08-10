@@ -17,10 +17,28 @@ const app = express();
 // Database Connection will be initialized before server start
 
 // Middleware
-const clientOrigin = process.env.CLIENT_ORIGIN || 'http://localhost:5173';
+const clientOriginString = process.env.CLIENT_ORIGIN || 'http://localhost:5173';
+const allowedOrigins = [
+  ...clientOriginString.split(',').map(origin => origin.trim()),
+  'http://localhost:5173',
+  'http://127.0.0.1:5173',
+  'https://gkdairy.online',
+  'https://www.gkdairy.online',
+  'https://dairy-lime.vercel.app'
+];
+
 app.use(
   cors({
-    origin: [clientOrigin, 'http://localhost:5173', 'http://127.0.0.1:5173'],
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+      
+      if (allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
   })
 );
