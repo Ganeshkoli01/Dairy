@@ -199,6 +199,15 @@ export const BranchesPage: React.FC = () => {
 
     if (!selectedBranchForOwner) return;
 
+    if (!editingOwner) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(ownerFormData.email)) {
+        setOwnerFormError('Please enter a valid email address');
+        setSubmittingOwner(false);
+        return;
+      }
+    }
+
     try {
       if (editingOwner) {
         await authApi.updateOwner(editingOwner._id, {

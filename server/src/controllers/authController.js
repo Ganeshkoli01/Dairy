@@ -325,6 +325,11 @@ export const adminCreateOwner = async (req, res) => {
 
     const cleanEmail = String(email).trim().toLowerCase();
     
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(cleanEmail)) {
+      return res.status(400).json({ success: false, message: 'Please enter a valid email address' });
+    }
+    
     // Check if user already exists
     const userExists = await User.findOne({ email: cleanEmail });
     if (userExists) {

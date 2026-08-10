@@ -124,6 +124,15 @@ export const FarmersPage: React.FC = () => {
     setFormError(null);
     setSubmitting(true);
 
+    if (!editingFarmer && formData.email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(formData.email)) {
+        setFormError('Please enter a valid email address');
+        setSubmitting(false);
+        return;
+      }
+    }
+
     try {
       if (editingFarmer) {
         await farmerApi.updateFarmer(editingFarmer._id, formData);

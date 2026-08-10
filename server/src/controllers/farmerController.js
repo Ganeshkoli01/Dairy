@@ -167,6 +167,11 @@ export const createFarmer = async (req, res) => {
 
       if (email && password) {
         const cleanEmail = String(email).trim().toLowerCase();
+        
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(cleanEmail)) {
+          return res.status(400).json({ success: false, message: 'Please enter a valid email address' });
+        }
         const userExists = await User.findOne({ email: cleanEmail }).catch(() => null);
         if (userExists) {
           return res.status(400).json({ success: false, message: 'Email already registered for a user account' });
