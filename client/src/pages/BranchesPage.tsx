@@ -44,6 +44,10 @@ export const BranchesPage: React.FC = () => {
   const [otpSent, setOtpSent] = useState<boolean>(false);
   const [sendingOtp, setSendingOtp] = useState<boolean>(false);
 
+  // Delete Confirmation States
+  const [deletingBranch, setDeletingBranch] = useState<{ id: string; name: string } | null>(null);
+  const [deletingOwnerId, setDeletingOwnerId] = useState<{ id: string; name: string } | null>(null);
+
   const fetchBranches = async () => {
     setLoading(true);
     setError(null);
@@ -118,11 +122,16 @@ export const BranchesPage: React.FC = () => {
     }
   };
 
-  const handleDelete = async (id: string, name: string) => {
-    if (!window.confirm(`Are you sure you want to delete branch "${name}"?`)) return;
+  const handleDelete = (id: string, name: string) => {
+    setDeletingBranch({ id, name });
+  };
+
+  const confirmDeleteBranch = async () => {
+    if (!deletingBranch) return;
     try {
-      await branchApi.deleteBranch(id);
+      await branchApi.deleteBranch(deletingBranch.id);
       fetchBranches();
+      setDeletingBranch(null);
     } catch (err: any) {
       alert(err.response?.data?.message || 'Failed to delete branch');
     }
@@ -179,14 +188,19 @@ export const BranchesPage: React.FC = () => {
     setIsOwnerModalOpen(true);
   };
 
-  const handleDeleteOwner = async (id: string, name: string) => {
-    if (!window.confirm(`Are you sure you want to delete owner "${name}"?`)) return;
+  const handleDeleteOwner = (id: string, name: string) => {
+    setDeletingOwnerId({ id, name });
+  };
+
+  const confirmDeleteOwner = async () => {
+    if (!deletingOwnerId) return;
     try {
-      await authApi.deleteOwner(id);
+      await authApi.deleteOwner(deletingOwnerId.id);
       if (expandedBranchId) {
         const res = await authApi.getOwnersByBranch(expandedBranchId);
         setBranchOwners(res.data || []);
       }
+      setDeletingOwnerId(null);
     } catch (err: any) {
       alert(err.response?.data?.message || 'Failed to delete owner');
     }
@@ -630,6 +644,64 @@ export const BranchesPage: React.FC = () => {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Branch Confirmation Modal */}
+      {deletingBranch && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-sm w-full p-6 shadow-2xl relative animate-in fade-in zoom-in duration-150 text-center">
+            <div className="w-12 h-12 rounded-full bg-rose-500/10 text-rose-500 flex items-center justify-center mx-auto mb-4">
+              <Trash2 className="w-6 h-6" />
+            </div>
+            <h3 className="text-lg font-bold text-slate-100 mb-2">Delete Branch</h3>
+            <p className="text-sm text-slate-400 mb-6">
+              Are you sure you want to delete branch <span className="font-semibold text-slate-200">"{deletingBranch.name}"</span>? This action cannot be undone.
+            </p>
+            <div className="flex items-center justify-center space-x-3">
+              <button
+                onClick={() => setDeletingBranch(null)}
+                className="px-4 py-2 rounded-xl border border-slate-700 text-slate-300 text-sm font-medium hover:bg-slate-800 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmDeleteBranch}
+                className="px-4 py-2 rounded-xl bg-rose-500 hover:bg-rose-600 text-white text-sm font-medium transition-colors shadow-lg shadow-rose-500/20"
+              >
+                Delete Branch
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Owner Confirmation Modal */}
+      {deletingOwnerId && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-sm w-full p-6 shadow-2xl relative animate-in fade-in zoom-in duration-150 text-center">
+            <div className="w-12 h-12 rounded-full bg-rose-500/10 text-rose-500 flex items-center justify-center mx-auto mb-4">
+              <Trash2 className="w-6 h-6" />
+            </div>
+            <h3 className="text-lg font-bold text-slate-100 mb-2">Delete Dairy Owner</h3>
+            <p className="text-sm text-slate-400 mb-6">
+              Are you sure you want to delete owner <span className="font-semibold text-slate-200">"{deletingOwnerId.name}"</span>? This action cannot be undone.
+            </p>
+            <div className="flex items-center justify-center space-x-3">
+              <button
+                onClick={() => setDeletingOwnerId(null)}
+                className="px-4 py-2 rounded-xl border border-slate-700 text-slate-300 text-sm font-medium hover:bg-slate-800 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmDeleteOwner}
+                className="px-4 py-2 rounded-xl bg-rose-500 hover:bg-rose-600 text-white text-sm font-medium transition-colors shadow-lg shadow-rose-500/20"
+              >
+                Delete Owner
+              </button>
+            </div>
           </div>
         </div>
       )}

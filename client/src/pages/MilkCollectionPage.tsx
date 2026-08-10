@@ -98,6 +98,9 @@ export const MilkCollectionPage: React.FC = () => {
   const [formError, setFormError] = useState<string | null>(null);
   const [successToast, setSuccessToast] = useState<string | null>(null);
 
+  // Delete Confirmation State
+  const [deletingEntry, setDeletingEntry] = useState<{ id: string; name: string } | null>(null);
+
   // DOM Input Refs for Fast Keyboard Navigation
   const farmerCodeRef = useRef<HTMLInputElement>(null);
   const weightRef = useRef<HTMLInputElement>(null);
@@ -379,11 +382,16 @@ export const MilkCollectionPage: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleDeleteRow = async (id: string, name: string) => {
-    if (!window.confirm(`Delete collection entry for ${name}?`)) return;
+  const handleDeleteRow = (id: string, name: string) => {
+    setDeletingEntry({ id, name });
+  };
+
+  const confirmDelete = async () => {
+    if (!deletingEntry) return;
     try {
-      await milkCollectionApi.deleteMilkCollection(id);
+      await milkCollectionApi.deleteMilkCollection(deletingEntry.id);
       loadGridAndSummary();
+      setDeletingEntry(null);
     } catch (err: any) {
       alert(err.response?.data?.message || 'Failed to delete entry');
     }
@@ -1125,6 +1133,35 @@ export const MilkCollectionPage: React.FC = () => {
           </div>
         )}
       </div>
+
+      {/* Delete Confirmation Modal */}
+      {deletingEntry && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-sm w-full p-6 shadow-2xl relative animate-in fade-in zoom-in duration-150 text-center">
+            <div className="w-12 h-12 rounded-full bg-rose-500/10 text-rose-500 flex items-center justify-center mx-auto mb-4">
+              <Trash2 className="w-6 h-6" />
+            </div>
+            <h3 className="text-lg font-bold text-slate-100 mb-2">Delete Entry</h3>
+            <p className="text-sm text-slate-400 mb-6">
+              Are you sure you want to delete the collection entry for <span className="font-semibold text-slate-200">"{deletingEntry.name}"</span>? This action cannot be undone.
+            </p>
+            <div className="flex items-center justify-center space-x-3">
+              <button
+                onClick={() => setDeletingEntry(null)}
+                className="px-4 py-2 rounded-xl border border-slate-700 text-slate-300 text-sm font-medium hover:bg-slate-800 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmDelete}
+                className="px-4 py-2 rounded-xl bg-rose-500 hover:bg-rose-600 text-white text-sm font-medium transition-colors shadow-lg shadow-rose-500/20"
+              >
+                Delete Entry
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -61,6 +61,9 @@ export const RateChartPage: React.FC = () => {
   const [testResult, setTestResult] = useState<RateLookupResponse | null>(null);
   const [testing, setTesting] = useState<boolean>(false);
 
+  // Clear Matrix Confirmation State
+  const [clearingMatrix, setClearingMatrix] = useState<boolean>(false);
+
   // FAT ranges & SNF ranges covering price.xlsx bounds (FAT 5.0 to 10.0 for Buffalo, SNF 8.0 to 10.0)
   const fatRanges = useMemo(() => {
     const list: number[] = [];
@@ -202,13 +205,17 @@ export const RateChartPage: React.FC = () => {
     }
   };
 
-  const handleClearMatrix = async () => {
-    if (!window.confirm(`Clear all ${milkType.toUpperCase()} rate chart entries?`)) return;
+  const handleClearMatrix = () => {
+    setClearingMatrix(true);
+  };
+
+  const confirmClearMatrix = async () => {
     try {
       await rateChartApi.clearMatrix(milkType, selectedBranch || 'null');
       setMatrixMap({});
       setSuccessMsg(`Cleared ${milkType.toUpperCase()} rate chart matrix`);
       setTimeout(() => setSuccessMsg(null), 3000);
+      setClearingMatrix(false);
     } catch (err: any) {
       setError(err.response?.data?.message || 'Failed to clear rate chart');
     }
@@ -592,6 +599,35 @@ export const RateChartPage: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Clear Matrix Confirmation Modal */}
+      {clearingMatrix && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-sm w-full p-6 shadow-2xl relative animate-in fade-in zoom-in duration-150 text-center">
+            <div className="w-12 h-12 rounded-full bg-rose-500/10 text-rose-500 flex items-center justify-center mx-auto mb-4">
+              <Trash2 className="w-6 h-6" />
+            </div>
+            <h3 className="text-lg font-bold text-slate-100 mb-2">Clear Rate Chart</h3>
+            <p className="text-sm text-slate-400 mb-6">
+              Are you sure you want to clear all <span className="font-semibold text-slate-200">{milkType.toUpperCase()}</span> rate chart entries? This action cannot be undone.
+            </p>
+            <div className="flex items-center justify-center space-x-3">
+              <button
+                onClick={() => setClearingMatrix(false)}
+                className="px-4 py-2 rounded-xl border border-slate-700 text-slate-300 text-sm font-medium hover:bg-slate-800 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmClearMatrix}
+                className="px-4 py-2 rounded-xl bg-rose-500 hover:bg-rose-600 text-white text-sm font-medium transition-colors shadow-lg shadow-rose-500/20"
+              >
+                Clear Entries
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
