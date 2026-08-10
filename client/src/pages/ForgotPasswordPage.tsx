@@ -18,6 +18,18 @@ export const ForgotPasswordPage: React.FC = () => {
 
   const handleSendOtp = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!email) {
+      setError({ field: 'email', message: 'Email is required' });
+      return;
+    }
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError({ field: 'email', message: 'Please enter a valid email address' });
+      return;
+    }
+
     setLoading(true);
     setError(null);
     setSuccessMsg(null);

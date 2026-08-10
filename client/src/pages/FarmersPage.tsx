@@ -144,6 +144,13 @@ export const FarmersPage: React.FC = () => {
       setFormError('Please enter email first to send OTP');
       return;
     }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      setFormError('Please enter a valid email address');
+      return;
+    }
+
     setSendingOtp(true);
     setFormError(null);
     setFormSuccess(null);

@@ -142,6 +142,13 @@ export const BranchesPage: React.FC = () => {
       setOwnerFormError('Please enter email first');
       return;
     }
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(ownerFormData.email)) {
+      setOwnerFormError('Please enter a valid email address');
+      return;
+    }
+
     setSendingOtp(true);
     setOwnerFormError(null);
     setOwnerFormSuccess(null);
