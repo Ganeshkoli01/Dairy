@@ -13,10 +13,44 @@ export const sendEmail = async ({ to, subject, html, text }) => {
   const emailUser = process.env.EMAIL_USER || process.env.SMTP_EMAIL;
   const emailPass = process.env.EMAIL_PASS || process.env.SMTP_PASSWORD;
 
+  // Check if we have a Brevo API key instead of an SMTP password
+  if (emailPass && emailPass.startsWith('xkeysib-')) {
+    try {
+      const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+        method: 'POST',
+        headers: {
+          'api-key': emailPass,
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          sender: { name: process.env.FROM_NAME || 'GK Dairy Management', email: process.env.FROM_EMAIL || emailUser || 'no-reply@gkdairy.com' },
+          to: [{ email: to }],
+          subject: subject,
+          htmlContent: html,
+          textContent: text || html.replace(/<[^>]+>/g, '')
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('Brevo API Error:', errorData);
+        throw new Error('Failed to send email via Brevo API');
+      }
+
+      const data = await response.json();
+      console.log('Email sent via Brevo API:', data.messageId);
+      return { info: { messageId: data.messageId }, previewUrl: null };
+    } catch (error) {
+      console.error('SendEmail Brevo Fetch Error:', error);
+      throw error;
+    }
+  }
+
   // Use configured credentials if they look valid, else use a generated test account
   if (emailUser && emailUser !== 'test@ethereal.email') {
     transporter = nodemailer.createTransport({
-      host: process.env.EMAIL_HOST || 'smtp.gmail.com', // fallback to gmail
+      host: process.env.EMAIL_HOST || 'smtp-relay.brevo.com', // fallback to brevo
       port: process.env.EMAIL_PORT || 587,
       secure: process.env.EMAIL_PORT === '465',
       auth: {
