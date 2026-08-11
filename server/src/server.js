@@ -9,6 +9,7 @@ import farmerRoutes from './routes/farmerRoutes.js';
 import rateChartRoutes from './routes/rateChartRoutes.js';
 import milkCollectionRoutes from './routes/milkCollectionRoutes.js';
 import reportRoutes from './routes/reportRoutes.js';
+import billingRoutes from './routes/billingRoutes.js';
 
 dotenv.config();
 
@@ -54,6 +55,7 @@ app.use('/api/farmers', farmerRoutes);
 app.use('/api/rate-chart', rateChartRoutes);
 app.use('/api/milk-collection', milkCollectionRoutes);
 app.use('/api/reports', reportRoutes);
+app.use('/api/billing', billingRoutes);
 
 // Base route handler
 app.get('/', (req, res) => {
@@ -67,6 +69,7 @@ app.get('/', (req, res) => {
       rateChart: '/api/rate-chart',
       milkCollection: '/api/milk-collection',
       reports: '/api/reports',
+      billing: '/api/billing',
     },
   });
 });

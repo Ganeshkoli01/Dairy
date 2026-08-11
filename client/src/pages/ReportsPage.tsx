@@ -17,9 +17,11 @@ import {
   Search,
   Loader2,
   AlertCircle,
+  Mail,
 } from 'lucide-react';
+import { StatementGenerator } from '../components/StatementGenerator';
 
-type ReportTab = 'farmer-ledger' | 'branch-summary' | 'payment-due';
+type ReportTab = 'farmer-ledger' | 'branch-summary' | 'payment-due' | 'statements';
 
 export const ReportsPage: React.FC = () => {
   const { user } = useAuth();
@@ -146,7 +148,8 @@ export const ReportsPage: React.FC = () => {
       if (activeTab === 'branch-summary' || activeTab === 'payment-due') {
         if (selectedBranch) params.branch = selectedBranch;
       }
-      await reportApi.exportCSV(activeTab, params);
+      if (activeTab === 'statements') return; // Cannot export statements to CSV
+      await reportApi.exportCSV(activeTab as any, params);
     } catch (err: any) {
       console.error('Export CSV Error:', err);
       setError('Failed to export CSV. Check console for details.');
@@ -167,13 +170,15 @@ export const ReportsPage: React.FC = () => {
           </div>
         </div>
 
-        <button
-          onClick={handleExportCSV}
-          className="flex items-center justify-center space-x-2 bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2.5 rounded-xl font-medium text-xs border border-slate-700 transition-colors shadow"
-        >
-          <Download className="w-4 h-4 text-emerald-400" />
-          <span>Export CSV</span>
-        </button>
+        {activeTab !== 'statements' && (
+          <button
+            onClick={handleExportCSV}
+            className="flex items-center justify-center space-x-2 bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2.5 rounded-xl font-medium text-xs border border-slate-700 transition-colors shadow"
+          >
+            <Download className="w-4 h-4 text-emerald-400" />
+            <span>Export CSV</span>
+          </button>
+        )}
       </div>
 
       {/* TABS */}
@@ -214,6 +219,18 @@ export const ReportsPage: React.FC = () => {
             <DollarSign className="w-4 h-4" />
             <span>3. Payment Due Register (बिल रजिस्टर)</span>
           </button>
+
+          <button
+            onClick={() => setActiveTab('statements')}
+            className={`flex-1 py-2.5 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-2 ${
+              activeTab === 'statements'
+                ? 'bg-slate-800 text-purple-400 border border-slate-700 shadow'
+                : 'text-slate-400 hover:text-slate-200'
+            }`}
+          >
+            <Mail className="w-4 h-4" />
+            <span>4. 10-Day Statements</span>
+          </button>
         </div>
       ) : (
         <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 text-center">
@@ -221,8 +238,16 @@ export const ReportsPage: React.FC = () => {
         </div>
       )}
 
-      {/* FILTER CONTROL BAR */}
-      <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 md:grid-cols-4 gap-3 bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-md">
+      {activeTab === 'statements' ? (
+        <StatementGenerator 
+          branches={branches}
+          selectedBranch={selectedBranch}
+          setSelectedBranch={setSelectedBranch}
+        />
+      ) : (
+        <>
+          {/* FILTER CONTROL BAR */}
+          <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 md:grid-cols-4 gap-3 bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-md">
         {/* From Date */}
         <div>
           <label className="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">
@@ -334,16 +359,18 @@ export const ReportsPage: React.FC = () => {
           </div>
         )}
 
-        <div className="flex items-end">
-          <button
-            type="submit"
-            className="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold py-2.5 px-4 rounded-xl border border-slate-700 transition-colors flex items-center justify-center space-x-2"
-          >
-            <Search className="w-4 h-4" />
-            <span>Generate Report</span>
-          </button>
-        </div>
-      </form>
+          <div className="flex items-end">
+            <button
+              type="submit"
+              className="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold py-2.5 px-4 rounded-xl border border-slate-700 transition-colors flex items-center justify-center space-x-2"
+            >
+              <Search className="w-4 h-4" />
+              <span>Generate Report</span>
+            </button>
+          </div>
+        </form>
+        </>
+      )}
 
       {error && (
         <div className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-sm flex items-center space-x-3">

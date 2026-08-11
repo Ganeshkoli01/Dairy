@@ -460,7 +460,7 @@ export const BranchesPage: React.FC = () => {
       {/* Add / Edit Branch Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl relative animate-in fade-in zoom-in duration-150">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl relative animate-in fade-in zoom-in duration-150 max-h-[90vh] overflow-y-auto custom-scrollbar">
             <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-800">
               <div className="flex items-center space-x-2.5">
                 <Building2 className="w-5 h-5 text-cyan-400" />
@@ -563,7 +563,7 @@ export const BranchesPage: React.FC = () => {
       {/* Add Owner Modal */}
       {isOwnerModalOpen && selectedBranchForOwner && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl relative animate-in fade-in zoom-in duration-150">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl relative animate-in fade-in zoom-in duration-150 max-h-[90vh] overflow-y-auto custom-scrollbar">
             <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-800">
               <div className="flex items-center space-x-2.5">
                 <UserPlus className="w-5 h-5 text-emerald-400" />
@@ -600,7 +600,7 @@ export const BranchesPage: React.FC = () => {
                 </div>
                 {!editingOwner && (
                   <>
-                    <div>
+                    <div className="col-span-2">
                       <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Email Address *</label>
                       <div className="flex space-x-2">
                         <div className="relative flex-1">

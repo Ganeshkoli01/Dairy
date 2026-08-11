@@ -12,7 +12,7 @@ export const FarmersPage: React.FC = () => {
   const [branches, setBranches] = useState<Branch[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  
+
   const { user } = useAuth();
 
   // Filters
@@ -48,7 +48,7 @@ export const FarmersPage: React.FC = () => {
     setError(null);
     try {
       const branchesData = await branchApi.getBranches();
-      
+
       let currentSelectedBranch = selectedBranch;
       if (user?.role === 'dairyOwner' && branchesData.length > 0 && !selectedBranch) {
         currentSelectedBranch = branchesData[0]._id;
@@ -322,13 +322,12 @@ export const FarmersPage: React.FC = () => {
                         )}
                       </td>
                       <td className="py-4 px-6">
-                        <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold uppercase ${
-                          farmer.defaultMilkType === 'cow'
+                        <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold uppercase ${farmer.defaultMilkType === 'cow'
                             ? 'bg-amber-500/10 text-amber-300 border border-amber-500/30'
                             : farmer.defaultMilkType === 'buffalo'
-                            ? 'bg-purple-500/10 text-purple-300 border border-purple-500/30'
-                            : 'bg-blue-500/10 text-blue-300 border border-blue-500/30'
-                        }`}>
+                              ? 'bg-purple-500/10 text-purple-300 border border-purple-500/30'
+                              : 'bg-blue-500/10 text-blue-300 border border-blue-500/30'
+                          }`}>
                           {farmer.defaultMilkType}
                         </span>
                       </td>
@@ -343,11 +342,10 @@ export const FarmersPage: React.FC = () => {
                         )}
                       </td>
                       <td className="py-4 px-6">
-                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${
-                          farmer.isActive
+                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${farmer.isActive
                             ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30'
                             : 'bg-rose-500/10 text-rose-300 border-rose-500/30'
-                        }`}>
+                          }`}>
                           {farmer.isActive ? 'Active' : 'Inactive'}
                         </span>
                       </td>
@@ -381,7 +379,7 @@ export const FarmersPage: React.FC = () => {
       {/* Add / Edit Farmer Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl relative animate-in fade-in zoom-in duration-150">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl relative animate-in fade-in zoom-in duration-150 max-h-[90vh] overflow-y-auto custom-scrollbar">
             <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-800">
               <div className="flex items-center space-x-2.5">
                 <UserCheck className="w-5 h-5 text-emerald-400" />
@@ -494,7 +492,7 @@ export const FarmersPage: React.FC = () => {
               )}
 
               <div className="grid grid-cols-2 gap-3 mt-3">
-                <div>
+                <div className="col-span-2">
                   <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
                     Email Address (Optional)
                   </label>
