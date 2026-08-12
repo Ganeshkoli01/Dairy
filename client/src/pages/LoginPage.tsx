@@ -52,14 +52,14 @@ export const LoginPage: React.FC = () => {
       <div className="absolute top-1/4 left-1/3 w-96 h-96 bg-cyan-400/30 rounded-full blur-[100px] animate-pulse z-0" />
       <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-500/30 rounded-full blur-[100px] animate-pulse delay-700 z-0" />
 
-      {/* Ultra-Premium Light Frosted Glass Login Card */}
-      <div className="w-full max-w-md bg-white/10 backdrop-blur-2xl border border-white/40 rounded-[2.5rem] p-8 sm:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.15)] relative z-10">
+      {/* Ultra-Premium Dark Frosted Glass Login Card */}
+      <div className="w-full max-w-md bg-slate-950/70 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] p-8 sm:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.4)] relative z-10">
         
         <div className="flex flex-col items-center text-center mb-10">
           <div className="mb-6 flex justify-center">
             <div className="p-1 bg-gradient-to-tr from-cyan-400/50 to-blue-500/50 rounded-2xl shadow-lg">
               <img 
-                src="/gk_dairy_logo.jpg" 
+                src="/gk_logo.png" 
                 alt="GK Dairy Logo" 
                 className="h-20 w-auto object-contain rounded-xl bg-white p-2" 
               />

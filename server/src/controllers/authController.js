@@ -71,6 +71,13 @@ export const loginUser = async (req, res) => {
 export const registerUser = async (req, res) => {
   try {
     const { role, email, password, phone } = req.body;
+    
+    let userData = {
+      role,
+      email,
+      password,
+      phone
+    };
 
     if (role === 'admin') {
       const { name, adminSignupSecret } = req.body;

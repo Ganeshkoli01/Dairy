@@ -12,9 +12,9 @@ export const Navbar: React.FC = () => {
       <div className="flex items-center space-x-6">
         <div className="flex items-center space-x-3">
           <img 
-            src="/gk_dairy_logo.jpg" 
+            src="/gk_logo.png" 
             alt="GK Dairy Logo" 
-            className="h-12 w-auto object-contain rounded-xl shadow-lg" 
+            className="h-12 w-auto object-contain rounded-xl shadow-lg bg-white p-1" 
           />
           <div className="hidden sm:block">
             <h1 className="font-bold text-lg text-slate-100 leading-tight">Dairy Collection</h1>

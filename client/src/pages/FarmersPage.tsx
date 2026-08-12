@@ -6,6 +6,7 @@ import { Branch } from '../types/branch';
 import { authApi } from '../api/authApi';
 import { useAuth } from '../context/AuthContext';
 import { UserCheck, Plus, Edit2, Trash2, Search, Filter, Phone, Calendar, AlertCircle, X, Loader2, Mail, Key, Lock, Check } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export const FarmersPage: React.FC = () => {
   const [farmers, setFarmers] = useState<Farmer[]>([]);
@@ -39,6 +40,7 @@ export const FarmersPage: React.FC = () => {
   const [otpSent, setOtpSent] = useState<boolean>(false);
   const [sendingOtp, setSendingOtp] = useState<boolean>(false);
   const [formSuccess, setFormSuccess] = useState<string | null>(null);
+  const [agreedToTerms, setAgreedToTerms] = useState<boolean>(false);
 
   // Delete Confirmation State
   const [deletingFarmer, setDeletingFarmer] = useState<{ id: string; name: string } | null>(null);
@@ -99,6 +101,7 @@ export const FarmersPage: React.FC = () => {
     setFormError(null);
     setFormSuccess(null);
     setOtpSent(false);
+    setAgreedToTerms(false);
     setIsModalOpen(true);
   };
 
@@ -124,7 +127,19 @@ export const FarmersPage: React.FC = () => {
     setFormError(null);
     setSubmitting(true);
 
-    if (!editingFarmer && formData.email) {
+    if (!editingFarmer) {
+      if (!agreedToTerms) {
+        setFormError('You must agree to the Terms & Conditions and Privacy Policy');
+        setSubmitting(false);
+        return;
+      }
+      
+      if (!formData.email || !formData.password || !formData.otp || !formData.mobile) {
+        setFormError('Email, Password, OTP, and Mobile Number are required for new farmers');
+        setSubmitting(false);
+        return;
+      }
+      
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(formData.email)) {
         setFormError('Please enter a valid email address');
@@ -472,10 +487,11 @@ export const FarmersPage: React.FC = () => {
 
                 <div>
                   <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
-                    Mobile Number
+                    Mobile Number *
                   </label>
                   <input
                     type="text"
+                    required
                     value={formData.mobile}
                     onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
                     placeholder="9876543210"
@@ -494,13 +510,14 @@ export const FarmersPage: React.FC = () => {
               <div className="grid grid-cols-2 gap-3 mt-3">
                 <div className="col-span-2">
                   <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
-                    Email Address (Optional)
+                    Email Address *
                   </label>
                   <div className="flex space-x-2">
                     <div className="relative flex-1">
                       <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                       <input
                         type="email"
+                        required={!editingFarmer}
                         autoComplete="off"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -519,12 +536,13 @@ export const FarmersPage: React.FC = () => {
 
                 <div>
                   <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
-                    Login Password (Optional)
+                    Login Password *
                   </label>
                   <div className="relative">
                     <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                     <input
                       type="password"
+                      required={!editingFarmer}
                       autoComplete="new-password"
                       value={formData.password}
                       disabled={!!editingFarmer}
@@ -536,13 +554,29 @@ export const FarmersPage: React.FC = () => {
                 </div>
               </div>
 
-              {!editingFarmer && otpSent && (
+              {!editingFarmer && (
                 <div className="animate-in fade-in slide-in-from-top-2 mt-3">
                   <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">6-Digit OTP *</label>
                   <div className="relative">
                     <Key className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-emerald-500" />
-                    <input type="text" required maxLength={6} value={formData.otp} onChange={(e) => setFormData({ ...formData, otp: e.target.value })} placeholder="------" className="w-full bg-slate-950 border border-emerald-500/50 focus:border-emerald-500 rounded-xl py-2.5 pl-9 pr-3.5 text-sm tracking-widest text-slate-100 outline-none" />
+                    <input type="text" required maxLength={6} value={formData.otp} onChange={(e) => setFormData({ ...formData, otp: e.target.value })} disabled={!otpSent} placeholder="------" className="w-full bg-slate-950 border border-emerald-500/50 focus:border-emerald-500 rounded-xl py-2.5 pl-9 pr-3.5 text-sm tracking-widest text-slate-100 outline-none disabled:opacity-50" />
                   </div>
+                  {!otpSent && <p className="text-[11px] text-rose-400 mt-1">Please send OTP to your email first to enable this field.</p>}
+                </div>
+              )}
+
+              {!editingFarmer && (
+                <div className="mt-4 flex items-start space-x-3 bg-slate-950/50 p-3 rounded-xl border border-slate-800">
+                  <input
+                    type="checkbox"
+                    id="terms-farmer"
+                    checked={agreedToTerms}
+                    onChange={(e) => setAgreedToTerms(e.target.checked)}
+                    className="mt-1 w-4 h-4 rounded border-slate-700 text-emerald-500 focus:ring-emerald-500 focus:ring-offset-slate-900 bg-slate-900"
+                  />
+                  <label htmlFor="terms-farmer" className="text-xs text-slate-300 leading-relaxed">
+                    I agree to the <Link to="/terms" className="text-emerald-400 hover:underline">Terms & Conditions</Link> and <Link to="/privacy" className="text-emerald-400 hover:underline">Privacy Policy</Link>.
+                  </label>
                 </div>
               )}
 

@@ -1,5 +1,8 @@
 import express from 'express';
 import cors from 'cors';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
+import mongoSanitize from 'express-mongo-sanitize';
 import dotenv from 'dotenv';
 import { connectDB } from './config/db.js';
 import healthRoutes from './routes/healthRoutes.js';
@@ -18,6 +21,8 @@ const app = express();
 // Database Connection will be initialized before server start
 
 // Middleware
+app.use(helmet());
+
 const clientOriginString = process.env.CLIENT_ORIGIN || 'http://localhost:5173';
 const allowedOrigins = [
   ...clientOriginString.split(',').map(origin => origin.trim()),
@@ -44,8 +49,15 @@ app.use(
   })
 );
 
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 1000, // limit each IP to 1000 requests per windowMs
+});
+app.use(limiter);
+
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(mongoSanitize());
 
 // API Routes
 app.use('/api/health', healthRoutes);

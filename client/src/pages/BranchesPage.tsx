@@ -3,6 +3,7 @@ import { branchApi } from '../api/branchApi';
 import { Branch, BranchInput } from '../types/branch';
 import { authApi } from '../api/authApi';
 import { Plus, Edit2, Trash2, Building2, MapPin, Search, AlertCircle, X, Check, Loader2, UserPlus, Mail, Phone, Lock, Key } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export const BranchesPage: React.FC = () => {
   const [branches, setBranches] = useState<Branch[]>([]);
@@ -43,6 +44,7 @@ export const BranchesPage: React.FC = () => {
   const [submittingOwner, setSubmittingOwner] = useState<boolean>(false);
   const [otpSent, setOtpSent] = useState<boolean>(false);
   const [sendingOtp, setSendingOtp] = useState<boolean>(false);
+  const [agreedToTermsOwner, setAgreedToTermsOwner] = useState<boolean>(false);
 
   // Delete Confirmation States
   const [deletingBranch, setDeletingBranch] = useState<{ id: string; name: string } | null>(null);
@@ -143,6 +145,7 @@ export const BranchesPage: React.FC = () => {
     setOwnerFormError(null);
     setOwnerFormSuccess(null);
     setOtpSent(false);
+    setAgreedToTermsOwner(false);
     setIsOwnerModalOpen(true);
   };
 
@@ -214,6 +217,12 @@ export const BranchesPage: React.FC = () => {
     if (!selectedBranchForOwner) return;
 
     if (!editingOwner) {
+      if (!agreedToTermsOwner) {
+        setOwnerFormError('You must agree to the Terms & Conditions and Privacy Policy');
+        setSubmittingOwner(false);
+        return;
+      }
+      
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(ownerFormData.email)) {
         setOwnerFormError('Please enter a valid email address');
@@ -629,6 +638,19 @@ export const BranchesPage: React.FC = () => {
                         <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                         <input type="password" autoComplete="new-password" required minLength={6} value={ownerFormData.password} onChange={(e) => setOwnerFormData({ ...ownerFormData, password: e.target.value })} placeholder="••••••••" className="w-full bg-slate-950 border border-slate-800 focus:border-emerald-500 rounded-xl py-2.5 pl-9 pr-3.5 text-sm text-slate-100 outline-none" />
                       </div>
+                    </div>
+                    
+                    <div className="col-span-2 mt-4 flex items-start space-x-3 bg-slate-950/50 p-3 rounded-xl border border-slate-800">
+                      <input
+                        type="checkbox"
+                        id="terms-owner"
+                        checked={agreedToTermsOwner}
+                        onChange={(e) => setAgreedToTermsOwner(e.target.checked)}
+                        className="mt-1 w-4 h-4 rounded border-slate-700 text-emerald-500 focus:ring-emerald-500 focus:ring-offset-slate-900 bg-slate-900"
+                      />
+                      <label htmlFor="terms-owner" className="text-xs text-slate-300 leading-relaxed">
+                        I agree to the <Link to="/terms" className="text-emerald-400 hover:underline">Terms & Conditions</Link> and <Link to="/privacy" className="text-emerald-400 hover:underline">Privacy Policy</Link>.
+                      </label>
                     </div>
                   </>
                 )}

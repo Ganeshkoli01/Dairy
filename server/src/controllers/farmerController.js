@@ -143,8 +143,8 @@ export const createFarmer = async (req, res) => {
       }
     }
 
-    if (!farmerCode || !name || !branch) {
-      return res.status(400).json({ success: false, message: 'Farmer code, name, and branch are required' });
+    if (!farmerCode || !name || !branch || !email || !password || !otp || !mobile || !defaultMilkType) {
+      return res.status(400).json({ success: false, message: 'Farmer code, name, branch, email, password, OTP, mobile, and milk type are required' });
     }
 
     const formattedCode = String(farmerCode).trim();
