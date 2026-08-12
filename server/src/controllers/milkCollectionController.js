@@ -191,9 +191,8 @@ export const createMilkCollection = async (req, res) => {
         const farmerUser = await User.findOne({
           role: 'farmer',
           'farmerProfile.farmerCode': fCode,
-          'farmerProfile.branch': branch,
-          'farmerProfile.milkType': milkType
-        }).catch(() => null);
+          'farmerProfile.branch': branch
+        }).sort({ createdAt: -1 }).catch(() => null);
 
         if (farmerUser && farmerUser.email) {
           const emailSubject = `Milk Collection Receipt - ${targetDate.toISOString().split('T')[0]} (${session || 'morning'})`;
