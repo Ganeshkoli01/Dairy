@@ -41,39 +41,50 @@ export const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-center items-center p-4 relative overflow-hidden">
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/3 w-80 h-80 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
+    <div 
+      className="min-h-screen text-slate-100 flex flex-col justify-center items-center p-4 relative overflow-hidden bg-cover bg-top bg-no-repeat"
+      style={{ backgroundImage: "url('/login-bg.png')" }}
+    >
+      {/* Subtle tint to ensure text contrast while keeping the illustration totally vibrant */}
+      <div className="absolute inset-0 bg-blue-950/10 z-0"></div>
 
-      <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl relative z-10">
-        <div className="flex flex-col items-center text-center mb-6">
-          <div className="mb-4 flex justify-center">
-            <img 
-              src="/gk_dairy_logo.jpg" 
-              alt="GK Dairy Logo" 
-              className="h-20 w-auto object-contain rounded-2xl drop-shadow-xl bg-white p-2" 
-            />
+      {/* Animated glowing orbs in the background */}
+      <div className="absolute top-1/4 left-1/3 w-96 h-96 bg-cyan-400/30 rounded-full blur-[100px] animate-pulse z-0" />
+      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-500/30 rounded-full blur-[100px] animate-pulse delay-700 z-0" />
+
+      {/* Ultra-Premium Light Frosted Glass Login Card */}
+      <div className="w-full max-w-md bg-white/10 backdrop-blur-2xl border border-white/40 rounded-[2.5rem] p-8 sm:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.15)] relative z-10">
+        
+        <div className="flex flex-col items-center text-center mb-10">
+          <div className="mb-6 flex justify-center">
+            <div className="p-1 bg-gradient-to-tr from-cyan-400/50 to-blue-500/50 rounded-2xl shadow-lg">
+              <img 
+                src="/gk_dairy_logo.jpg" 
+                alt="GK Dairy Logo" 
+                className="h-20 w-auto object-contain rounded-xl bg-white p-2" 
+              />
+            </div>
           </div>
-          <h1 className="text-2xl font-bold text-slate-100 tracking-tight">Dairy Login</h1>
-          <p className="text-xs text-slate-400 mt-1">Enter your credentials to access your dashboard</p>
+          <h1 className="text-3xl font-extrabold text-white tracking-tight drop-shadow-lg">Dairy Portal</h1>
+          <p className="text-sm text-white/80 mt-2 font-medium drop-shadow-md">Welcome back! Let's manage your dairy.</p>
         </div>
 
         {error && (
-          <div className="mb-6 p-4 bg-rose-500/10 border border-rose-500/20 rounded-2xl text-rose-400 text-sm flex items-center gap-3">
-            <Lock className="w-5 h-5 shrink-0 text-rose-500" />
-            <p className="leading-relaxed">{error}</p>
+          <div className="mb-6 p-4 bg-red-500/20 backdrop-blur-md border border-red-500/30 rounded-2xl text-white text-sm flex items-center gap-3 shadow-inner">
+            <Lock className="w-5 h-5 shrink-0 text-red-300" />
+            <p className="leading-relaxed font-medium">{error}</p>
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-1">
-            <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider ml-1">Email Address</label>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="space-y-2">
+            <label className="text-xs font-bold text-white/90 uppercase tracking-wider ml-1 drop-shadow-sm">Email Address</label>
             <div className="relative group">
-              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500 group-focus-within:text-cyan-500 transition-colors" />
+              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/60 group-focus-within:text-white transition-colors" />
               <input
                 type="email"
                 required
-                className="w-full bg-slate-950 border border-slate-800 rounded-2xl py-3.5 pl-12 pr-4 text-slate-200 placeholder-slate-600 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all"
+                className="w-full bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl py-4 pl-12 pr-4 text-white placeholder-white/50 focus:outline-none focus:bg-white/10 focus:border-white/50 focus:ring-4 focus:ring-white/10 transition-all shadow-inner"
                 placeholder="name@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -81,17 +92,17 @@ export const LoginPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="space-y-1">
+          <div className="space-y-2">
             <div className="flex justify-between items-center ml-1">
-              <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Password</label>
-              <Link to="/forgot-password" className="text-xs text-cyan-500 hover:text-cyan-400 font-medium">Forgot Password?</Link>
+              <label className="text-xs font-bold text-white/90 uppercase tracking-wider drop-shadow-sm">Password</label>
+              <Link to="/forgot-password" className="text-xs text-white/80 hover:text-white font-bold drop-shadow-sm transition-colors">Forgot Password?</Link>
             </div>
             <div className="relative group">
-              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500 group-focus-within:text-cyan-500 transition-colors" />
+              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/60 group-focus-within:text-white transition-colors" />
               <input
                 type={showPassword ? 'text' : 'password'}
                 required
-                className="w-full bg-slate-950 border border-slate-800 rounded-2xl py-3.5 pl-12 pr-12 text-slate-200 placeholder-slate-600 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all"
+                className="w-full bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl py-4 pl-12 pr-12 text-white placeholder-white/50 focus:outline-none focus:bg-white/10 focus:border-white/50 focus:ring-4 focus:ring-white/10 transition-all shadow-inner"
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -99,7 +110,7 @@ export const LoginPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 transition-colors"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition-colors"
                 tabIndex={-1}
               >
                 {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
@@ -110,11 +121,10 @@ export const LoginPage: React.FC = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full mt-6 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-medium py-3.5 rounded-2xl shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all disabled:opacity-70 flex justify-center items-center gap-2"
+            className="w-full mt-10 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white font-bold py-4 rounded-2xl shadow-[0_4px_15px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_25px_rgba(255,255,255,0.2)] hover:-translate-y-1 active:translate-y-0 transition-all duration-300 disabled:opacity-50 flex justify-center items-center gap-2 text-lg border border-white/40"
           >
-            {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Sign In'}
+            {loading ? <Loader2 className="w-6 h-6 animate-spin" /> : 'Sign In'}
           </button>
-
         </form>
       </div>
     </div>
