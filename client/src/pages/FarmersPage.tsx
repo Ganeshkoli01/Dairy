@@ -80,6 +80,30 @@ export const FarmersPage: React.FC = () => {
     loadData();
   }, [selectedBranch, selectedMilkType]);
 
+  // Auto-generate farmer code when branch or milk type changes during "Add Farmer"
+  useEffect(() => {
+    if (isModalOpen && !editingFarmer && formData.branch && formData.defaultMilkType) {
+      const fetchAndSetCode = async () => {
+        try {
+          const res = await farmerApi.getFarmers({ branch: formData.branch });
+          const sameTypeFarmers = res.filter(f => f.defaultMilkType === formData.defaultMilkType);
+          let maxCode = 0;
+          sameTypeFarmers.forEach(f => {
+            const match = f.farmerCode.match(/\d+/);
+            if (match) {
+              const num = parseInt(match[0], 10);
+              if (num > maxCode) maxCode = num;
+            }
+          });
+          setFormData(prev => ({ ...prev, farmerCode: (maxCode + 1).toString() }));
+        } catch (err) {
+          console.error('Failed to auto-generate farmer code:', err);
+        }
+      };
+      fetchAndSetCode();
+    }
+  }, [formData.branch, formData.defaultMilkType, isModalOpen, editingFarmer]);
+
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     loadData();
@@ -88,7 +112,7 @@ export const FarmersPage: React.FC = () => {
   const handleOpenAddModal = () => {
     setEditingFarmer(null);
     setFormData({
-      farmerCode: '',
+      farmerCode: '', // will be updated by useEffect
       name: '',
       branch: selectedBranch || (branches.length > 0 ? branches[0]._id : ''),
       defaultMilkType: 'cow',
@@ -510,7 +534,7 @@ export const FarmersPage: React.FC = () => {
               <div className="grid grid-cols-2 gap-3 mt-3">
                 <div className="col-span-2">
                   <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
-                    Email Address *
+                    Email Address {editingFarmer ? '(Optional: Leave blank to keep current)' : '*'}
                   </label>
                   <div className="flex space-x-2">
                     <div className="relative flex-1">
@@ -521,9 +545,8 @@ export const FarmersPage: React.FC = () => {
                         autoComplete="off"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        disabled={!!editingFarmer}
-                        placeholder="farmer@dairy.com"
-                        className="w-full bg-slate-950 border border-slate-800 focus:border-emerald-500 rounded-xl py-2.5 pl-9 pr-3.5 text-sm text-slate-100 outline-none disabled:opacity-50"
+                        placeholder={editingFarmer ? "Enter new email to change" : "farmer@dairy.com"}
+                        className="w-full bg-slate-950 border border-slate-800 focus:border-emerald-500 rounded-xl py-2.5 pl-9 pr-3.5 text-sm text-slate-100 outline-none"
                       />
                     </div>
                     {!editingFarmer && formData.email && (
@@ -536,7 +559,7 @@ export const FarmersPage: React.FC = () => {
 
                 <div>
                   <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
-                    Login Password *
+                    Login Password {editingFarmer ? '(Optional: Leave blank to keep current)' : '*'}
                   </label>
                   <div className="relative">
                     <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
@@ -545,10 +568,9 @@ export const FarmersPage: React.FC = () => {
                       required={!editingFarmer}
                       autoComplete="new-password"
                       value={formData.password}
-                      disabled={!!editingFarmer}
                       onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                      placeholder="Secure password"
-                      className="w-full bg-slate-950 border border-slate-800 focus:border-emerald-500 rounded-xl py-2.5 pl-9 pr-3.5 text-sm text-slate-100 outline-none disabled:opacity-50"
+                      placeholder={editingFarmer ? "Enter new password to change" : "Secure password"}
+                      className="w-full bg-slate-950 border border-slate-800 focus:border-emerald-500 rounded-xl py-2.5 pl-9 pr-3.5 text-sm text-slate-100 outline-none"
                     />
                   </div>
                 </div>
@@ -593,22 +615,30 @@ export const FarmersPage: React.FC = () => {
                 </label>
               </div>
 
-              <div className="flex items-center justify-end space-x-3 pt-6 border-t border-slate-800 mt-6">
-                <button
-                  type="button"
-                  onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2.5 rounded-xl border border-slate-700 text-slate-300 text-sm hover:bg-slate-800 transition-colors"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  disabled={submitting}
-                  className="flex items-center space-x-2 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-medium text-sm px-5 py-2.5 rounded-xl shadow-lg shadow-emerald-500/20 transition-all disabled:opacity-50"
-                >
-                  {submitting && <Loader2 className="w-4 h-4 animate-spin" />}
-                  <span>{editingFarmer ? 'Update Farmer' : 'Create Farmer'}</span>
-                </button>
+              <div className="flex flex-col space-y-4 pt-6 border-t border-slate-800 mt-6">
+                {formError && (
+                  <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs flex items-center space-x-2">
+                    <AlertCircle className="w-4 h-4 text-rose-400 flex-shrink-0" />
+                    <span>{formError}</span>
+                  </div>
+                )}
+                <div className="flex items-center justify-end space-x-3">
+                  <button
+                    type="button"
+                    onClick={() => setIsModalOpen(false)}
+                    className="px-4 py-2.5 rounded-xl border border-slate-700 text-slate-300 text-sm hover:bg-slate-800 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={submitting}
+                    className="flex items-center space-x-2 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-medium text-sm px-5 py-2.5 rounded-xl shadow-lg shadow-emerald-500/20 transition-all disabled:opacity-50"
+                  >
+                    {submitting && <Loader2 className="w-4 h-4 animate-spin" />}
+                    <span>{editingFarmer ? 'Update Farmer' : 'Create Farmer'}</span>
+                  </button>
+                </div>
               </div>
             </form>
           </div>

@@ -87,7 +87,20 @@ export const BranchesPage: React.FC = () => {
 
   const handleOpenAddModal = () => {
     setEditingBranch(null);
-    setFormData({ name: '', code: '', location: '', isActive: true });
+    let nextCodeStr = 'BR001';
+    if (branches.length > 0) {
+      let maxNum = 0;
+      branches.forEach(b => {
+        const match = b.code.match(/\d+/);
+        if (match) {
+          const num = parseInt(match[0], 10);
+          if (num > maxNum) maxNum = num;
+        }
+      });
+      const nextNum = maxNum + 1;
+      nextCodeStr = `BR${nextNum.toString().padStart(3, '0')}`;
+    }
+    setFormData({ name: '', code: nextCodeStr, location: '', isActive: true });
     setFormError(null);
     setIsModalOpen(true);
   };
@@ -236,6 +249,8 @@ export const BranchesPage: React.FC = () => {
         await authApi.updateOwner(editingOwner._id, {
           ownerName: ownerFormData.ownerName,
           phone: ownerFormData.phone,
+          email: ownerFormData.email,
+          password: ownerFormData.password,
         });
         if (expandedBranchId) {
           const res = await authApi.getOwnersByBranch(expandedBranchId);
@@ -607,52 +622,56 @@ export const BranchesPage: React.FC = () => {
                   <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Phone</label>
                   <input type="tel" value={ownerFormData.phone} onChange={(e) => setOwnerFormData({ ...ownerFormData, phone: e.target.value })} placeholder="9876543210" className="w-full bg-slate-950 border border-slate-800 focus:border-emerald-500 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 outline-none" />
                 </div>
-                {!editingOwner && (
-                  <>
-                    <div className="col-span-2">
-                      <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Email Address *</label>
-                      <div className="flex space-x-2">
-                        <div className="relative flex-1">
-                          <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-                          <input type="email" autoComplete="off" required value={ownerFormData.email} onChange={(e) => setOwnerFormData({ ...ownerFormData, email: e.target.value })} placeholder="owner@dairy.com" className="w-full bg-slate-950 border border-slate-800 focus:border-emerald-500 rounded-xl py-2.5 pl-9 pr-3.5 text-sm text-slate-100 outline-none" />
-                        </div>
-                        <button type="button" onClick={handleSendOwnerOtp} disabled={sendingOtp || !ownerFormData.email} className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-medium rounded-xl border border-slate-700 transition-colors whitespace-nowrap flex items-center justify-center min-w-[100px]">
-                          {sendingOtp ? <Loader2 className="w-4 h-4 animate-spin" /> : (otpSent ? 'Resend' : 'Send OTP')}
-                        </button>
-                      </div>
+                <div className="col-span-2">
+                  <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                    Email Address {editingOwner ? '(Optional: Leave blank to keep current)' : '*'}
+                  </label>
+                  <div className="flex space-x-2">
+                    <div className="relative flex-1">
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                      <input type="email" autoComplete="off" required={!editingOwner} value={ownerFormData.email} onChange={(e) => setOwnerFormData({ ...ownerFormData, email: e.target.value })} placeholder={editingOwner ? "Enter new email to change" : "owner@dairy.com"} className="w-full bg-slate-950 border border-slate-800 focus:border-emerald-500 rounded-xl py-2.5 pl-9 pr-3.5 text-sm text-slate-100 outline-none" />
                     </div>
-
-                    {otpSent && (
-                      <div className="animate-in fade-in slide-in-from-top-2">
-                        <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">6-Digit OTP *</label>
-                        <div className="relative">
-                          <Key className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-emerald-500" />
-                          <input type="text" required maxLength={6} value={ownerFormData.otp} onChange={(e) => setOwnerFormData({ ...ownerFormData, otp: e.target.value })} placeholder="------" className="w-full bg-slate-950 border border-emerald-500/50 focus:border-emerald-500 rounded-xl py-2.5 pl-9 pr-3.5 text-sm tracking-widest text-slate-100 outline-none" />
-                        </div>
-                      </div>
+                    {!editingOwner && ownerFormData.email && (
+                      <button type="button" onClick={handleSendOwnerOtp} disabled={sendingOtp} className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-medium rounded-xl border border-slate-700 transition-colors whitespace-nowrap flex items-center justify-center min-w-[100px]">
+                        {sendingOtp ? <Loader2 className="w-4 h-4 animate-spin" /> : (otpSent ? 'Resend' : 'Send OTP')}
+                      </button>
                     )}
+                  </div>
+                </div>
 
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Temporary Password *</label>
-                      <div className="relative">
-                        <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-                        <input type="password" autoComplete="new-password" required minLength={6} value={ownerFormData.password} onChange={(e) => setOwnerFormData({ ...ownerFormData, password: e.target.value })} placeholder="••••••••" className="w-full bg-slate-950 border border-slate-800 focus:border-emerald-500 rounded-xl py-2.5 pl-9 pr-3.5 text-sm text-slate-100 outline-none" />
-                      </div>
+                {!editingOwner && otpSent && (
+                  <div className="animate-in fade-in slide-in-from-top-2">
+                    <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">6-Digit OTP *</label>
+                    <div className="relative">
+                      <Key className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-emerald-500" />
+                      <input type="text" required maxLength={6} value={ownerFormData.otp} onChange={(e) => setOwnerFormData({ ...ownerFormData, otp: e.target.value })} placeholder="------" className="w-full bg-slate-950 border border-emerald-500/50 focus:border-emerald-500 rounded-xl py-2.5 pl-9 pr-3.5 text-sm tracking-widest text-slate-100 outline-none" />
                     </div>
-                    
-                    <div className="col-span-2 mt-4 flex items-start space-x-3 bg-slate-950/50 p-3 rounded-xl border border-slate-800">
-                      <input
-                        type="checkbox"
-                        id="terms-owner"
-                        checked={agreedToTermsOwner}
-                        onChange={(e) => setAgreedToTermsOwner(e.target.checked)}
-                        className="mt-1 w-4 h-4 rounded border-slate-700 text-emerald-500 focus:ring-emerald-500 focus:ring-offset-slate-900 bg-slate-900"
-                      />
-                      <label htmlFor="terms-owner" className="text-xs text-slate-300 leading-relaxed">
-                        I agree to the <Link to="/terms" className="text-emerald-400 hover:underline">Terms & Conditions</Link> and <Link to="/privacy" className="text-emerald-400 hover:underline">Privacy Policy</Link>.
-                      </label>
-                    </div>
-                  </>
+                  </div>
+                )}
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                    Temporary Password {editingOwner ? '(Optional: Leave blank to keep current)' : '*'}
+                  </label>
+                  <div className="relative">
+                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                    <input type="password" autoComplete="new-password" required={!editingOwner} minLength={6} value={ownerFormData.password} onChange={(e) => setOwnerFormData({ ...ownerFormData, password: e.target.value })} placeholder={editingOwner ? "Enter new password to change" : "••••••••"} className="w-full bg-slate-950 border border-slate-800 focus:border-emerald-500 rounded-xl py-2.5 pl-9 pr-3.5 text-sm text-slate-100 outline-none" />
+                  </div>
+                </div>
+                
+                {!editingOwner && (
+                  <div className="col-span-2 mt-4 flex items-start space-x-3 bg-slate-950/50 p-3 rounded-xl border border-slate-800">
+                    <input
+                      type="checkbox"
+                      id="terms-owner"
+                      checked={agreedToTermsOwner}
+                      onChange={(e) => setAgreedToTermsOwner(e.target.checked)}
+                      className="mt-1 w-4 h-4 rounded border-slate-700 text-emerald-500 focus:ring-emerald-500 focus:ring-offset-slate-900 bg-slate-900"
+                    />
+                    <label htmlFor="terms-owner" className="text-xs text-slate-300 leading-relaxed">
+                      I agree to the <Link to="/terms" className="text-emerald-400 hover:underline">Terms & Conditions</Link> and <Link to="/privacy" className="text-emerald-400 hover:underline">Privacy Policy</Link>.
+                    </label>
+                  </div>
                 )}
               </div>
 

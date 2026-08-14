@@ -271,6 +271,27 @@ export const updateFarmer = async (req, res) => {
           }
         }
 
+        const oldCode = farmer.farmerCode;
+        const oldBranch = farmer.branch;
+
+        let { email, password } = req.body;
+        let userToUpdate = await User.findOne({ 
+          'farmerProfile.farmerCode': oldCode, 
+          'farmerProfile.branch': oldBranch 
+        }).catch(() => null);
+
+        if (userToUpdate && email) {
+          const cleanEmail = String(email).trim().toLowerCase();
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (emailRegex.test(cleanEmail)) {
+            const userExists = await User.findOne({ email: cleanEmail, _id: { $ne: userToUpdate._id } }).catch(() => null);
+            if (userExists) {
+              return res.status(400).json({ success: false, message: 'Email already registered for another user account' });
+            }
+            userToUpdate.email = cleanEmail;
+          }
+        }
+
         if (name) farmer.name = name.trim();
         if (farmerCode) farmer.farmerCode = targetCode;
         if (branch) farmer.branch = branch;
@@ -280,6 +301,21 @@ export const updateFarmer = async (req, res) => {
         if (joinedDate) farmer.joinedDate = joinedDate;
 
         await farmer.save();
+
+        if (userToUpdate) {
+          if (password) {
+            userToUpdate.password = String(password).trim();
+          }
+          if (mobile !== undefined) {
+            userToUpdate.phone = mobile.trim();
+          }
+          userToUpdate.farmerProfile.farmerCode = farmer.farmerCode;
+          userToUpdate.farmerProfile.farmerName = farmer.name;
+          userToUpdate.farmerProfile.milkType = farmer.defaultMilkType;
+          userToUpdate.farmerProfile.branch = farmer.branch;
+          await userToUpdate.save().catch((err) => console.error('Failed to update associated user:', err));
+        }
+
         return res.json({ success: true, message: 'Farmer updated successfully', data: farmer });
       }
     }

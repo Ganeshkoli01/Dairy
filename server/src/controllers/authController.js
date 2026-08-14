@@ -423,11 +423,27 @@ export const getAdminBranchOwners = async (req, res) => {
 // @access  Private (Admin)
 export const adminUpdateOwner = async (req, res) => {
   try {
-    const { ownerName, phone } = req.body;
+    const { ownerName, phone, email, password } = req.body;
     
     const owner = await User.findById(req.params.id);
     if (!owner || owner.role !== 'dairyOwner') {
       return res.status(404).json({ success: false, message: 'Owner not found' });
+    }
+
+    if (email) {
+      const cleanEmail = String(email).trim().toLowerCase();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (emailRegex.test(cleanEmail)) {
+        const userExists = await User.findOne({ email: cleanEmail, _id: { $ne: owner._id } }).catch(() => null);
+        if (userExists) {
+          return res.status(400).json({ success: false, message: 'Email already registered for another user account' });
+        }
+        owner.email = cleanEmail;
+      }
+    }
+
+    if (password) {
+      owner.password = String(password).trim();
     }
 
     if (ownerName) {
