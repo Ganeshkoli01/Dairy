@@ -101,18 +101,22 @@ export const sendStatements = async (req, res) => {
           
           const collectionsHtml = data.collections
             .sort((a, b) => new Date(a.date) - new Date(b.date))
-            .map(c => `
-              <tr style="border-bottom: 1px solid #ddd; text-align: center; font-size: 0.85em;">
-                <td style="padding: 8px;">${new Date(c.date).toISOString().split('T')[0]}</td>
-                <td style="padding: 8px;">${c.session === 'morning' ? 'Morning' : 'Evening'}</td>
-                <td style="padding: 8px; text-transform: uppercase;">${c.milkType}</td>
-                <td style="padding: 8px;">${c.weight} L</td>
-                <td style="padding: 8px;">${c.fat}%</td>
-                <td style="padding: 8px;">${c.snf}%</td>
-                <td style="padding: 8px;">₹${c.rate.toFixed(2)}</td>
-                <td style="padding: 8px; color: #27ae60; font-weight: bold;">₹${c.amount.toFixed(2)}</td>
+            .map(c => {
+              const d = new Date(c.date);
+              const dt = `${d.getDate().toString().padStart(2, '0')}/${(d.getMonth()+1).toString().padStart(2, '0')}`;
+              return `
+              <tr style="border-bottom: 1px solid #ddd; text-align: center; font-size: 0.75em; letter-spacing: -0.2px;">
+                <td style="padding: 4px 2px;">${dt}</td>
+                <td style="padding: 4px 2px;">${c.session === 'morning' ? 'M' : 'E'}</td>
+                <td style="padding: 4px 2px;">${c.milkType.charAt(0).toUpperCase()}</td>
+                <td style="padding: 4px 2px;">${c.weight}</td>
+                <td style="padding: 4px 2px;">${c.fat}</td>
+                <td style="padding: 4px 2px;">${c.snf}</td>
+                <td style="padding: 4px 2px;">${c.rate.toFixed(1)}</td>
+                <td style="padding: 4px 2px; color: #27ae60; font-weight: bold;">${Math.round(c.amount)}</td>
               </tr>
-            `).join('');
+              `;
+            }).join('');
 
           const html = `
             <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
@@ -120,18 +124,18 @@ export const sendStatements = async (req, res) => {
               <p>Dear <strong>${farmerName}</strong> (Code: ${farmerCode}),</p>
               <p>Here is your detailed milk collection summary for the period of <strong>${periodStr} ${monthName} ${y}</strong>:</p>
               
-              <div style="overflow-x: auto;">
-                <table style="width: 100%; border-collapse: collapse; margin: 20px 0; border: 1px solid #eee;">
+              <div style="width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch;">
+                <table style="width: 100%; border-collapse: collapse; margin: 15px 0; border: 1px solid #eee;">
                   <thead>
-                    <tr style="background-color: #f8f9fa; text-align: center; font-size: 0.85em; color: #7f8c8d;">
-                      <th style="padding: 10px; border-bottom: 2px solid #ddd;">DATE</th>
-                      <th style="padding: 10px; border-bottom: 2px solid #ddd;">SESSION</th>
-                      <th style="padding: 10px; border-bottom: 2px solid #ddd;">TYPE</th>
-                      <th style="padding: 10px; border-bottom: 2px solid #ddd;">LITERS</th>
-                      <th style="padding: 10px; border-bottom: 2px solid #ddd;">FAT %</th>
-                      <th style="padding: 10px; border-bottom: 2px solid #ddd;">SNF %</th>
-                      <th style="padding: 10px; border-bottom: 2px solid #ddd;">RATE (₹)</th>
-                      <th style="padding: 10px; border-bottom: 2px solid #ddd;">AMOUNT (₹)</th>
+                    <tr style="background-color: #f8f9fa; text-align: center; font-size: 0.75em; color: #7f8c8d; letter-spacing: -0.2px;">
+                      <th style="padding: 4px 2px; border-bottom: 2px solid #ddd;">DT</th>
+                      <th style="padding: 4px 2px; border-bottom: 2px solid #ddd;">SES</th>
+                      <th style="padding: 4px 2px; border-bottom: 2px solid #ddd;">TYP</th>
+                      <th style="padding: 4px 2px; border-bottom: 2px solid #ddd;">LTR</th>
+                      <th style="padding: 4px 2px; border-bottom: 2px solid #ddd;">FAT</th>
+                      <th style="padding: 4px 2px; border-bottom: 2px solid #ddd;">SNF</th>
+                      <th style="padding: 4px 2px; border-bottom: 2px solid #ddd;">RT(₹)</th>
+                      <th style="padding: 4px 2px; border-bottom: 2px solid #ddd;">AMT(₹)</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -157,16 +161,15 @@ export const sendStatements = async (req, res) => {
             </div>
           `;
           
-          try {
-            await sendEmail({
-              to: farmerUser.email,
-              subject,
-              html
-            });
-            emailsSent++;
-          } catch (err) {
+          // Send email asynchronously in the background so it doesn't block the response
+          sendEmail({
+            to: farmerUser.email,
+            subject,
+            html
+          }).catch(err => {
             console.error(`Failed to send email to ${farmerUser.email}:`, err);
-          }
+          });
+          emailsSent++;
         }
       }
     }
