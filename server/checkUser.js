@@ -1,34 +1,45 @@
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
 import { User } from './src/models/User.js';
-
+import dotenv from 'dotenv';
 dotenv.config();
 
-const checkUser = async () => {
+const run = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/dairy_app');
+    await mongoose.connect(process.env.MONGO_URI || 'mongodb+srv://ganeshkoli809572_db_user:Vol2UIDkmoqflbST@cluster0.upnfklc.mongodb.net/dairy_db?retryWrites=true&w=majority&appName=Cluster0');
     console.log('Connected to DB');
-    
-    const email = 'ganeshkoli0149@gmail.com';
-    const user = await User.findOne({ email: email.toLowerCase() });
-    
+
+    let user = await User.findOne({ email: 'ganeshkoli0149@gmail.com' });
     if (user) {
-      console.log('User found:', {
-        id: user._id,
-        email: user.email,
-        role: user.role
-      });
+      console.log('User already exists:', user);
+      
+      // Optionally reset the password if it doesn't match
       const isMatch = await user.matchPassword('ganeshkoli@0149');
-      console.log('Password match:', isMatch);
+      if (!isMatch) {
+        console.log('Password does not match, updating password...');
+        user.password = 'ganeshkoli@0149';
+        await user.save();
+        console.log('Password updated.');
+      } else {
+        console.log('Password matches.');
+      }
     } else {
-      console.log('User NOT found for email:', email);
+      console.log('User does not exist. Creating as admin...');
+      user = new User({
+        email: 'ganeshkoli0149@gmail.com',
+        password: 'ganeshkoli@0149',
+        role: 'admin',
+        adminProfile: {
+          name: 'Ganesh Koli'
+        }
+      });
+      await user.save();
+      console.log('User created:', user);
     }
-    
-  } catch (err) {
-    console.error('Error:', err);
+  } catch (error) {
+    console.error('Error:', error);
   } finally {
-    await mongoose.disconnect();
+    process.exit(0);
   }
 };
 
-checkUser();
+run();

@@ -98,6 +98,10 @@ export const Navbar: React.FC = () => {
               <Milk className="w-5 h-5 md:w-3.5 md:h-3.5 text-indigo-400" />
               <span>Shop</span>
             </NavLink>
+            <NavLink to={user.role === 'admin' ? '/admin/shop-reports' : '/owner/shop-reports'} className={navLinkClass} onClick={closeMobileMenu}>
+              <FileText className="w-5 h-5 md:w-3.5 md:h-3.5 text-indigo-400" />
+              <span>Reports</span>
+            </NavLink>
             {user.role === 'admin' && (
               <NavLink to="/admin/products" className={navLinkClass} onClick={closeMobileMenu}>
                 <Package className="w-5 h-5 md:w-3.5 md:h-3.5 text-indigo-400" />

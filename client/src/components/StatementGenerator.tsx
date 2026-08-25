@@ -85,11 +85,11 @@ export const StatementGenerator: React.FC<StatementGeneratorProps> = ({
               ) : (
                 <select
                   required
-                  value={selectedBranch}
+                  value={selectedBranch === 'all' ? '' : selectedBranch}
                   onChange={(e) => setSelectedBranch(e.target.value)}
                   className="bg-transparent border-none text-slate-200 text-sm focus:outline-none w-full cursor-pointer"
                 >
-                  <option value="" disabled className="bg-slate-900 text-slate-200">Select Branch</option>
+                  <option value="" disabled className="bg-slate-900 text-slate-200">Select Target Branch</option>
                   {branches.map((b) => (
                     <option key={b._id} value={b._id} className="bg-slate-900 text-slate-200">
                       {b.name} ({b.code})
@@ -172,7 +172,7 @@ export const StatementGenerator: React.FC<StatementGeneratorProps> = ({
         <div className="pt-4 border-t border-slate-800 flex items-center justify-end">
           <button
             type="submit"
-            disabled={sending || (!selectedBranch && user?.role !== 'dairyOwner')}
+            disabled={sending || ((!selectedBranch || selectedBranch === 'all') && user?.role !== 'dairyOwner')}
             className="flex items-center justify-center space-x-2 bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-400 hover:to-indigo-500 text-white font-medium text-sm px-6 py-3 rounded-xl shadow-lg shadow-purple-500/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {sending ? (

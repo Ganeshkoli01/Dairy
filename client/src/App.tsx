@@ -10,6 +10,7 @@ import { AdminDashboardPage } from './pages/AdminDashboardPage';
 import { OwnerDashboardPage } from './pages/OwnerDashboardPage';
 import { MilkCollectionPage } from './pages/MilkCollectionPage';
 import { ReportsPage } from './pages/ReportsPage';
+import { ShopReportsPage } from './pages/ShopReportsPage';
 import { BranchesPage } from './pages/BranchesPage';
 import { FarmersPage } from './pages/FarmersPage';
 import { RateChartPage } from './pages/RateChartPage';
@@ -30,6 +31,7 @@ import { AnalyticsPage } from './pages/AnalyticsPage';
 import { NotificationsPage } from './pages/NotificationsPage';
 import { CartProvider } from './context/CartContext';
 
+// Force HMR reload
 export const App: React.FC = () => {
   return (
     <BrowserRouter>
@@ -75,6 +77,8 @@ export const App: React.FC = () => {
               <Route path="/cart" element={<CartPage />} />
               <Route path="/checkout" element={<CheckoutPage />} />
               <Route path="/admin/inventory" element={<InventoryPage />} />
+              <Route path="/admin/shop-reports" element={<ShopReportsPage />} />
+              <Route path="/owner/shop-reports" element={<ShopReportsPage />} />
               <Route path="/admin/orders" element={<OrdersHistoryPage />} />
               <Route path="/owner/orders" element={<OrdersHistoryPage />} />
               <Route path="/notifications" element={<NotificationsPage />} />

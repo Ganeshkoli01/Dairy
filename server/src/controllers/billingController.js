@@ -14,8 +14,8 @@ export const sendStatements = async (req, res) => {
       }
     }
 
-    if (!branchId || !year || !month || !period) {
-      return res.status(400).json({ success: false, message: 'branchId, year, month, and period are required' });
+    if (!branchId || branchId === 'all' || !year || !month || !period) {
+      return res.status(400).json({ success: false, message: 'A specific Target Branch, year, month, and period are required to generate statements.' });
     }
 
     const y = parseInt(year);
@@ -102,11 +102,11 @@ export const sendStatements = async (req, res) => {
               <tr style="border-bottom: 1px solid #ddd; text-align: center; font-size: 0.75em; letter-spacing: -0.2px;">
                 <td style="padding: 4px 2px;">${dt}</td>
                 <td style="padding: 4px 2px;">${c.session === 'morning' ? 'M' : 'E'}</td>
-                <td style="padding: 4px 2px;">${c.milkType.charAt(0).toUpperCase()}</td>
-                <td style="padding: 4px 2px;">${c.weight}</td>
-                <td style="padding: 4px 2px;">${c.fat}</td>
-                <td style="padding: 4px 2px;">${c.snf}</td>
-                <td style="padding: 4px 2px;">${c.rate.toFixed(1)}</td>
+                <td style="padding: 4px 2px;">${c.milkType ? c.milkType.charAt(0).toUpperCase() : '-'}</td>
+                <td style="padding: 4px 2px;">${c.weight || 0}</td>
+                <td style="padding: 4px 2px;">${c.fat || 0}</td>
+                <td style="padding: 4px 2px;">${c.snf || 0}</td>
+                <td style="padding: 4px 2px;">${c.rate ? c.rate.toFixed(1) : '0.0'}</td>
                 <td style="padding: 4px 2px; color: #27ae60; font-weight: bold;">${Math.round(c.amount)}</td>
               </tr>
               `;
@@ -175,6 +175,6 @@ export const sendStatements = async (req, res) => {
 
   } catch (error) {
     console.error('Error generating statements:', error);
-    return res.status(500).json({ success: false, message: 'Server error generating statements' });
+    return res.status(500).json({ success: false, message: `Server error: ${error.message || 'Failed to generate statements'}` });
   }
 };
