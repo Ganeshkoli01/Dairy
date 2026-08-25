@@ -133,55 +133,61 @@ export const CheckoutPage: React.FC = () => {
       
       if (response.success) {
         if (formData.paymentMethod === 'Online Payment') {
-          const res = await loadRazorpayScript();
-          if (!res) {
-            setError('Razorpay SDK failed to load. Are you online?');
-            setLoading(false);
-            return;
-          }
-
-          const options = {
-            key: 'rzp_test_TTgoVzik6Oo0lm', // Real test key from user
-            amount: Math.round(totalPrice * 100),
-            currency: 'INR',
-            name: 'Dairy Milk Collection',
-            description: 'Order Payment',
-            order_id: response.razorpayOrderId,
-            handler: async function (paymentResponse: any) {
-              try {
-                setLoading(true);
-                const verifyRes = await orderApi.verifyPayment({
-                  razorpay_order_id: paymentResponse.razorpay_order_id,
-                  razorpay_payment_id: paymentResponse.razorpay_payment_id,
-                  razorpay_signature: paymentResponse.razorpay_signature,
-                });
-                if (verifyRes.success) {
-                  setPlacedOrderId(response.data._id || null);
-                  clearCart();
-                  setShowOtpModal(false);
-                  setShowSuccessModal(true);
+          try {
+            const res = await loadRazorpayScript();
+            if (!res) {
+              setError('Razorpay SDK failed to load. Are you online?');
+              setLoading(false);
+              return;
+            }
+            const keyResponse = await orderApi.getRazorpayKey();
+            const rzpKey = keyResponse.key || 'rzp_test_placeholder_key';
+            const options = {
+              key: rzpKey,
+              amount: Math.round(totalPrice * 100),
+              currency: 'INR',
+              name: 'Dairy Milk Collection',
+              description: 'Order Payment',
+              order_id: response.razorpayOrderId,
+              handler: async function (paymentResponse: any) {
+                try {
+                  setLoading(true);
+                  const verifyRes = await orderApi.verifyPayment({
+                    razorpay_order_id: paymentResponse.razorpay_order_id,
+                    razorpay_payment_id: paymentResponse.razorpay_payment_id,
+                    razorpay_signature: paymentResponse.razorpay_signature,
+                  });
+                  if (verifyRes.success) {
+                    setPlacedOrderId(response.data._id || null);
+                    clearCart();
+                    setShowOtpModal(false);
+                    setShowSuccessModal(true);
+                  }
+                } catch (err: any) {
+                  setError('Payment verification failed');
+                } finally {
+                  setLoading(false);
                 }
-              } catch (err: any) {
-                setError('Payment verification failed');
-              } finally {
-                setLoading(false);
-              }
-            },
-            prefill: {
-              name: formData.name,
-              contact: formData.phone,
-            },
-            theme: {
-              color: '#4f46e5',
-            },
-          };
-          const paymentObject = new (window as any).Razorpay(options);
-          paymentObject.on('payment.failed', function (paymentResponse: any) {
-            setError(`Payment failed: ${paymentResponse.error.description}`);
+              },
+              prefill: {
+                name: formData.name,
+                contact: formData.phone,
+              },
+              theme: {
+                color: '#4f46e5',
+              },
+            };
+            const paymentObject = new (window as any).Razorpay(options);
+            paymentObject.on('payment.failed', function (paymentResponse: any) {
+              setError(`Payment failed: ${paymentResponse.error.description}`);
+              setLoading(false);
+            });
+            paymentObject.open();
             setLoading(false);
-          });
-          paymentObject.open();
-          setLoading(false); // Reset loading while modal is open
+          } catch (keyErr: any) {
+            setError('Failed to securely load payment gateway configuration.');
+            setLoading(false);
+          }
         } else {
           setPlacedOrderId(response.data._id || null);
           setLoading(false);

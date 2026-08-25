@@ -12,6 +12,11 @@ export const orderApi = {
     return response.data;
   },
 
+  getRazorpayKey: async () => {
+    const response = await api.get<{ key: string }>('/orders/razorpay-key');
+    return response.data;
+  },
+
   getOrders: async () => {
     const response = await api.get<{ success: boolean; data: Order[] }>('/orders');
     return response.data;

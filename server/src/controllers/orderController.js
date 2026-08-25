@@ -487,3 +487,8 @@ export const downloadInvoice = async (req, res) => {
     res.status(500).json({ success: false, message: 'Failed to generate invoice', error: error.message });
   }
 };
+
+// Expose razorpay key to frontend
+export const getRazorpayKey = (req, res) => {
+  res.status(200).json({ key: process.env.RAZORPAY_KEY_ID || 'rzp_test_placeholder_key' });
+};

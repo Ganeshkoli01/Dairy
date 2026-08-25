@@ -1,5 +1,5 @@
 import express from 'express';
-import { createOrder, getOrders, updateOrderStatus, verifyPayment, sendOrderOtp, downloadInvoice } from '../controllers/orderController.js';
+import { createOrder, getOrders, updateOrderStatus, verifyPayment, sendOrderOtp, downloadInvoice, getRazorpayKey } from '../controllers/orderController.js';
 import { protect, authorize } from '../middleware/authMiddleware.js';
 import rateLimit from 'express-rate-limit';
 
@@ -10,6 +10,8 @@ const otpLimiter = rateLimit({
   max: 5, // Limit each IP to 5 OTP requests per window
   message: { success: false, message: 'Too many OTP requests, please try again after 15 minutes' }
 });
+
+router.route('/razorpay-key').get(getRazorpayKey);
 
 // Protected route to create order
 router.route('/').post(protect, authorize('admin', 'dairyOwner'), createOrder);
