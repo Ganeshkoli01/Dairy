@@ -66,7 +66,7 @@ const getStartAndEndOfDay = (dateStr) => {
 // @access  Private (Admin & Operator)
 export const createMilkCollection = async (req, res) => {
   try {
-    const {
+    let {
       branch,
       date,
       session,
