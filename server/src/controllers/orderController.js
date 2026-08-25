@@ -47,7 +47,7 @@ export const sendOrderOtp = async (req, res) => {
 
     await sendEmail({
       to: email,
-      subject: 'Order Verification OTP - GK Dairy',
+      subject: `Order Verification OTP - GK Dairy [${new Date().toLocaleTimeString()}]`,
       html: emailHtml,
     });
 
@@ -224,7 +224,9 @@ export const createOrder = async (req, res) => {
         return res.status(400).json({ success: false, message: 'OTP has expired. Please request a new one.' });
       }
 
-      if (otpRecord.otp !== String(otp).trim()) {
+      console.log('Validating OTP. DB OTP:', otpRecord.otp, 'Provided OTP:', otp, 'Type of DB OTP:', typeof otpRecord.otp, 'Type of provided OTP:', typeof otp);
+
+      if (String(otpRecord.otp).trim() !== String(otp).trim()) {
         return res.status(400).json({ success: false, message: 'Invalid OTP' });
       }
 

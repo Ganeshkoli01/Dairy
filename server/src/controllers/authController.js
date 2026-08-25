@@ -195,7 +195,7 @@ export const sendOtp = async (req, res) => {
 
     const { info, previewUrl } = await sendEmail({
       to: cleanEmail,
-      subject: 'Your Registration OTP - GK Dairy',
+      subject: `Your Registration OTP - GK Dairy [${new Date().toLocaleTimeString()}]`,
       html: emailHtml,
     });
 
@@ -260,7 +260,7 @@ export const forgotPassword = async (req, res) => {
 
     const { info, previewUrl } = await sendEmail({
       to: cleanEmail,
-      subject: 'Password Reset OTP - GK Dairy',
+      subject: `Password Reset OTP - GK Dairy [${new Date().toLocaleTimeString()}]`,
       html: emailHtml,
     });
 

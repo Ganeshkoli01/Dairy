@@ -25,6 +25,7 @@ export const CheckoutPage: React.FC = () => {
   const [placedOrderId, setPlacedOrderId] = useState<string | null>(null);
   const [otp, setOtp] = useState('');
   const [sendingOtp, setSendingOtp] = useState(false);
+  const submittingRef = React.useRef(false);
   const [resendMessage, setResendMessage] = useState<string | null>(null);
   const isDairyOwner = user?.role === 'dairyOwner';
   const assignedBranch = user?.dairyOwnerProfile?.branchName;
@@ -51,6 +52,8 @@ export const CheckoutPage: React.FC = () => {
 
   const handleInitialSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (submittingRef.current) return;
+    
     if (isDairyOwner) {
       if (!assignedBranch) return; // Form will be disabled anyway
       if (!formData.branchId) {
@@ -58,6 +61,7 @@ export const CheckoutPage: React.FC = () => {
         return;
       }
       
+      submittingRef.current = true;
       setSendingOtp(true);
       setError(null);
       try {
@@ -66,14 +70,22 @@ export const CheckoutPage: React.FC = () => {
       } catch (err: any) {
         setError(err.response?.data?.message || 'Failed to send OTP. Please try again.');
       } finally {
+        submittingRef.current = false;
         setSendingOtp(false);
       }
     } else {
-      await processOrder();
+      submittingRef.current = true;
+      try {
+        await processOrder();
+      } finally {
+        submittingRef.current = false;
+      }
     }
   };
 
   const handleResendOtp = async () => {
+    if (submittingRef.current) return;
+    submittingRef.current = true;
     setSendingOtp(true);
     setError(null);
     setResendMessage(null);
@@ -85,6 +97,7 @@ export const CheckoutPage: React.FC = () => {
     } catch (err: any) {
       setError(err.response?.data?.message || 'Failed to resend OTP. Please try again.');
     } finally {
+      submittingRef.current = false;
       setSendingOtp(false);
     }
   };
