@@ -159,7 +159,7 @@ export const Navbar: React.FC = () => {
             </div>
             <div className="flex flex-col justify-center">
               <h1 className="font-extrabold text-[15px] md:text-base text-transparent bg-clip-text bg-gradient-to-r from-white to-indigo-300 leading-tight tracking-wide">
-                Dairy Collection
+                GK Dairy Collection
               </h1>
             </div>
           </div>
