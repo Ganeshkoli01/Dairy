@@ -142,7 +142,7 @@ export const CheckoutPage: React.FC = () => {
 
           const options = {
             key: 'rzp_test_TTgoVzik6Oo0lm', // Real test key from user
-            amount: totalPrice * 100,
+            amount: Math.round(totalPrice * 100),
             currency: 'INR',
             name: 'Dairy Milk Collection',
             description: 'Order Payment',

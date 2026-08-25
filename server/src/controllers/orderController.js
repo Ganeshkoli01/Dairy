@@ -302,7 +302,7 @@ export const createOrder = async (req, res) => {
           });
 
           const rzpOrder = await razorpayInstance.orders.create({
-            amount: calculatedTotal * 100, // amount in paise
+            amount: Math.round(calculatedTotal * 100), // amount in paise
             currency: 'INR',
             receipt: order._id.toString(),
           });
