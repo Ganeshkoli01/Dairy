@@ -327,10 +327,10 @@ export const FarmersPage: React.FC = () => {
             </p>
           </div>
         ) : (
-          <div className="overflow-x-auto">
+          <div className="w-full overflow-x-auto pb-4 custom-scrollbar">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-slate-950/60 text-slate-400 uppercase text-[11px] font-semibold tracking-wider border-b border-slate-800">
+                <tr className="bg-slate-950/60 text-slate-400 uppercase text-[11px] font-semibold tracking-wider border-b border-slate-800 whitespace-nowrap">
                   <th className="py-3.5 px-6">Code</th>
                   <th className="py-3.5 px-6">Farmer Name</th>
                   <th className="py-3.5 px-6">Branch</th>

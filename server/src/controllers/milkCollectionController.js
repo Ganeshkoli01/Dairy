@@ -5,6 +5,7 @@ import { getRate } from '../utils/rateLookup.js';
 import { calculateSnfFromClr } from '../utils/snfFromClr.js';
 import { User } from '../models/User.js';
 import { sendEmail } from '../utils/sendEmail.js';
+import { dispatchNotification } from '../utils/notificationService.js';
 
 // In-memory store for development & instant tests when MongoDB Atlas is unpopulated or offline
 let memoryCollections = [
@@ -109,6 +110,11 @@ export const createMilkCollection = async (req, res) => {
     let fName = farmerName;
     let fCode = String(farmerCode).trim();
     let targetBranch = branch;
+
+    if (req.user && req.user.role === 'dairyOwner') {
+      targetBranch = req.user.dairyOwnerProfile?.branchId;
+      branch = targetBranch; // ensure all subsequent logic uses owner's branch
+    }
 
     if (mongoose.connection.readyState === 1) {
       if ((!fId || !fName)) {
@@ -256,6 +262,18 @@ export const createMilkCollection = async (req, res) => {
       }
     }
 
+    if (fId) {
+      dispatchNotification({
+        recipientRole: 'farmer',
+        recipientUser: fId,
+        type: 'MILK_COLLECTION',
+        title: 'Milk Collection Recorded',
+        message: `${numWeight.toFixed(1)}L of ${milkType} milk recorded. Amount: ₹${amount.toFixed(2)}`,
+        referenceId: newEntry._id,
+        referenceType: 'MilkCollection'
+      });
+    }
+
     return res.status(201).json({
       success: true,
       message: 'Milk collection entry recorded successfully',
@@ -276,7 +294,11 @@ export const createMilkCollection = async (req, res) => {
 // @access  Private (Admin & Operator)
 export const getMilkCollections = async (req, res) => {
   try {
-    const { branch, date, session, farmer, isPreviousSession } = req.query;
+    let { branch, date, session, farmer, isPreviousSession } = req.query;
+
+    if (req.user && req.user.role === 'dairyOwner') {
+      branch = req.user.dairyOwnerProfile?.branchId;
+    }
 
     // Special Query: Fetch previous session reference for specific farmer
     if (farmer && (isPreviousSession === 'true' || session === 'previous')) {
@@ -354,6 +376,10 @@ export const updateMilkCollection = async (req, res) => {
     if (mongoose.connection.readyState === 1) {
       const entry = await MilkCollection.findById(req.params.id).catch(() => null);
       if (entry) {
+        if (req.user && req.user.role === 'dairyOwner' && String(entry.branch) !== String(req.user.dairyOwnerProfile?.branchId)) {
+          return res.status(403).json({ success: false, message: 'Forbidden: You can only update collections for your branch' });
+        }
+        
         if (milkType) entry.milkType = milkType;
         if (weight !== undefined) entry.weight = Number(weight);
         if (fat !== undefined) entry.fat = Number(fat);
@@ -432,6 +458,9 @@ export const deleteMilkCollection = async (req, res) => {
     if (mongoose.connection.readyState === 1) {
       const entry = await MilkCollection.findById(req.params.id).catch(() => null);
       if (entry) {
+        if (req.user && req.user.role === 'dairyOwner' && String(entry.branch) !== String(req.user.dairyOwnerProfile?.branchId)) {
+          return res.status(403).json({ success: false, message: 'Forbidden: You can only delete collections for your branch' });
+        }
         await MilkCollection.findByIdAndDelete(req.params.id);
         return res.json({ success: true, message: 'Collection entry deleted successfully' });
       }
@@ -458,8 +487,12 @@ export const deleteMilkCollection = async (req, res) => {
 // @access  Private (Admin & Operator)
 export const getMilkCollectionSummary = async (req, res) => {
   try {
-    const { branch, date, session } = req.query;
+    let { branch, date, session } = req.query;
     const { start, end } = getStartAndEndOfDay(date);
+
+    if (req.user && req.user.role === 'dairyOwner') {
+      branch = req.user.dairyOwnerProfile?.branchId;
+    }
 
     if (mongoose.connection.readyState === 1) {
       const matchStage = {

@@ -13,6 +13,12 @@ import rateChartRoutes from './routes/rateChartRoutes.js';
 import milkCollectionRoutes from './routes/milkCollectionRoutes.js';
 import reportRoutes from './routes/reportRoutes.js';
 import billingRoutes from './routes/billingRoutes.js';
+import productRoutes from './routes/productRoutes.js';
+import orderRoutes from './routes/orderRoutes.js';
+import uploadRoutes from './routes/uploadRoutes.js';
+import paymentRoutes from './routes/paymentRoutes.js';
+import procurementRoutes from './routes/procurementRoutes.js';
+import notificationRoutes from './routes/notificationRoutes.js';
 
 dotenv.config();
 
@@ -28,6 +34,8 @@ const allowedOrigins = [
   ...clientOriginString.split(',').map(origin => origin.trim()),
   'http://localhost:5173',
   'http://127.0.0.1:5173',
+  'http://localhost:5174',
+  'http://127.0.0.1:5174',
   'https://gkdairy.online',
   'https://www.gkdairy.online',
   'https://dairy-lime.vercel.app'
@@ -68,6 +76,12 @@ app.use('/api/rate-chart', rateChartRoutes);
 app.use('/api/milk-collection', milkCollectionRoutes);
 app.use('/api/reports', reportRoutes);
 app.use('/api/billing', billingRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/orders', orderRoutes);
+app.use('/api/upload', uploadRoutes);
+app.use('/api/payments', paymentRoutes);
+app.use('/api/procurements', procurementRoutes);
+app.use('/api/notifications', notificationRoutes);
 
 // Base route handler
 app.get('/', (req, res) => {
@@ -82,6 +96,9 @@ app.get('/', (req, res) => {
       milkCollection: '/api/milk-collection',
       reports: '/api/reports',
       billing: '/api/billing',
+      products: '/api/products',
+      orders: '/api/orders',
+      upload: '/api/upload',
     },
   });
 });
@@ -123,3 +140,5 @@ export default app;
 // Trigger nodemon restart
 
 // Trigger restart again
+
+// Restart trigger

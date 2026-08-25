@@ -2,6 +2,10 @@ import mongoose from 'mongoose';
 import { MilkCollection } from '../models/MilkCollection.js';
 import { Branch } from '../models/Branch.js';
 import { Farmer } from '../models/Farmer.js';
+import Order from '../models/Order.js';
+import Product from '../models/Product.js';
+import InventoryHistory from '../models/InventoryHistory.js';
+import Procurement from '../models/Procurement.js';
 
 // Helper to convert JSON array to CSV format
 const jsonToCsv = (data, fields) => {
@@ -70,9 +74,9 @@ export const getFarmerLedgerReport = async (req, res) => {
       
       // Filter by branch if provided, otherwise fallback to user's branch if they are a dairy owner or farmer
       let queryBranch = branch;
-      if (!queryBranch && req.user && req.user.role === 'dairyOwner') {
+      if (req.user && req.user.role === 'dairyOwner') {
         queryBranch = req.user.dairyOwnerProfile?.branchId;
-      } else if (!queryBranch && req.user && req.user.role === 'farmer') {
+      } else if (req.user && req.user.role === 'farmer') {
         queryBranch = req.user.farmerProfile?.branch;
         
         if (req.user.farmerProfile?.milkType && req.user.farmerProfile.milkType !== 'both') {
@@ -177,8 +181,12 @@ export const getFarmerLedgerReport = async (req, res) => {
 // @access  Private (Admin & Operator)
 export const getBranchSummaryReport = async (req, res) => {
   try {
-    const { branch, from, to, export: exportFormat } = req.query;
+    let { branch, from, to, export: exportFormat } = req.query;
     const { from: fromDate, to: toDate } = parseDateRange(from, to);
+
+    if (req.user && req.user.role === 'dairyOwner') {
+      branch = req.user.dairyOwnerProfile?.branchId;
+    }
 
     let dayGroups = [];
     if (mongoose.connection.readyState === 1) {
@@ -261,8 +269,12 @@ export const getBranchSummaryReport = async (req, res) => {
 // @access  Private (Admin & Operator)
 export const getPaymentDueReport = async (req, res) => {
   try {
-    const { branch, from, to, export: exportFormat } = req.query;
+    let { branch, from, to, export: exportFormat } = req.query;
     const { from: fromDate, to: toDate } = parseDateRange(from, to);
+
+    if (req.user && req.user.role === 'dairyOwner') {
+      branch = req.user.dairyOwnerProfile?.branchId;
+    }
 
     let farmerTotals = [];
     if (mongoose.connection.readyState === 1) {
@@ -363,15 +375,11 @@ export const getAdminDashboardStats = async (req, res) => {
     let branchFilter = {};
 
     if (userRole === 'dairyOwner') {
-      const branchNum = req.user.dairyOwnerProfile?.branchNumber;
-      if (!branchNum) {
+      const branchId = req.user.dairyOwnerProfile?.branchId;
+      if (!branchId) {
         return res.status(400).json({ success: false, message: 'Branch info missing for owner' });
       }
-      const branchDoc = await Branch.findOne({ code: branchNum });
-      if (!branchDoc) {
-         return res.status(400).json({ success: false, message: 'Branch not found' });
-      }
-      branchFilter = { branch: branchDoc._id };
+      branchFilter = { branch: new mongoose.Types.ObjectId(branchId) };
     }
 
     const todayStart = new Date();
@@ -521,4 +529,383 @@ export const getAdminDashboardStats = async (req, res) => {
       message: error.message || 'Server error fetching admin dashboard stats',
     });
   }
+};
+
+// --- NEW COMPREHENSIVE ANALYTICS ENDPOINTS --- //
+
+const getBranchFilter = (req, baseQuery = {}) => {
+  if (req.user && req.user.role === 'dairyOwner') {
+    baseQuery.branch = new mongoose.Types.ObjectId(req.user.dairyOwnerProfile.branchId);
+  } else if (req.query.branch && req.query.branch !== 'all') {
+    baseQuery.branch = new mongoose.Types.ObjectId(req.query.branch);
+  }
+  return baseQuery;
+};
+
+// @desc    Get Analytics Summary
+// @route   GET /api/reports/summary?from=&to=&branch=
+export const getAnalyticsSummary = async (req, res) => {
+  try {
+    const { from, to } = parseDateRange(req.query.from, req.query.to);
+    
+    // Order Sales
+    const orderMatch = getBranchFilter(req, {
+      createdAt: { $gte: from, $lte: to },
+      paymentStatus: 'Completed',
+      status: { $ne: 'Cancelled' }
+    });
+    
+    const salesData = await Order.aggregate([
+      { $match: orderMatch },
+      { $group: {
+          _id: null,
+          totalSales: { $sum: '$totalAmount' },
+          totalOrders: { $sum: 1 },
+          completedOrders: { $sum: { $cond: [{ $eq: ['$status', 'Delivered'] }, 1, 0] } },
+          pendingOrders: { $sum: { $cond: [{ $in: ['$status', ['Pending', 'Processing']] }, 1, 0] } }
+      }}
+    ]);
+
+    // Payments Received vs Pending
+    const paymentsReceivedData = await Order.aggregate([
+      { $match: getBranchFilter(req, { createdAt: { $gte: from, $lte: to }, paymentStatus: 'Completed' }) },
+      { $group: { _id: null, total: { $sum: '$totalAmount' } } }
+    ]);
+    const paymentsPendingData = await Order.aggregate([
+      { $match: getBranchFilter(req, { createdAt: { $gte: from, $lte: to }, paymentStatus: 'Pending' }) },
+      { $group: { _id: null, total: { $sum: '$totalAmount' } } }
+    ]);
+
+    // Milk Collection
+    const milkMatch = getBranchFilter(req, { date: { $gte: from, $lte: to } });
+    const milkData = await MilkCollection.aggregate([
+      { $match: milkMatch },
+      { $group: { _id: null, totalMilk: { $sum: '$weight' }, totalValue: { $sum: '$amount' } } }
+    ]);
+
+    // Products Sold
+    const productsData = await Order.aggregate([
+      { $match: orderMatch },
+      { $unwind: '$items' },
+      { $group: { _id: null, totalUnits: { $sum: '$items.quantity' } } }
+    ]);
+
+    return res.json({
+      success: true,
+      summary: {
+        totalSales: salesData[0]?.totalSales || 0,
+        totalOrders: salesData[0]?.totalOrders || 0,
+        completedOrders: salesData[0]?.completedOrders || 0,
+        pendingOrders: salesData[0]?.pendingOrders || 0,
+        cancelledOrders: await Order.countDocuments(getBranchFilter(req, { createdAt: { $gte: from, $lte: to }, status: 'Cancelled' })),
+        paymentsReceived: paymentsReceivedData[0]?.total || 0,
+        paymentsPending: paymentsPendingData[0]?.total || 0,
+        milkCollected: Math.round((milkData[0]?.totalMilk || 0) * 100) / 100,
+        milkValue: Math.round((milkData[0]?.totalValue || 0) * 100) / 100,
+        productsSold: productsData[0]?.totalUnits || 0,
+      }
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+export const getOrdersReport = async (req, res) => {
+  try {
+    const { from, to } = parseDateRange(req.query.from, req.query.to);
+    const match = getBranchFilter(req, { createdAt: { $gte: from, $lte: to } });
+    
+    const orders = await Order.find(match).populate('branch', 'name').sort({ createdAt: -1 });
+    
+    const data = orders.map(o => ({
+      orderId: o._id,
+      date: new Date(o.createdAt).toISOString().split('T')[0],
+      customer: o.customerDetails?.name || 'Unknown',
+      branch: o.branch?.name || 'Main Plant',
+      itemsCount: o.items.reduce((sum, i) => sum + i.quantity, 0),
+      itemsSummary: o.items.map(i => `${i.nameEn} x ${i.quantity}`).join(', '),
+      totalAmount: o.totalAmount,
+      paymentMethod: o.paymentMethod,
+      paymentStatus: o.paymentStatus,
+      status: o.status
+    }));
+
+    if (req.query.export === 'csv') {
+      const csv = jsonToCsv(data, [
+        { label: 'Order ID', value: row => row.orderId },
+        { label: 'Date', value: row => row.date },
+        { label: 'Customer', value: row => row.customer },
+        { label: 'Branch', value: row => row.branch },
+        { label: 'Items Count', value: row => row.itemsCount },
+        { label: 'Total Amount (Rs)', value: row => row.totalAmount },
+        { label: 'Payment Method', value: row => row.paymentMethod },
+        { label: 'Payment Status', value: row => row.paymentStatus },
+        { label: 'Order Status', value: row => row.status },
+      ]);
+      res.setHeader('Content-Type', 'text/csv');
+      res.setHeader('Content-Disposition', `attachment; filename=sales_orders_report.csv`);
+      return res.status(200).send(csv);
+    }
+    res.json({ success: true, data });
+  } catch (err) { res.status(500).json({ success: false, message: err.message }); }
+};
+
+export const getPaymentsReport = async (req, res) => {
+  try {
+    const { from, to } = parseDateRange(req.query.from, req.query.to);
+    const match = getBranchFilter(req, { createdAt: { $gte: from, $lte: to } });
+    
+    const orders = await Order.find(match).populate('branch', 'name').sort({ createdAt: -1 });
+    const data = orders.map(o => ({
+      paymentId: o.razorpayPaymentId || 'N/A',
+      orderId: o._id,
+      customer: o.customerDetails?.name || 'Unknown',
+      amount: o.totalAmount,
+      paymentMethod: o.paymentMethod,
+      paymentStatus: o.paymentStatus,
+      date: new Date(o.createdAt).toISOString().split('T')[0],
+      branch: o.branch?.name || 'Main Plant'
+    }));
+
+    if (req.query.export === 'csv') {
+      const csv = jsonToCsv(data, [
+        { label: 'Payment ID', value: row => row.paymentId },
+        { label: 'Order ID', value: row => row.orderId },
+        { label: 'Date', value: row => row.date },
+        { label: 'Customer', value: row => row.customer },
+        { label: 'Branch', value: row => row.branch },
+        { label: 'Amount (Rs)', value: row => row.amount },
+        { label: 'Method', value: row => row.paymentMethod },
+        { label: 'Status', value: row => row.paymentStatus },
+      ]);
+      res.setHeader('Content-Type', 'text/csv');
+      res.setHeader('Content-Disposition', `attachment; filename=payments_report.csv`);
+      return res.status(200).send(csv);
+    }
+    res.json({ success: true, data });
+  } catch (err) { res.status(500).json({ success: false, message: err.message }); }
+};
+
+export const getInventoryReport = async (req, res) => {
+  try {
+    const isAdmin = req.user && req.user.role === 'admin';
+    const products = await Product.find().populate('branchStock.branch', 'name');
+    
+    let data = [];
+    const targetBranch = req.user.role === 'dairyOwner' ? req.user.dairyOwnerProfile.branchId : req.query.branch;
+
+    products.forEach(p => {
+      if (!targetBranch || targetBranch === 'all' || targetBranch === 'Main Plant') {
+        data.push({
+          productName: p.nameEn,
+          branch: 'Main Plant',
+          currentStock: p.stock,
+          unit: p.unit,
+          lowStockThreshold: p.lowStockThreshold,
+          status: p.stock === 0 ? 'Out of Stock' : (p.stock <= p.lowStockThreshold ? 'Low Stock' : 'Available'),
+          sellingPrice: p.price,
+          plantTransferPrice: isAdmin ? p.plantTransferPrice : 'Hidden',
+          cogs: isAdmin ? p.cogs : 'Hidden'
+        });
+      }
+      p.branchStock.forEach(bs => {
+        if (!targetBranch || targetBranch === 'all' || String(bs.branch._id) === String(targetBranch)) {
+          data.push({
+            productName: p.nameEn,
+            branch: bs.branch?.name || 'Unknown',
+            currentStock: bs.stock,
+            unit: p.unit,
+            lowStockThreshold: p.lowStockThreshold,
+            status: bs.stock === 0 ? 'Out of Stock' : (bs.stock <= p.lowStockThreshold ? 'Low Stock' : 'Available'),
+            sellingPrice: p.price,
+            plantTransferPrice: isAdmin ? p.plantTransferPrice : 'Hidden',
+            cogs: isAdmin ? p.cogs : 'Hidden'
+          });
+        }
+      });
+    });
+
+    if (req.query.export === 'csv') {
+      const csv = jsonToCsv(data, [
+        { label: 'Product', value: row => row.productName },
+        { label: 'Branch', value: row => row.branch },
+        { label: 'Stock', value: row => row.currentStock },
+        { label: 'Unit', value: row => row.unit },
+        { label: 'Threshold', value: row => row.lowStockThreshold },
+        { label: 'Status', value: row => row.status },
+        { label: 'Selling Price', value: row => row.sellingPrice },
+        { label: 'Plant Transfer Price', value: row => row.plantTransferPrice },
+        { label: 'COGS', value: row => row.cogs },
+      ]);
+      res.setHeader('Content-Type', 'text/csv');
+      res.setHeader('Content-Disposition', `attachment; filename=inventory_report.csv`);
+      return res.status(200).send(csv);
+    }
+    res.json({ success: true, data });
+  } catch (err) { res.status(500).json({ success: false, message: err.message }); }
+};
+
+export const getStockMovementsReport = async (req, res) => {
+  try {
+    const { from, to } = parseDateRange(req.query.from, req.query.to);
+    const match = getBranchFilter(req, { createdAt: { $gte: from, $lte: to } });
+    
+    const history = await InventoryHistory.find(match)
+      .populate('product', 'nameEn')
+      .populate('branch', 'name')
+      .sort({ createdAt: -1 });
+
+    const data = history.map(h => ({
+      date: new Date(h.createdAt).toISOString().split('T')[0],
+      productName: h.product?.nameEn || 'Unknown',
+      branch: h.branch?.name || 'Main Plant',
+      type: h.movementType,
+      quantity: h.quantityChange > 0 ? `+${h.quantityChange}` : `${h.quantityChange}`,
+      previousStock: h.previousStock,
+      newStock: h.newStock,
+      reference: h.referenceId || 'N/A'
+    }));
+
+    if (req.query.export === 'csv') {
+      const csv = jsonToCsv(data, [
+        { label: 'Date', value: row => row.date },
+        { label: 'Product', value: row => row.productName },
+        { label: 'Branch', value: row => row.branch },
+        { label: 'Type', value: row => row.type },
+        { label: 'Qty Change', value: row => row.quantity },
+        { label: 'Prev Stock', value: row => row.previousStock },
+        { label: 'New Stock', value: row => row.newStock },
+      ]);
+      res.setHeader('Content-Type', 'text/csv');
+      res.setHeader('Content-Disposition', `attachment; filename=stock_movements.csv`);
+      return res.status(200).send(csv);
+    }
+    res.json({ success: true, data });
+  } catch (err) { res.status(500).json({ success: false, message: err.message }); }
+};
+
+export const getStockTransfersReport = async (req, res) => {
+  try {
+    const { from, to } = parseDateRange(req.query.from, req.query.to);
+    const match = getBranchFilter(req, { 
+      createdAt: { $gte: from, $lte: to },
+      type: 'Transfer'
+    });
+    
+    const transfers = await Procurement.find(match)
+      .populate('branch', 'name')
+      .populate('items.product', 'nameEn')
+      .populate('receivedBy', 'name')
+      .sort({ createdAt: -1 });
+
+    const data = [];
+    const isAdmin = req.user && req.user.role === 'admin';
+    transfers.forEach(t => {
+      t.items.forEach(item => {
+        data.push({
+          transferNumber: t.invoiceNumber || t._id,
+          date: new Date(t.createdAt).toISOString().split('T')[0],
+          from: 'GK Dairy Main Plant',
+          toBranch: t.branch?.name || 'Unknown',
+          productName: item.product?.nameEn || 'Unknown',
+          quantity: item.quantity,
+          plantTransferPrice: isAdmin ? item.unitPrice : 'Hidden',
+          totalValue: isAdmin ? item.totalPrice : 'Hidden',
+          status: t.status,
+          receivedDate: t.receivedAt ? new Date(t.receivedAt).toISOString().split('T')[0] : 'Pending',
+          receivedBy: t.receivedBy?.name || 'N/A'
+        });
+      });
+    });
+
+    if (req.query.export === 'csv') {
+      const csv = jsonToCsv(data, [
+        { label: 'Transfer No.', value: row => row.transferNumber },
+        { label: 'Date', value: row => row.date },
+        { label: 'From', value: row => row.from },
+        { label: 'To', value: row => row.toBranch },
+        { label: 'Product', value: row => row.productName },
+        { label: 'Qty', value: row => row.quantity },
+        { label: 'Transfer Price', value: row => row.plantTransferPrice },
+        { label: 'Total Value', value: row => row.totalValue },
+        { label: 'Status', value: row => row.status },
+      ]);
+      res.setHeader('Content-Type', 'text/csv');
+      res.setHeader('Content-Disposition', `attachment; filename=stock_transfers.csv`);
+      return res.status(200).send(csv);
+    }
+    res.json({ success: true, data });
+  } catch (err) { res.status(500).json({ success: false, message: err.message }); }
+};
+
+export const getProductsReport = async (req, res) => {
+  try {
+    const { from, to } = parseDateRange(req.query.from, req.query.to);
+    const orderMatch = getBranchFilter(req, {
+      createdAt: { $gte: from, $lte: to },
+      paymentStatus: 'Completed',
+      status: { $ne: 'Cancelled' }
+    });
+
+    const productsData = await Order.aggregate([
+      { $match: orderMatch },
+      { $unwind: '$items' },
+      { $group: {
+          _id: '$items.product',
+          name: { $first: '$items.nameEn' },
+          unitsSold: { $sum: '$items.quantity' },
+          revenue: { $sum: { $multiply: ['$items.price', '$items.quantity'] } }
+      }},
+      { $sort: { revenue: -1 } }
+    ]);
+
+    const isAdmin = req.user && req.user.role === 'admin';
+    let data = [];
+    if (isAdmin) {
+      const products = await Product.find({ _id: { $in: productsData.map(p => p._id) } });
+      data = productsData.map(pd => {
+        const prod = products.find(p => p._id.toString() === pd._id.toString());
+        const plantMargin = prod ? (prod.plantTransferPrice - prod.cogs) : 0;
+        const branchMargin = prod ? (prod.price - prod.plantTransferPrice) : 0;
+        return {
+          productName: pd.name,
+          unitsSold: pd.unitsSold,
+          revenue: pd.revenue,
+          cogs: prod?.cogs || 0,
+          plantTransferPrice: prod?.plantTransferPrice || 0,
+          sellingPrice: prod?.price || 0,
+          plantMargin: plantMargin,
+          branchMargin: branchMargin,
+        };
+      });
+    } else {
+      data = productsData.map(pd => ({
+        productName: pd.name,
+        unitsSold: pd.unitsSold,
+        revenue: pd.revenue,
+        cogs: 'Hidden',
+        plantTransferPrice: 'Hidden',
+        sellingPrice: 'Hidden',
+        plantMargin: 'Hidden',
+        branchMargin: 'Hidden',
+      }));
+    }
+
+    if (req.query.export === 'csv') {
+      const csv = jsonToCsv(data, [
+        { label: 'Product', value: row => row.productName },
+        { label: 'Units Sold', value: row => row.unitsSold },
+        { label: 'Revenue (Rs)', value: row => row.revenue },
+        { label: 'COGS', value: row => row.cogs },
+        { label: 'Transfer Price', value: row => row.plantTransferPrice },
+        { label: 'Selling Price', value: row => row.sellingPrice },
+        { label: 'Plant Margin', value: row => row.plantMargin },
+        { label: 'Branch Margin', value: row => row.branchMargin },
+      ]);
+      res.setHeader('Content-Type', 'text/csv');
+      res.setHeader('Content-Disposition', `attachment; filename=product_sales.csv`);
+      return res.status(200).send(csv);
+    }
+    res.json({ success: true, data });
+  } catch (err) { res.status(500).json({ success: false, message: err.message }); }
 };

@@ -42,18 +42,18 @@ export const LoginPage: React.FC = () => {
 
   return (
     <div 
-      className="min-h-screen text-slate-100 flex flex-col justify-center items-center p-4 relative overflow-hidden bg-cover bg-top bg-no-repeat"
-      style={{ backgroundImage: "url('/login-bg.png')" }}
+      className="min-h-screen text-slate-100 flex flex-col justify-center items-center p-4 relative overflow-hidden bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: "url('/workflow-bg.jpg')" }}
     >
       {/* Subtle tint to ensure text contrast while keeping the illustration totally vibrant */}
       <div className="absolute inset-0 bg-blue-950/10 z-0"></div>
 
       {/* Animated glowing orbs in the background */}
-      <div className="absolute top-1/4 left-1/3 w-96 h-96 bg-cyan-400/30 rounded-full blur-[100px] animate-pulse z-0" />
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-500/30 rounded-full blur-[100px] animate-pulse delay-700 z-0" />
+      <div className="absolute top-1/4 left-1/3 w-96 h-96 bg-cyan-400/20 rounded-full blur-[100px] animate-pulse z-0" />
+      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-indigo-500/20 rounded-full blur-[100px] animate-pulse delay-700 z-0" />
 
-      {/* Ultra-Premium Dark Frosted Glass Login Card */}
-      <div className="w-full max-w-md bg-slate-950/70 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] p-8 sm:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.4)] relative z-10">
+      {/* Ultra-Premium Glassmorphism Login Card */}
+      <div className="w-full max-w-md bg-[#0f172a]/40 backdrop-blur-md border border-white/10 rounded-[2.5rem] p-8 sm:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.5)] relative z-10">
         
         <div className="flex flex-col items-center text-center mb-10">
           <div className="mb-6 flex justify-center">
@@ -65,7 +65,7 @@ export const LoginPage: React.FC = () => {
               />
             </div>
           </div>
-          <h1 className="text-3xl font-extrabold text-white tracking-tight drop-shadow-lg">Dairy Portal</h1>
+          <h1 className="text-3xl font-extrabold text-white tracking-tight drop-shadow-lg">GK DAIRY</h1>
           <p className="text-sm text-white/80 mt-2 font-medium drop-shadow-md">Welcome back! Let's manage your dairy.</p>
         </div>
 

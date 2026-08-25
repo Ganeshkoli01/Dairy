@@ -5,67 +5,69 @@ import { farmerApi } from '../api/farmerApi';
 import { useAuth } from '../context/AuthContext';
 import { Branch } from '../types/branch';
 import { Farmer } from '../types/farmer';
-import { FarmerLedgerResponse, BranchSummaryResponse, PaymentDueResponse } from '../types/reports';
-import {
-  FileText,
-  Download,
-  Calendar,
-  Building2,
-  User,
-  DollarSign,
-  TrendingUp,
-  Search,
-  Loader2,
-  AlertCircle,
-  Mail,
-} from 'lucide-react';
 import { StatementGenerator } from '../components/StatementGenerator';
-
-type ReportTab = 'farmer-ledger' | 'branch-summary' | 'payment-due' | 'statements';
+import {
+  FileText, Download, Calendar, Building2, User, Printer, Activity, Package, IndianRupee, ShoppingCart, Truck
+} from 'lucide-react';
 
 export const ReportsPage: React.FC = () => {
   const { user } = useAuth();
-  const [activeTab, setActiveTab] = useState<ReportTab>('branch-summary');
+  const isAdmin = user?.role === 'admin';
+  const isOwner = user?.role === 'dairyOwner';
+  const isFarmer = user?.role === 'farmer';
 
   // Filter States
+  const [activeReport, setActiveReport] = useState<string>(isFarmer ? 'farmer-ledger' : 'orders');
   const [fromDate, setFromDate] = useState<string>(
     new Date(Date.now() - 15 * 24 * 60 * 60 * 1000 - new Date().getTimezoneOffset() * 60000).toISOString().split('T')[0]
   );
   const [toDate, setToDate] = useState<string>(
     new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().split('T')[0]
   );
-  const [selectedBranch, setSelectedBranch] = useState<string>('');
+  const [selectedBranch, setSelectedBranch] = useState<string>('all');
   const [farmerCode, setFarmerCode] = useState<string>('');
-  const [ledgerMilkType, setLedgerMilkType] = useState<string>('all');
+  
   const [branches, setBranches] = useState<Branch[]>([]);
   const [farmers, setFarmers] = useState<Farmer[]>([]);
 
-  // Report Data States
-  const [ledgerData, setLedgerData] = useState<FarmerLedgerResponse | null>(null);
-  const [summaryData, setSummaryData] = useState<BranchSummaryResponse | null>(null);
-  const [paymentData, setPaymentData] = useState<PaymentDueResponse | null>(null);
-
-  const [loading, setLoading] = useState<boolean>(false);
+  // Report Data
+  const [reportData, setReportData] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const reportOptions = [
+    { id: 'orders', label: 'Sales & Orders', icon: ShoppingCart, roles: ['admin', 'dairyOwner'] },
+    { id: 'payments', label: 'Payments', icon: IndianRupee, roles: ['admin', 'dairyOwner'] },
+    { id: 'products', label: 'Product Margin', icon: Package, roles: ['admin', 'dairyOwner'] },
+    { id: 'inventory', label: 'Inventory', icon: Package, roles: ['admin', 'dairyOwner'] },
+    { id: 'stock-movements', label: 'Stock Movements', icon: Activity, roles: ['admin', 'dairyOwner'] },
+    { id: 'stock-transfers', label: 'Stock Transfers', icon: Truck, roles: ['admin', 'dairyOwner'] },
+    { id: 'branch-summary', label: 'Milk Branch Summary', icon: Building2, roles: ['admin', 'dairyOwner'] },
+    { id: 'payment-due', label: 'Farmer Payment Due', icon: IndianRupee, roles: ['admin', 'dairyOwner'] },
+    { id: 'farmer-ledger', label: 'Farmer Ledger', icon: User, roles: ['admin', 'dairyOwner', 'farmer'] },
+    { id: 'statements', label: 'Farmer Statements', icon: FileText, roles: ['admin', 'dairyOwner', 'farmer'] }
+  ];
+
+  const allowedReports = reportOptions.filter(r => r.roles.includes(user?.role || ''));
 
   useEffect(() => {
     const fetchBranches = async () => {
       try {
         const list = await branchApi.getBranches();
-        if (user?.role === 'farmer') {
-          const farmerBranchId = user?.farmerProfile?.branch;
-          if (farmerBranchId) {
-            const farmerBranch = list.find(b => b._id === farmerBranchId);
-            if (farmerBranch) {
-              setBranches([farmerBranch]);
-              setSelectedBranch(farmerBranch._id);
-            } else {
-              setBranches([]);
-            }
+        if (isFarmer) {
+          const fb = user?.farmerProfile?.branch;
+          if (fb) {
+            const found = list.find(b => b._id === fb);
+            if (found) { setBranches([found]); setSelectedBranch(found._id); }
+          }
+        } else if (isOwner) {
+          const ob = user?.dairyOwnerProfile?.branchId;
+          if (ob) {
+            const found = list.find(b => b._id === ob);
+            if (found) { setBranches([found]); setSelectedBranch(found._id); }
           }
         } else {
           setBranches(list);
-          if (list.length > 0) setSelectedBranch(list[0]._id);
         }
       } catch (err) {
         console.error('Failed to load branches', err);
@@ -73,57 +75,71 @@ export const ReportsPage: React.FC = () => {
     };
     fetchBranches();
 
-    if (user?.role === 'farmer') {
-      setActiveTab('farmer-ledger');
-      if (user?.farmerProfile?.farmerCode) {
-        setFarmerCode(user.farmerProfile.farmerCode);
-      }
+    if (isFarmer && user?.farmerProfile?.farmerCode) {
+      setFarmerCode(user.farmerProfile.farmerCode);
     }
   }, [user]);
 
   useEffect(() => {
-    if (selectedBranch) {
-      farmerApi.getFarmers({ branch: selectedBranch }).then(list => {
-        setFarmers(list);
-      }).catch(console.error);
+    if (selectedBranch && selectedBranch !== 'all') {
+      farmerApi.getFarmers({ branch: selectedBranch }).then(setFarmers).catch(console.error);
     } else {
       setFarmers([]);
     }
   }, [selectedBranch]);
 
   const loadReport = async () => {
-    if (!selectedBranch && user?.role === 'dairyOwner') {
-      return; // Wait for branch to be set
-    }
+    if (activeReport === 'statements') return; // Handled internally
     
     setLoading(true);
     setError(null);
+    setReportData(null);
     try {
-      if (activeTab === 'farmer-ledger') {
-        if (farmers.length === 0 && user?.role !== 'farmer') {
-          setError('No farmers registered in this branch. Please add farmers first.');
-          setLoading(false);
-          return;
-        }
-        if (!farmerCode) {
-          setError('Please select a farmer code for the ledger report.');
-          setLoading(false);
-          return;
-        }
-        const res = await reportApi.getFarmerLedger(
-          selectedBranch || undefined, 
-          farmerCode.trim(), 
-          fromDate, 
-          toDate,
-          ledgerMilkType !== 'all' ? ledgerMilkType : undefined
-        );
-        setLedgerData(res);
-      } else if (activeTab === 'branch-summary') {
-        const res = await reportApi.getBranchSummary(selectedBranch || undefined, fromDate, toDate);
-        setSummaryData(res);
-      } else if (activeTab === 'payment-due') {
-        const res = await reportApi.getPaymentDue(selectedBranch || undefined, fromDate, toDate);
-        setPaymentData(res);
+      const branchParam = selectedBranch === 'all' ? undefined : selectedBranch;
+      let res;
+      
+      switch (activeReport) {
+        case 'analytics-summary':
+          res = await reportApi.getAnalyticsSummary(branchParam, fromDate, toDate);
+          setReportData(res);
+          break;
+        case 'orders':
+          res = await reportApi.getOrdersReport(branchParam, fromDate, toDate);
+          setReportData(res.data);
+          break;
+        case 'payments':
+          res = await reportApi.getPaymentsReport(branchParam, fromDate, toDate);
+          setReportData(res.data);
+          break;
+        case 'inventory':
+          res = await reportApi.getInventoryReport(branchParam);
+          setReportData(res.data);
+          break;
+        case 'stock-movements':
+          res = await reportApi.getStockMovementsReport(branchParam, fromDate, toDate);
+          setReportData(res.data);
+          break;
+        case 'stock-transfers':
+          res = await reportApi.getStockTransfersReport(branchParam, fromDate, toDate);
+          setReportData(res.data);
+          break;
+        case 'products':
+          res = await reportApi.getProductsReport(branchParam, fromDate, toDate);
+          setReportData(res.data);
+          break;
+        case 'branch-summary':
+          res = await reportApi.getBranchSummary(branchParam, fromDate, toDate);
+          setReportData(res.data);
+          break;
+        case 'payment-due':
+          res = await reportApi.getPaymentDue(branchParam, fromDate, toDate);
+          setReportData(res.data);
+          break;
+        case 'farmer-ledger':
+          if (!farmerCode && !isFarmer) { setError('Farmer Code required'); setLoading(false); return; }
+          res = await reportApi.getFarmerLedger(branchParam, farmerCode, fromDate, toDate);
+          setReportData(res.data);
+          break;
       }
     } catch (err: any) {
       setError(err.response?.data?.message || 'Failed to load report data');
@@ -134,449 +150,237 @@ export const ReportsPage: React.FC = () => {
 
   useEffect(() => {
     loadReport();
-  }, [activeTab, selectedBranch]);
-
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    loadReport();
-  };
+  }, [activeReport, selectedBranch]);
 
   const handleExportCSV = async () => {
     try {
+      const branchParam = selectedBranch === 'all' ? undefined : selectedBranch;
       const params: any = { from: fromDate, to: toDate };
-      if (activeTab === 'farmer-ledger') params.farmerCode = farmerCode;
-      if (activeTab === 'branch-summary' || activeTab === 'payment-due') {
-        if (selectedBranch) params.branch = selectedBranch;
-      }
-      if (activeTab === 'statements') return; // Cannot export statements to CSV
-      await reportApi.exportCSV(activeTab as any, params);
-    } catch (err: any) {
+      if (branchParam) params.branch = branchParam;
+      if (activeReport === 'farmer-ledger') params.farmerCode = farmerCode;
+      
+      await reportApi.exportCSV(activeReport, params);
+    } catch (err) {
       console.error('Export CSV Error:', err);
-      setError('Failed to export CSV. Check console for details.');
+      setError('Failed to export CSV. Ensure you have selected required fields.');
+    }
+  };
+
+  const renderTable = (headers: string[], dataKeys: (string | Function)[], data: any[]) => {
+    if (!data || data.length === 0) return <div className="text-slate-400 text-center py-10">No data found for the selected filters.</div>;
+    
+    return (
+      <div className="w-full overflow-x-auto pb-4 custom-scrollbar print:overflow-visible">
+        <table className="w-full text-left text-sm text-slate-300 print:text-black">
+          <thead className="bg-slate-800/50 text-slate-400 text-xs uppercase print:bg-gray-200 whitespace-nowrap">
+            <tr>
+              {headers.map((h, i) => <th key={i} className="px-4 py-3">{h}</th>)}
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-slate-800/50 print:divide-gray-300">
+            {data.map((row, idx) => (
+              <tr key={idx} className="hover:bg-slate-800/20">
+                {dataKeys.map((k, i) => (
+                  <td key={i} className="px-4 py-3">
+                    {typeof k === 'function' ? k(row) : row[k as string]}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
+  };
+
+  const renderReportContent = () => {
+    if (loading) return <div className="text-center py-20 text-indigo-400 flex items-center justify-center gap-2"><Activity className="animate-spin w-5 h-5"/> Loading Report Data...</div>;
+    if (error) return <div className="text-center py-10 text-rose-400 font-medium">{error}</div>;
+    if (activeReport === 'statements') return <StatementGenerator branches={branches} selectedBranch={selectedBranch} setSelectedBranch={setSelectedBranch} />;
+    if (!reportData) return <div className="text-center py-20 text-slate-500">Select options and click Generate</div>;
+
+    switch (activeReport) {
+      case 'orders':
+        return renderTable(
+          ['Date', 'Order ID', 'Branch', 'Customer', 'Items', 'Total (₹)', 'Payment', 'Status'],
+          ['date', (r:any) => r.orderId.slice(-6).toUpperCase(), 'branch', 'customer', 'itemsSummary', 'totalAmount', 'paymentMethod', 'status'],
+          reportData
+        );
+      case 'payments':
+        return renderTable(
+          ['Date', 'Payment ID', 'Order ID', 'Amount (₹)', 'Method', 'Status'],
+          ['date', 'paymentId', (r:any) => r.orderId.slice(-6).toUpperCase(), 'amount', 'paymentMethod', 'paymentStatus'],
+          reportData
+        );
+      case 'products':
+        return renderTable(
+          ['Product', 'Units Sold', 'Revenue (₹)', 'Selling Price', 'Plant Margin', 'Branch Margin'],
+          ['productName', 'unitsSold', 'revenue', 'sellingPrice', 'plantMargin', 'branchMargin'],
+          reportData
+        );
+      case 'inventory':
+        return renderTable(
+          ['Product', 'Branch', 'Stock', 'Unit', 'Status', 'Selling Price'],
+          ['productName', 'branch', 'currentStock', 'unit', 'status', 'sellingPrice'],
+          reportData
+        );
+      case 'stock-movements':
+        return renderTable(
+          ['Date', 'Product', 'Branch', 'Type', 'Qty', 'Previous', 'New'],
+          ['date', 'productName', 'branch', 'type', 'quantity', 'previousStock', 'newStock'],
+          reportData
+        );
+      case 'stock-transfers':
+        return renderTable(
+          ['Date', 'Transfer No', 'To Branch', 'Product', 'Qty', 'Status'],
+          ['date', (r:any) => String(r.transferNumber).slice(-6).toUpperCase(), 'toBranch', 'productName', 'quantity', 'status'],
+          reportData
+        );
+      case 'branch-summary':
+        return renderTable(
+          ['Date', 'Total Liters', 'Avg FAT', 'Avg SNF', 'Total Amount (₹)'],
+          ['date', 'totalLiters', 'weightedAvgFat', 'weightedAvgSnf', 'totalAmount'],
+          reportData
+        );
+      case 'payment-due':
+        return renderTable(
+          ['Farmer Code', 'Farmer Name', 'Total Liters', 'Avg Rate', 'Payout Amount (₹)'],
+          ['farmerCode', 'farmerName', 'totalLiters', 'avgRate', 'totalAmount'],
+          reportData
+        );
+      case 'farmer-ledger':
+        return renderTable(
+          ['Date', 'Session', 'Type', 'Liters', 'FAT', 'SNF', 'Rate', 'Amount'],
+          ['date', 'session', 'milkType', 'weight', 'fat', 'snf', 'rate', 'amount'],
+          reportData
+        );
+      default:
+        return <div>Select a report</div>;
     }
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-7xl mx-auto px-4 py-8 print:p-0 print:m-0 print:max-w-none">
       {/* Header Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
-        <div className="flex items-center space-x-3">
-          <div className="p-3 bg-cyan-500/10 rounded-xl text-cyan-400 border border-cyan-500/20">
-            <FileText className="w-6 h-6" />
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl print:hidden">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-100">Business Analytics &amp; Reports</h1>
+          <p className="text-slate-400 mt-1">Comprehensive insights, inventory management, and billing registers.</p>
+        </div>
+        <div className="flex flex-wrap items-center gap-3">
+          <button onClick={() => window.print()} className="p-2.5 bg-slate-800 text-slate-300 hover:text-white rounded-xl border border-slate-700 transition-colors shadow" title="Print Report">
+            <Printer className="w-5 h-5" />
+          </button>
+          {activeReport !== 'statements' && (
+            <button onClick={handleExportCSV} className="flex items-center space-x-2 bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-xl font-medium shadow-lg shadow-indigo-500/20 transition-all">
+              <Download className="w-4 h-4" />
+              <span>Export CSV</span>
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Filters (Hidden in print) */}
+      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl print:hidden relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-5 items-end">
+          
+          <div className="col-span-1 md:col-span-2 lg:col-span-1">
+            <label className="block text-sm font-semibold text-slate-300 mb-2">Report Type</label>
+            <select
+              value={activeReport}
+              onChange={(e) => setActiveReport(e.target.value)}
+              className="w-full bg-slate-950/50 border border-slate-700 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+            >
+              {allowedReports.map(r => (
+                <option key={r.id} value={r.id}>{r.label}</option>
+              ))}
+            </select>
           </div>
-          <div>
-            <h1 className="text-2xl font-bold text-slate-100">Reports &amp; Billing Registers</h1>
-            <p className="text-xs text-slate-400 mt-0.5">High-density reports for office staff, farmer billing &amp; payout registers</p>
+
+          {isAdmin && (
+            <div className="col-span-1">
+              <label className="block text-sm font-semibold text-slate-300 mb-2">Branch</label>
+              <select
+                value={selectedBranch}
+                onChange={(e) => setSelectedBranch(e.target.value)}
+                className="w-full bg-slate-950/50 border border-slate-700 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+              >
+                <option value="all">All Branches (Global)</option>
+                {branches.map(b => (
+                  <option key={b._id} value={b._id}>{b.name}</option>
+                ))}
+              </select>
+            </div>
+          )}
+
+          {activeReport !== 'inventory' && activeReport !== 'statements' && (
+            <>
+              <div className="col-span-1">
+                <label className="block text-sm font-semibold text-slate-300 mb-2">From Date</label>
+                <input
+                  type="date"
+                  value={fromDate}
+                  onChange={(e) => setFromDate(e.target.value)}
+                  className="w-full bg-slate-950/50 border border-slate-700 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all [color-scheme:dark]"
+                />
+              </div>
+              <div className="col-span-1">
+                <label className="block text-sm font-semibold text-slate-300 mb-2">To Date</label>
+                <input
+                  type="date"
+                  value={toDate}
+                  onChange={(e) => setToDate(e.target.value)}
+                  className="w-full bg-slate-950/50 border border-slate-700 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all [color-scheme:dark]"
+                />
+              </div>
+            </>
+          )}
+
+          {activeReport === 'farmer-ledger' && !isFarmer && (
+            <div className="col-span-1">
+              <label className="block text-sm font-semibold text-slate-300 mb-2">Farmer</label>
+              <select
+                value={farmerCode}
+                onChange={(e) => setFarmerCode(e.target.value)}
+                className="w-full bg-slate-950/50 border border-slate-700 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+              >
+                <option value="">Select Farmer</option>
+                {farmers.map(f => (
+                  <option key={f.farmerCode} value={f.farmerCode}>{f.farmerCode} - {f.name}</option>
+                ))}
+              </select>
+            </div>
+          )}
+
+          <div className="col-span-1 md:col-span-4 flex justify-end mt-2">
+            <button
+              onClick={loadReport}
+              disabled={loading}
+              className="bg-emerald-600 hover:bg-emerald-500 text-white px-8 py-3 rounded-xl font-bold shadow-lg shadow-emerald-500/20 transition-all active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2"
+            >
+              {loading && <Activity className="w-5 h-5 animate-spin" />}
+              {loading ? 'Generating...' : 'Generate Report'}
+            </button>
           </div>
         </div>
+      </div>
 
-        {activeTab !== 'statements' && (
-          <button
-            onClick={handleExportCSV}
-            className="flex items-center justify-center space-x-2 bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2.5 rounded-xl font-medium text-xs border border-slate-700 transition-colors shadow"
-          >
-            <Download className="w-4 h-4 text-emerald-400" />
-            <span>Export CSV</span>
-          </button>
+      {/* Print Header (Visible only in print) */}
+      <div className="hidden print:block mb-8 text-center text-black">
+        <h1 className="text-3xl font-bold mb-2">GK Dairy Management</h1>
+        <h2 className="text-xl font-semibold border-b border-gray-400 pb-2 inline-block">
+          {allowedReports.find(r => r.id === activeReport)?.label}
+        </h2>
+        {activeReport !== 'inventory' && activeReport !== 'statements' && (
+          <p className="mt-3 text-sm text-gray-600">Period: {fromDate} to {toDate}</p>
         )}
       </div>
 
-      {/* TABS */}
-      {user?.role !== 'farmer' ? (
-        <div className="flex items-center space-x-2 bg-slate-900 border border-slate-800 rounded-2xl p-1.5 shadow-lg">
-          <button
-            onClick={() => setActiveTab('branch-summary')}
-            className={`flex-1 py-2.5 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-2 ${
-              activeTab === 'branch-summary'
-                ? 'bg-slate-800 text-amber-400 border border-slate-700 shadow'
-                : 'text-slate-400 hover:text-slate-200'
-            }`}
-          >
-            <TrendingUp className="w-4 h-4" />
-            <span>1. Branch Day-Wise Summary</span>
-          </button>
+      {/* Report Content */}
+      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl print:bg-white print:border-none print:shadow-none print:text-black print:p-0">
+        {renderReportContent()}
+      </div>
 
-          <button
-            onClick={() => setActiveTab('farmer-ledger')}
-            className={`flex-1 py-2.5 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-2 ${
-              activeTab === 'farmer-ledger'
-                ? 'bg-slate-800 text-cyan-400 border border-slate-700 shadow'
-                : 'text-slate-400 hover:text-slate-200'
-            }`}
-          >
-            <User className="w-4 h-4" />
-            <span>2. Farmer Ledger (सभासद खाते)</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('payment-due')}
-            className={`flex-1 py-2.5 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-2 ${
-              activeTab === 'payment-due'
-                ? 'bg-slate-800 text-emerald-400 border border-slate-700 shadow'
-                : 'text-slate-400 hover:text-slate-200'
-            }`}
-          >
-            <DollarSign className="w-4 h-4" />
-            <span>3. Payment Due Register (बिल रजिस्टर)</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('statements')}
-            className={`flex-1 py-2.5 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-2 ${
-              activeTab === 'statements'
-                ? 'bg-slate-800 text-purple-400 border border-slate-700 shadow'
-                : 'text-slate-400 hover:text-slate-200'
-            }`}
-          >
-            <Mail className="w-4 h-4" />
-            <span>4. 10-Day Statements</span>
-          </button>
-        </div>
-      ) : (
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 text-center">
-            <p className="text-sm text-cyan-400 font-semibold">Farmer Ledger Report</p>
-        </div>
-      )}
-
-      {activeTab === 'statements' ? (
-        <StatementGenerator 
-          branches={branches}
-          selectedBranch={selectedBranch}
-          setSelectedBranch={setSelectedBranch}
-        />
-      ) : (
-        <>
-          {/* FILTER CONTROL BAR */}
-          <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 md:grid-cols-4 gap-3 bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-md">
-        {/* From Date */}
-        <div>
-          <label className="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">
-            From Date
-          </label>
-          <div className="flex items-center space-x-2 bg-slate-950 border border-slate-800 rounded-xl px-3 py-2">
-            <Calendar className="w-4 h-4 text-slate-500" />
-            <input
-              type="date"
-              value={fromDate}
-              onChange={(e) => setFromDate(e.target.value)}
-              className="bg-transparent border-none text-slate-200 text-xs focus:outline-none w-full"
-            />
-          </div>
-        </div>
-
-        {/* To Date */}
-        <div>
-          <label className="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">
-            To Date
-          </label>
-          <div className="flex items-center space-x-2 bg-slate-950 border border-slate-800 rounded-xl px-3 py-2">
-            <Calendar className="w-4 h-4 text-slate-500" />
-            <input
-              type="date"
-              value={toDate}
-              onChange={(e) => setToDate(e.target.value)}
-              className="bg-transparent border-none text-slate-200 text-xs focus:outline-none w-full"
-            />
-          </div>
-        </div>
-
-        {/* Conditional Input per Tab */}
-        {activeTab === 'farmer-ledger' && (
-          <div className="space-y-1">
-            <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider ml-1">Farmer Code</label>
-            <div className="relative group">
-              <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 group-focus-within:text-cyan-500 transition-colors" />
-              {user?.role === 'farmer' ? (
-                <input
-                  type="text"
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 pl-10 pr-4 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all disabled:opacity-60"
-                  placeholder="e.g. 101"
-                  value={farmerCode}
-                  onChange={(e) => setFarmerCode(e.target.value)}
-                  disabled
-                />
-              ) : (
-                <>
-                  <input
-                    list="farmer-codes-list"
-                    type="text"
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 pl-10 pr-4 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all"
-                    placeholder="Enter Code (e.g. 1)"
-                    value={farmerCode}
-                    onChange={(e) => setFarmerCode(e.target.value)}
-                  />
-                  <datalist id="farmer-codes-list">
-                    {Array.from(new Set(farmers.map(f => f.farmerCode))).map(code => {
-                      const f = farmers.find(x => x.farmerCode === code);
-                      return <option key={code} value={code}>{f?.name} ({code})</option>;
-                    })}
-                  </datalist>
-                </>
-              )}
-            </div>
-            {user?.role !== 'farmer' && (
-              <div className="mt-2">
-                <select
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-500 transition-all cursor-pointer"
-                  value={ledgerMilkType}
-                  onChange={(e) => setLedgerMilkType(e.target.value)}
-                >
-                  <option value="all">All Milk Types</option>
-                  <option value="cow">Cow Only</option>
-                  <option value="buffalo">Buffalo Only</option>
-                </select>
-              </div>
-            )}
-          </div>
-        )}
-
-        {activeTab !== 'farmer-ledger' && (
-          <div>
-            <label className="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">
-              Branch Filter
-            </label>
-            <div className="flex items-center space-x-2 bg-slate-950 border border-slate-800 rounded-xl px-3 py-2">
-              <Building2 className="w-4 h-4 text-slate-500" />
-              {user?.role === 'dairyOwner' ? (
-                <div className="text-slate-200 text-xs font-semibold w-full">
-                  {branches.length > 0 ? `${branches[0].name} (${branches[0].code})` : 'Loading...'}
-                </div>
-              ) : (
-                <select
-                  value={selectedBranch}
-                  onChange={(e) => setSelectedBranch(e.target.value)}
-                  className="bg-transparent border-none text-slate-200 text-xs focus:outline-none w-full"
-                >
-                  <option value="" className="bg-slate-900 text-slate-200">All Branches</option>
-                  {branches.map((b) => (
-                    <option key={b._id} value={b._id} className="bg-slate-900 text-slate-200">
-                      {b.name} ({b.code})
-                    </option>
-                  ))}
-                </select>
-              )}
-            </div>
-          </div>
-        )}
-
-          <div className="flex items-end">
-            <button
-              type="submit"
-              className="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold py-2.5 px-4 rounded-xl border border-slate-700 transition-colors flex items-center justify-center space-x-2"
-            >
-              <Search className="w-4 h-4" />
-              <span>Generate Report</span>
-            </button>
-          </div>
-        </form>
-        </>
-      )}
-
-      {error && (
-        <div className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-sm flex items-center space-x-3">
-          <AlertCircle className="w-5 h-5 text-rose-400" />
-          <span>{error}</span>
-        </div>
-      )}
-
-      {/* DENSE HIGH-CLARITY REPORT CONTENT */}
-
-      {/* TAB 1: FARMER LEDGER */}
-      {activeTab === 'farmer-ledger' && (
-        <div className="space-y-4">
-          {ledgerData?.summary && (
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-slate-900 border border-slate-800 p-4 rounded-2xl">
-              <div>
-                <span className="text-[10px] text-slate-500 uppercase tracking-wider block font-semibold">Farmer</span>
-                <span className="text-sm font-bold text-cyan-300">{ledgerData.farmerName} (#{ledgerData.farmerCode})</span>
-              </div>
-              <div>
-                <span className="text-[10px] text-slate-500 uppercase tracking-wider block font-semibold">Total Liters</span>
-                <span className="text-sm font-bold text-slate-100 font-mono">{ledgerData.summary.totalLiters} L</span>
-              </div>
-              <div>
-                <span className="text-[10px] text-slate-500 uppercase tracking-wider block font-semibold">Avg FAT / SNF</span>
-                <span className="text-sm font-bold text-slate-200 font-mono">{ledgerData.summary.weightedAvgFat}% / {ledgerData.summary.weightedAvgSnf}%</span>
-              </div>
-              <div>
-                <span className="text-[10px] text-slate-500 uppercase tracking-wider block font-semibold">Total Payout Amount</span>
-                <span className="text-base font-extrabold text-emerald-400 font-mono">₹{ledgerData.summary.totalAmount}</span>
-              </div>
-            </div>
-          )}
-
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
-            {loading ? (
-              <div className="p-12 text-center flex flex-col items-center justify-center text-slate-400">
-                <Loader2 className="w-8 h-8 animate-spin text-cyan-400 mb-2" />
-                <p className="text-sm">Loading farmer ledger...</p>
-              </div>
-            ) : !ledgerData || ledgerData.data.length === 0 ? (
-              <div className="p-12 text-center text-slate-400">
-                <FileText className="w-12 h-12 text-slate-600 mx-auto mb-2" />
-                <p className="text-sm font-semibold text-slate-300">No Ledger Entries</p>
-                <p className="text-xs text-slate-500 mt-1">No milk collections recorded for this farmer in selected date range.</p>
-              </div>
-            ) : (
-              <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse font-mono text-xs">
-                  <thead>
-                    <tr className="bg-slate-950/80 text-slate-400 uppercase text-[11px] font-semibold tracking-wider border-b border-slate-800">
-                      <th className="py-3 px-4">Date</th>
-                      <th className="py-3 px-4">Session</th>
-                      <th className="py-3 px-4">Type</th>
-                      <th className="py-3 px-4 text-right">Liters</th>
-                      <th className="py-3 px-4 text-right">FAT %</th>
-                      <th className="py-3 px-4 text-right">SNF %</th>
-                      <th className="py-3 px-4 text-right">Rate (₹)</th>
-                      <th className="py-3 px-4 text-right">Amount (₹)</th>
-                      <th className="py-3 px-4 text-right bg-slate-950 text-cyan-400">Run Liters</th>
-                      <th className="py-3 px-4 text-right bg-slate-950 text-emerald-400">Run Amount</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-800/60">
-                    {ledgerData.data.map((row) => (
-                      <tr key={row._id} className="hover:bg-slate-800/30">
-                        <td className="py-2.5 px-4 font-semibold text-slate-200">{row.date}</td>
-                        <td className="py-2.5 px-4 capitalize text-slate-300">{row.session}</td>
-                        <td className="py-2.5 px-4 uppercase text-amber-300 font-semibold">{row.milkType}</td>
-                        <td className="py-2.5 px-4 text-right font-bold text-slate-100">{row.weight} L</td>
-                        <td className="py-2.5 px-4 text-right text-slate-300">{row.fat}%</td>
-                        <td className="py-2.5 px-4 text-right text-slate-300">{row.snf}%</td>
-                        <td className="py-2.5 px-4 text-right text-slate-300">₹{row.rate.toFixed(2)}</td>
-                        <td className="py-2.5 px-4 text-right font-bold text-cyan-300">₹{row.amount.toFixed(2)}</td>
-                        <td className="py-2.5 px-4 text-right bg-slate-950/50 font-bold text-slate-200">{row.runningTotalLiters} L</td>
-                        <td className="py-2.5 px-4 text-right bg-slate-950/50 font-extrabold text-emerald-400">₹{row.runningTotalAmount.toFixed(2)}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* TAB 2: BRANCH DAY-WISE SUMMARY */}
-      {activeTab === 'branch-summary' && (
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
-          {loading ? (
-            <div className="p-12 text-center flex flex-col items-center justify-center text-slate-400">
-              <Loader2 className="w-8 h-8 animate-spin text-amber-400 mb-2" />
-              <p className="text-sm">Loading branch summary...</p>
-            </div>
-          ) : !summaryData || summaryData.data.length === 0 ? (
-            <div className="p-12 text-center text-slate-400">
-              <TrendingUp className="w-12 h-12 text-slate-600 mx-auto mb-2" />
-              <p className="text-sm font-semibold text-slate-300">No Branch Collections</p>
-              <p className="text-xs text-slate-500 mt-1">No collections recorded in selected date range.</p>
-            </div>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse font-mono text-xs">
-                <thead>
-                  <tr className="bg-slate-950/80 text-slate-400 uppercase text-[11px] font-semibold tracking-wider border-b border-slate-800">
-                    <th className="py-3 px-4">Date</th>
-                    <th className="py-3 px-4 text-right">Total Liters</th>
-                    <th className="py-3 px-4 text-right text-amber-300">Cow Liters</th>
-                    <th className="py-3 px-4 text-right text-purple-300">Buffalo Liters</th>
-                    <th className="py-3 px-4 text-right">Avg FAT %</th>
-                    <th className="py-3 px-4 text-right">Avg SNF %</th>
-                    <th className="py-3 px-4 text-right text-emerald-400">Day Total Amount (₹)</th>
-                    <th className="py-3 px-4 text-right">Entries</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-800/60">
-                  {summaryData.data.map((row) => (
-                    <tr key={row.date} className="hover:bg-slate-800/30">
-                      <td className="py-2.5 px-4 font-bold text-slate-100">{row.date}</td>
-                      <td className="py-2.5 px-4 text-right font-extrabold text-cyan-300">{row.totalLiters} L</td>
-                      <td className="py-2.5 px-4 text-right text-amber-300">{row.cowLiters} L</td>
-                      <td className="py-2.5 px-4 text-right text-purple-300">{row.buffaloLiters} L</td>
-                      <td className="py-2.5 px-4 text-right text-slate-300">{row.weightedAvgFat}%</td>
-                      <td className="py-2.5 px-4 text-right text-slate-300">{row.weightedAvgSnf}%</td>
-                      <td className="py-2.5 px-4 text-right font-bold text-emerald-400">₹{row.totalAmount.toFixed(2)}</td>
-                      <td className="py-2.5 px-4 text-right text-slate-400">{row.entryCount}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* TAB 3: PAYMENT DUE REGISTER */}
-      {activeTab === 'payment-due' && (
-        <div className="space-y-4">
-          {paymentData?.summary && (
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 bg-slate-900 border border-slate-800 p-4 rounded-2xl">
-              <div>
-                <span className="text-[10px] text-slate-500 uppercase tracking-wider block font-semibold">Total Farmers</span>
-                <span className="text-sm font-bold text-slate-100 font-mono">{paymentData.summary.totalFarmers} Members</span>
-              </div>
-              <div>
-                <span className="text-[10px] text-slate-500 uppercase tracking-wider block font-semibold">Grand Total Liters</span>
-                <span className="text-sm font-bold text-cyan-300 font-mono">{paymentData.summary.grandTotalLiters} L</span>
-              </div>
-              <div>
-                <span className="text-[10px] text-slate-500 uppercase tracking-wider block font-semibold">Grand Total Payout</span>
-                <span className="text-base font-extrabold text-emerald-400 font-mono">₹{paymentData.summary.grandTotalAmount}</span>
-              </div>
-            </div>
-          )}
-
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
-            {loading ? (
-              <div className="p-12 text-center flex flex-col items-center justify-center text-slate-400">
-                <Loader2 className="w-8 h-8 animate-spin text-emerald-400 mb-2" />
-                <p className="text-sm">Loading payment register...</p>
-              </div>
-            ) : !paymentData || paymentData.data.length === 0 ? (
-              <div className="p-12 text-center text-slate-400">
-                <DollarSign className="w-12 h-12 text-slate-600 mx-auto mb-2" />
-                <p className="text-sm font-semibold text-slate-300">No Payment Records</p>
-                <p className="text-xs text-slate-500 mt-1">No collections found in selected period.</p>
-              </div>
-            ) : (
-              <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse font-mono text-xs">
-                  <thead>
-                    <tr className="bg-slate-950/80 text-slate-400 uppercase text-[11px] font-semibold tracking-wider border-b border-slate-800">
-                      <th className="py-3 px-4">Code</th>
-                      <th className="py-3 px-4">Farmer Name</th>
-                      <th className="py-3 px-4 text-right">Total Liters</th>
-                      <th className="py-3 px-4 text-right text-amber-300">Cow (L)</th>
-                      <th className="py-3 px-4 text-right text-purple-300">Buf (L)</th>
-                      <th className="py-3 px-4 text-right">Avg FAT %</th>
-                      <th className="py-3 px-4 text-right">Avg SNF %</th>
-                      <th className="py-3 px-4 text-right">Avg Rate (₹)</th>
-                      <th className="py-3 px-4 text-right text-emerald-400 bg-slate-950">Payout Due (₹)</th>
-                      <th className="py-3 px-4 text-right">Entries</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-800/60">
-                    {paymentData.data.map((row) => (
-                      <tr key={row.farmerCode} className="hover:bg-slate-800/30">
-                        <td className="py-2.5 px-4 font-bold text-cyan-400">{row.farmerCode}</td>
-                        <td className="py-2.5 px-4 font-sans font-semibold text-slate-200 text-sm">{row.farmerName}</td>
-                        <td className="py-2.5 px-4 text-right font-bold text-slate-100">{row.totalLiters} L</td>
-                        <td className="py-2.5 px-4 text-right text-amber-300">{row.cowLiters} L</td>
-                        <td className="py-2.5 px-4 text-right text-purple-300">{row.buffaloLiters} L</td>
-                        <td className="py-2.5 px-4 text-right text-slate-300">{row.avgFat}%</td>
-                        <td className="py-2.5 px-4 text-right text-slate-300">{row.avgSnf}%</td>
-                        <td className="py-2.5 px-4 text-right text-slate-300">₹{row.avgRate.toFixed(2)}</td>
-                        <td className="py-2.5 px-4 text-right bg-slate-950 font-extrabold text-sm text-emerald-400">₹{row.totalAmount.toFixed(2)}</td>
-                        <td className="py-2.5 px-4 text-right text-slate-400">{row.entryCount}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
     </div>
   );
 };

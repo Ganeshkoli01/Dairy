@@ -79,6 +79,21 @@ const milkCollectionSchema = new mongoose.Schema(
       ref: 'User',
       required: true,
     },
+    paymentStatus: {
+      type: String,
+      enum: ['Pending', 'Processing', 'Completed', 'Failed', 'Cancelled'],
+      default: 'Pending',
+    },
+    paymentMethod: {
+      type: String,
+      default: 'Cash',
+    },
+    transactionId: {
+      type: String,
+    },
+    paymentDate: {
+      type: Date,
+    },
   },
   {
     timestamps: true,

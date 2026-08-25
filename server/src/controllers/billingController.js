@@ -8,15 +8,9 @@ export const sendStatements = async (req, res) => {
     let { branchId, year, month, period } = req.body;
 
     if (req.user && req.user.role === 'dairyOwner') {
-      const branchCode = req.user.dairyOwnerProfile?.branchNumber;
-      if (mongoose.connection.readyState === 1) {
-        const { Branch } = await import('../models/Branch.js');
-        const ownerBranch = await Branch.findOne({ code: new RegExp('^' + branchCode + '$', 'i') }).catch(() => null);
-        if (ownerBranch) {
-          branchId = ownerBranch._id.toString();
-        } else {
-          return res.status(403).json({ success: false, message: 'You do not have a valid branch assigned.' });
-        }
+      branchId = req.user.dairyOwnerProfile?.branchId;
+      if (!branchId) {
+        return res.status(403).json({ success: false, message: 'You do not have a valid branch assigned.' });
       }
     }
 

@@ -7,7 +7,7 @@ dotenv.config();
  * In production, you would configure SMTP credentials in .env (e.g., EMAIL_USER, EMAIL_PASS)
  * For testing, if valid credentials are not found, it falls back to Ethereal Email.
  */
-export const sendEmail = async ({ to, subject, html, text }) => {
+export const sendEmail = async ({ to, subject, html, text, attachments }) => {
   let transporter;
 
   const emailUser = process.env.EMAIL_USER || process.env.SMTP_EMAIL;
@@ -16,21 +16,38 @@ export const sendEmail = async ({ to, subject, html, text }) => {
   // Check if we have a Brevo API key instead of an SMTP password
   if (emailPass && emailPass.startsWith('xkeysib-')) {
     try {
-      const response = await fetch('https://api.brevo.com/v3/smtp/email', {
-        method: 'POST',
-        headers: {
-          'api-key': emailPass,
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
+        const brevoPayload = {
           sender: { name: process.env.FROM_NAME || 'GK Dairy Management', email: process.env.FROM_EMAIL || emailUser || 'no-reply@gkdairy.com' },
           to: [{ email: to }],
           subject: subject,
           htmlContent: html,
           textContent: text || html.replace(/<[^>]+>/g, '')
-        })
-      });
+        };
+
+        if (attachments && attachments.length > 0) {
+          brevoPayload.attachment = attachments.map(att => {
+            if (Buffer.isBuffer(att.content)) {
+              return {
+                name: att.filename,
+                content: att.content.toString('base64')
+              };
+            }
+            return {
+              name: att.filename,
+              content: Buffer.from(att.content).toString('base64')
+            };
+          });
+        }
+
+        const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+          method: 'POST',
+          headers: {
+            'api-key': emailPass,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(brevoPayload)
+        });
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -78,6 +95,7 @@ export const sendEmail = async ({ to, subject, html, text }) => {
     subject,
     html,
     text: text || html.replace(/<[^>]+>/g, ''), // Very basic HTML to text fallback
+    attachments: attachments || [],
   };
 
   const info = await transporter.sendMail(mailOptions);

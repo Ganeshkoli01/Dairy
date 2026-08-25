@@ -18,12 +18,24 @@ import { NotFoundPage } from './pages/NotFoundPage';
 import { ForgotPasswordPage } from './pages/ForgotPasswordPage';
 import { TermsPage } from './pages/TermsPage';
 import { PrivacyPage } from './pages/PrivacyPage';
+import { ShopPage } from './pages/ShopPage';
+import { CartPage } from './pages/CartPage';
+import { CheckoutPage } from './pages/CheckoutPage';
+import { AdminProductsPage } from './pages/AdminProductsPage';
+import { PaymentsPage } from './pages/PaymentsPage';
+import { InventoryPage } from './pages/InventoryPage';
+import { StockIntakePage } from './pages/StockIntakePage';
+import { OrdersHistoryPage } from './pages/OrdersHistoryPage';
+import { AnalyticsPage } from './pages/AnalyticsPage';
+import { NotificationsPage } from './pages/NotificationsPage';
+import { CartProvider } from './context/CartContext';
 
 export const App: React.FC = () => {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <Routes>
+        <CartProvider>
+          <Routes>
           {/* Public Routes */}
           <Route element={<PublicLayout />}>
             <Route path="/login" element={<LoginPage />} />
@@ -53,6 +65,19 @@ export const App: React.FC = () => {
               <Route path="/owner/farmers" element={<FarmersPage />} />
               <Route path="/admin/rate-chart" element={<RateChartPage />} />
               <Route path="/owner/rate-chart" element={<RateChartPage />} />
+              <Route path="/admin/reports" element={<ReportsPage />} />
+              <Route path="/admin/analytics" element={<AnalyticsPage />} />
+              <Route path="/owner/analytics" element={<AnalyticsPage />} />
+              <Route path="/admin/products" element={<AdminProductsPage />} />
+              <Route path="/admin/payments" element={<PaymentsPage />} />
+              <Route path="/admin/branches" element={<BranchesPage />} />
+              <Route path="/shop" element={<ShopPage />} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="/checkout" element={<CheckoutPage />} />
+              <Route path="/admin/inventory" element={<InventoryPage />} />
+              <Route path="/admin/orders" element={<OrdersHistoryPage />} />
+              <Route path="/owner/orders" element={<OrdersHistoryPage />} />
+              <Route path="/notifications" element={<NotificationsPage />} />
             </Route>
           </Route>
 
@@ -60,6 +85,8 @@ export const App: React.FC = () => {
           <Route element={<PrivateRoute allowedRoles={['admin']} />}>
             <Route element={<Layout />}>
               <Route path="/admin/branches" element={<BranchesPage />} />
+              <Route path="/admin/products" element={<AdminProductsPage />} />
+              <Route path="/admin/stock-intake" element={<StockIntakePage />} />
             </Route>
           </Route>
 
@@ -68,7 +95,8 @@ export const App: React.FC = () => {
 
           {/* Catch-all 404 Route */}
           <Route path="*" element={<NotFoundPage />} />
-        </Routes>
+          </Routes>
+        </CartProvider>
       </AuthProvider>
     </BrowserRouter>
   );

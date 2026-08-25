@@ -43,7 +43,7 @@ export const reportApi = {
     return response.data;
   },
 
-  exportCSV: async (reportType: 'farmer-ledger' | 'branch-summary' | 'payment-due', params: any) => {
+  exportCSV: async (reportType: string, params: any) => {
     const response = await api.get(`/reports/${reportType}`, {
       params: { ...params, export: 'csv' },
       responseType: 'text',
@@ -56,5 +56,34 @@ export const reportApi = {
     document.body.appendChild(link);
     link.click();
     link.remove();
+  },
+
+  getAnalyticsSummary: async (branch?: string, from?: string, to?: string) => {
+    const response = await api.get('/reports/summary', { params: { branch, from, to } });
+    return response.data;
+  },
+  getOrdersReport: async (branch?: string, from?: string, to?: string) => {
+    const response = await api.get('/reports/orders', { params: { branch, from, to } });
+    return response.data;
+  },
+  getPaymentsReport: async (branch?: string, from?: string, to?: string) => {
+    const response = await api.get('/reports/payments', { params: { branch, from, to } });
+    return response.data;
+  },
+  getInventoryReport: async (branch?: string) => {
+    const response = await api.get('/reports/inventory', { params: { branch } });
+    return response.data;
+  },
+  getStockMovementsReport: async (branch?: string, from?: string, to?: string) => {
+    const response = await api.get('/reports/stock-movements', { params: { branch, from, to } });
+    return response.data;
+  },
+  getStockTransfersReport: async (branch?: string, from?: string, to?: string) => {
+    const response = await api.get('/reports/stock-transfers', { params: { branch, from, to } });
+    return response.data;
+  },
+  getProductsReport: async (branch?: string, from?: string, to?: string) => {
+    const response = await api.get('/reports/products', { params: { branch, from, to } });
+    return response.data;
   },
 };

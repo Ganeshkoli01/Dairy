@@ -487,9 +487,9 @@ export const RateChartPage: React.FC = () => {
             <p className="text-sm font-medium">Loading rate chart matrix...</p>
           </div>
         ) : (
-          <div className="overflow-x-auto max-h-[600px] overflow-y-auto">
+          <div className="w-full overflow-x-auto max-h-[600px] overflow-y-auto pb-4 custom-scrollbar">
             <table className="w-full text-center border-collapse font-mono text-xs">
-              <thead className="sticky top-0 z-20 bg-slate-950 shadow-md">
+              <thead className="sticky top-0 z-20 bg-slate-950 shadow-md whitespace-nowrap">
                 <tr>
                   <th className="py-3 px-3 bg-slate-950 border-b border-r border-slate-800 text-amber-400 font-bold min-w-[75px]">
                     FAT \ SNF

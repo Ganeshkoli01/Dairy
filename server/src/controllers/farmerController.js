@@ -41,14 +41,9 @@ export const getFarmers = async (req, res) => {
     let { branch, search, isActive } = req.query;
 
     if (req.user && req.user.role === 'dairyOwner') {
-      const branchCode = req.user.dairyOwnerProfile?.branchNumber;
-      if (mongoose.connection.readyState === 1) {
-        const ownerBranch = await Branch.findOne({ code: new RegExp('^' + branchCode + '$', 'i') }).catch(() => null);
-        if (ownerBranch) {
-          branch = ownerBranch._id.toString();
-        } else {
-          return res.json({ success: true, count: 0, data: [] }); // Owner has no valid branch yet
-        }
+      branch = req.user.dairyOwnerProfile?.branchId;
+      if (!branch) {
+        return res.json({ success: true, count: 0, data: [] }); // Owner has no valid branch yet
       }
     }
 
@@ -132,14 +127,9 @@ export const createFarmer = async (req, res) => {
     let { farmerCode, name, branch, defaultMilkType, mobile, email, password, otp, isActive, joinedDate } = req.body;
 
     if (req.user && req.user.role === 'dairyOwner') {
-      const branchCode = req.user.dairyOwnerProfile?.branchNumber;
-      if (mongoose.connection.readyState === 1) {
-        const ownerBranch = await Branch.findOne({ code: new RegExp('^' + branchCode + '$', 'i') }).catch(() => null);
-        if (ownerBranch) {
-          branch = ownerBranch._id.toString();
-        } else {
-          return res.status(403).json({ success: false, message: 'You do not have a valid branch assigned.' });
-        }
+      branch = req.user.dairyOwnerProfile?.branchId;
+      if (!branch) {
+        return res.status(403).json({ success: false, message: 'You do not have a valid branch assigned.' });
       }
     }
 
@@ -242,14 +232,7 @@ export const updateFarmer = async (req, res) => {
     let { farmerCode, name, branch, defaultMilkType, mobile, isActive, joinedDate } = req.body;
 
     if (req.user && req.user.role === 'dairyOwner') {
-      const branchCode = req.user.dairyOwnerProfile?.branchNumber;
-      if (mongoose.connection.readyState === 1) {
-        const ownerBranch = await Branch.findOne({ code: branchCode }).catch(() => null);
-        if (ownerBranch) {
-           // Enforce branch to be owner's branch
-           branch = ownerBranch._id.toString();
-        }
-      }
+      branch = req.user.dairyOwnerProfile?.branchId;
     }
 
     if (mongoose.connection.readyState === 1) {
@@ -356,9 +339,7 @@ export const deleteFarmer = async (req, res) => {
       const farmer = await Farmer.findById(req.params.id).catch(() => null);
       if (farmer) {
         if (req.user && req.user.role === 'dairyOwner') {
-          const branchCode = req.user.dairyOwnerProfile?.branchNumber;
-          const ownerBranch = await Branch.findOne({ code: new RegExp('^' + branchCode + '$', 'i') }).catch(() => null);
-          if (String(farmer.branch) !== String(ownerBranch?._id)) {
+          if (String(farmer.branch) !== String(req.user.dairyOwnerProfile?.branchId)) {
             return res.status(403).json({ success: false, message: 'You can only delete farmers in your own branch.' });
           }
         }

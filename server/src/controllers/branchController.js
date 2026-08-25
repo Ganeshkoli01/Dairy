@@ -77,10 +77,6 @@ export const createBranch = async (req, res) => {
 
     const formattedCode = code.trim().toUpperCase();
 
-    if (memoryBranches.some((b) => b.code === formattedCode)) {
-      return res.status(400).json({ success: false, message: `Branch code '${formattedCode}' already exists` });
-    }
-
     if (mongoose.connection.readyState === 1) {
       const existingBranch = await Branch.findOne({ code: formattedCode }).catch(() => null);
       if (existingBranch) {
@@ -97,6 +93,10 @@ export const createBranch = async (req, res) => {
       if (branch) {
         return res.status(201).json({ success: true, message: 'Branch created successfully', data: branch });
       }
+    }
+
+    if (memoryBranches.some((b) => b.code === formattedCode)) {
+      return res.status(400).json({ success: false, message: `Branch code '${formattedCode}' already exists` });
     }
 
     const newMemoryBranch = {
