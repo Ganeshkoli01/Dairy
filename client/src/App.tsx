@@ -81,6 +81,8 @@ export const App: React.FC = () => {
               <Route path="/owner/shop-reports" element={<ShopReportsPage />} />
               <Route path="/admin/orders" element={<OrdersHistoryPage />} />
               <Route path="/owner/orders" element={<OrdersHistoryPage />} />
+              <Route path="/admin/stock-intake" element={<StockIntakePage />} />
+              <Route path="/owner/stock-intake" element={<StockIntakePage />} />
               <Route path="/notifications" element={<NotificationsPage />} />
             </Route>
           </Route>
@@ -90,7 +92,6 @@ export const App: React.FC = () => {
             <Route element={<Layout />}>
               <Route path="/admin/branches" element={<BranchesPage />} />
               <Route path="/admin/products" element={<AdminProductsPage />} />
-              <Route path="/admin/stock-intake" element={<StockIntakePage />} />
             </Route>
           </Route>
 

@@ -40,7 +40,7 @@ export interface Order {
   };
   items: OrderItem[];
   totalAmount: number;
-  status: 'Pending' | 'Processing' | 'Delivered' | 'Cancelled';
+  status: 'Pending' | 'Processing' | 'Delivered' | 'Cancelled' | 'Received';
   paymentStatus?: 'Pending' | 'Completed' | 'Failed';
   paymentMethod: 'Cash on Delivery' | 'Pay at Branch' | 'Online Payment';
   razorpayOrderId?: string;

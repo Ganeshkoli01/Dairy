@@ -590,10 +590,26 @@ export const getAnalyticsSummary = async (req, res) => {
       { $group: { _id: null, totalUnits: { $sum: '$items.quantity' } } }
     ]);
 
+    // Stock Transfers (Procurements)
+    const procurementMatch = getBranchFilter(req, {
+      createdAt: { $gte: from, $lte: to },
+      status: { $ne: 'Cancelled' }
+    });
+    
+    const procurementData = await Procurement.aggregate([
+      { $match: procurementMatch },
+      { $group: { _id: null, totalTransferValue: { $sum: '$totalTransferValue' } } }
+    ]);
+
+    const onlineSales = salesData[0]?.totalSales || 0;
+    const stockTransferSales = procurementData[0]?.totalTransferValue || 0;
+
     return res.json({
       success: true,
       summary: {
-        totalSales: salesData[0]?.totalSales || 0,
+        onlineSales: onlineSales,
+        stockTransferSales: stockTransferSales,
+        totalSales: onlineSales + stockTransferSales,
         totalOrders: salesData[0]?.totalOrders || 0,
         completedOrders: salesData[0]?.completedOrders || 0,
         pendingOrders: salesData[0]?.pendingOrders || 0,
@@ -788,33 +804,30 @@ export const getStockTransfersReport = async (req, res) => {
   try {
     const { from, to } = parseDateRange(req.query.from, req.query.to);
     const match = getBranchFilter(req, { 
-      createdAt: { $gte: from, $lte: to },
-      type: 'Transfer'
+      createdAt: { $gte: from, $lte: to }
     });
     
     const transfers = await Procurement.find(match)
       .populate('branch', 'name')
-      .populate('items.product', 'nameEn')
+      .populate('product', 'nameEn')
       .populate('receivedBy', 'name')
       .sort({ createdAt: -1 });
 
     const data = [];
     const isAdmin = req.user && req.user.role === 'admin';
     transfers.forEach(t => {
-      t.items.forEach(item => {
-        data.push({
-          transferNumber: t.invoiceNumber || t._id,
-          date: new Date(t.createdAt).toISOString().split('T')[0],
-          from: 'GK Dairy Main Plant',
-          toBranch: t.branch?.name || 'Unknown',
-          productName: item.product?.nameEn || 'Unknown',
-          quantity: item.quantity,
-          plantTransferPrice: isAdmin ? item.unitPrice : 'Hidden',
-          totalValue: isAdmin ? item.totalPrice : 'Hidden',
-          status: t.status,
-          receivedDate: t.receivedAt ? new Date(t.receivedAt).toISOString().split('T')[0] : 'Pending',
-          receivedBy: t.receivedBy?.name || 'N/A'
-        });
+      data.push({
+        transferNumber: t.invoiceNumber || t._id,
+        date: new Date(t.createdAt).toISOString().split('T')[0],
+        from: 'GK Dairy Main Plant',
+        toBranch: t.branch?.name || 'Unknown',
+        productName: t.product?.nameEn || 'Unknown',
+        quantity: t.quantity,
+        plantTransferPrice: isAdmin ? t.plantTransferPrice : 'Hidden',
+        totalValue: isAdmin ? t.totalTransferValue : 'Hidden',
+        status: t.status || 'Pending',
+        receivedDate: t.receivedAt ? new Date(t.receivedAt).toISOString().split('T')[0] : 'Pending',
+        receivedBy: t.receivedBy?.name || 'N/A'
       });
     });
 

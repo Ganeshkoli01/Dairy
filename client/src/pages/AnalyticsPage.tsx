@@ -45,6 +45,7 @@ export const AnalyticsPage: React.FC = () => {
   
   const [summaryData, setSummaryData] = useState<any>(null);
   const [ordersData, setOrdersData] = useState<any[]>([]);
+  const [procurementsData, setProcurementsData] = useState<any[]>([]);
 
   // Calculate dates based on selection
   const { from, to } = useMemo(() => {
@@ -111,9 +112,10 @@ export const AnalyticsPage: React.FC = () => {
       setLoading(true);
       setError(null);
       try {
-        const [summaryResponse, ordersResponse] = await Promise.all([
+        const [summaryResponse, ordersResponse, procurementsResponse] = await Promise.all([
           reportApi.getAnalyticsSummary(undefined, from, to),
-          reportApi.getOrdersReport(undefined, from, to)
+          reportApi.getOrdersReport(undefined, from, to),
+          import('../api/procurementApi').then(m => m.procurementApi.getProcurements())
         ]);
 
         if (summaryResponse.success) {
@@ -121,6 +123,18 @@ export const AnalyticsPage: React.FC = () => {
         }
         if (ordersResponse.success) {
           setOrdersData(ordersResponse.data);
+        }
+        if (procurementsResponse?.data?.data) {
+          // Filter procurements locally based on from/to
+          const fromDate = new Date(from);
+          const toDate = new Date(to);
+          toDate.setHours(23, 59, 59, 999);
+          
+          const filteredProcurements = procurementsResponse.data.data.filter((p: any) => {
+            const d = new Date(p.createdAt);
+            return d >= fromDate && d <= toDate;
+          });
+          setProcurementsData(filteredProcurements);
         }
       } catch (err: any) {
         setError(err.message || 'Failed to load analytics data.');
@@ -134,21 +148,31 @@ export const AnalyticsPage: React.FC = () => {
 
   // Process data for charts
   const salesTrend = useMemo(() => {
-    if (!ordersData.length) return [];
+    if (!ordersData.length && !procurementsData.length) return [];
     
-    const grouped = ordersData.reduce((acc: any, order: any) => {
-      const date = order.date;
-      if (!acc[date]) acc[date] = 0;
-      acc[date] += order.totalAmount;
-      return acc;
-    }, {});
+    const grouped: any = {};
+    
+    ordersData.forEach((order: any) => {
+      const d = order.date; // "YYYY-MM-DD"
+      if (!grouped[d]) grouped[d] = { date: d, onlineSales: 0, stockTransferSales: 0 };
+      grouped[d].onlineSales += order.totalAmount;
+    });
+
+    procurementsData.forEach((proc: any) => {
+      const d = new Date(proc.createdAt).toISOString().split('T')[0];
+      if (!grouped[d]) grouped[d] = { date: d, onlineSales: 0, stockTransferSales: 0 };
+      if (proc.status !== 'Cancelled') {
+        grouped[d].stockTransferSales += proc.totalTransferValue || 0;
+      }
+    });
 
     // Sort by date and format
     return Object.keys(grouped).sort().map(date => ({
       date: new Date(date).toLocaleDateString('en-IN', { month: 'short', day: 'numeric' }),
-      sales: grouped[date]
+      'Online Sales': grouped[date].onlineSales,
+      'Stock Transfers': grouped[date].stockTransferSales
     }));
-  }, [ordersData]);
+  }, [ordersData, procurementsData]);
 
   const orderStatusData = useMemo(() => {
     if (!summaryData) return [];
@@ -158,6 +182,19 @@ export const AnalyticsPage: React.FC = () => {
       { name: 'Cancelled', value: summaryData.cancelledOrders, color: '#EF4444' }
     ].filter(d => d.value > 0);
   }, [summaryData]);
+
+  const transferStatusData = useMemo(() => {
+    if (!procurementsData.length) return [];
+    const counts: any = { Pending: 0, Dispatched: 0, Received: 0 };
+    procurementsData.forEach(p => {
+      if (counts[p.status] !== undefined) counts[p.status]++;
+    });
+    return [
+      { name: 'Pending', value: counts.Pending, color: '#F59E0B' },
+      { name: 'Dispatched', value: counts.Dispatched, color: '#3B82F6' },
+      { name: 'Received', value: counts.Received, color: '#10B981' }
+    ].filter(d => d.value > 0);
+  }, [procurementsData]);
 
   const paymentStatusData = useMemo(() => {
     if (!summaryData) return [];
@@ -241,16 +278,24 @@ export const AnalyticsPage: React.FC = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg relative overflow-hidden">
               <div className="absolute -right-4 -top-4 w-16 h-16 bg-emerald-500/10 rounded-full blur-xl"></div>
-              <div className="flex items-center justify-between mb-4 relative z-10">
-                <p className="text-sm font-medium text-slate-400">Total Sales</p>
+              <div className="flex items-center justify-between mb-3 relative z-10">
+                <p className="text-sm font-medium text-slate-400">Total Revenue</p>
                 <div className="p-2 bg-emerald-500/10 rounded-lg">
                   <IndianRupee className="w-5 h-5 text-emerald-400" />
                 </div>
               </div>
-              <h3 className="text-2xl font-black text-white relative z-10">₹{(summaryData?.totalSales || 0).toLocaleString()}</h3>
-              <p className="text-xs font-semibold text-emerald-400 mt-2 relative z-10 flex items-center">
-                <TrendingUp className="w-3 h-3 mr-1" /> Revenue Generated
-              </p>
+              <h3 className="text-2xl font-black text-white relative z-10 mb-3">₹{(summaryData?.totalSales || 0).toLocaleString()}</h3>
+              
+              <div className="flex flex-col gap-1.5 text-xs text-slate-400 relative z-10 border-t border-slate-800/60 pt-3">
+                <div className="flex justify-between items-center">
+                  <span className="flex items-center gap-1"><CreditCard className="w-3 h-3 text-emerald-400" /> Online Payments</span>
+                  <span className="font-semibold text-slate-200">₹{(summaryData?.onlineSales || 0).toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="flex items-center gap-1"><Package className="w-3 h-3 text-indigo-400" /> Stock Transfers</span>
+                  <span className="font-semibold text-slate-200">₹{(summaryData?.stockTransferSales || 0).toLocaleString()}</span>
+                </div>
+              </div>
             </div>
 
             <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg relative overflow-hidden">
@@ -297,10 +342,10 @@ export const AnalyticsPage: React.FC = () => {
           </div>
 
           {/* Charts Row */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="flex flex-col gap-6">
             
-            {/* Sales Trend (2/3 width) */}
-            <div className="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+            {/* Sales Trend (Full width) */}
+            <div className="w-full bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
               <h3 className="text-sm font-bold text-slate-200 uppercase tracking-wider mb-6">Sales Trend (Revenue)</h3>
               {salesTrend.length > 0 ? (
                 <div className="h-72 w-full">
@@ -311,16 +356,21 @@ export const AnalyticsPage: React.FC = () => {
                           <stop offset="5%" stopColor="#10B981" stopOpacity={0.3}/>
                           <stop offset="95%" stopColor="#10B981" stopOpacity={0}/>
                         </linearGradient>
+                        <linearGradient id="colorTransfers" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="#818CF8" stopOpacity={0.3}/>
+                          <stop offset="95%" stopColor="#818CF8" stopOpacity={0}/>
+                        </linearGradient>
                       </defs>
                       <CartesianGrid strokeDasharray="3 3" stroke="#1E293B" vertical={false} />
                       <XAxis dataKey="date" stroke="#64748B" fontSize={12} tickLine={false} axisLine={false} />
                       <YAxis stroke="#64748B" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(val) => `₹${val}`} />
                       <Tooltip 
                         contentStyle={{ backgroundColor: '#0F172A', borderColor: '#1E293B', borderRadius: '12px', color: '#F1F5F9' }}
-                        itemStyle={{ color: '#10B981', fontWeight: 'bold' }}
-                        formatter={(value: any) => [`₹${Number(value || 0).toLocaleString()}`, 'Sales']}
+                        itemStyle={{ fontWeight: 'bold' }}
+                        formatter={(value: any, name: any) => [`₹${Number(value || 0).toLocaleString()}`, name]}
                       />
-                      <Area type="monotone" dataKey="sales" stroke="#10B981" strokeWidth={3} fillOpacity={1} fill="url(#colorSales)" />
+                      <Area type="monotone" dataKey="Online Sales" stroke="#10B981" fillOpacity={1} fill="url(#colorSales)" />
+                      <Area type="monotone" dataKey="Stock Transfers" stroke="#818CF8" fillOpacity={1} fill="url(#colorTransfers)" />
                     </AreaChart>
                   </ResponsiveContainer>
                 </div>
@@ -331,9 +381,12 @@ export const AnalyticsPage: React.FC = () => {
               )}
             </div>
 
-            {/* Order Status (1/3 width) */}
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col">
-              <h3 className="text-sm font-bold text-slate-200 uppercase tracking-wider mb-6">Order Status</h3>
+            {/* Status Pies Row */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              
+              {/* Order Status */}
+              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col">
+                <h3 className="text-sm font-bold text-slate-200 uppercase tracking-wider mb-6">Customer Order Status</h3>
               {orderStatusData.length > 0 ? (
                 <div className="flex-1 flex flex-col justify-center">
                   <div className="h-48 w-full">
@@ -372,6 +425,51 @@ export const AnalyticsPage: React.FC = () => {
                   <p className="text-slate-500 text-sm">No orders found</p>
                 </div>
               )}
+              </div>
+
+              {/* Transfer Status */}
+              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col">
+                <h3 className="text-sm font-bold text-slate-200 uppercase tracking-wider mb-6">Stock Transfer Status</h3>
+                {transferStatusData.length > 0 ? (
+                  <div className="flex-1 flex flex-col justify-center">
+                    <div className="h-48 w-full">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <PieChart>
+                          <Pie
+                            data={transferStatusData}
+                            cx="50%"
+                            cy="50%"
+                            innerRadius={60}
+                            outerRadius={80}
+                            paddingAngle={5}
+                            dataKey="value"
+                          >
+                            {transferStatusData.map((entry, index) => (
+                              <Cell key={`cell-${index}`} fill={entry.color} />
+                            ))}
+                          </Pie>
+                          <Tooltip 
+                            contentStyle={{ backgroundColor: '#0F172A', borderColor: '#1E293B', borderRadius: '12px', color: '#F1F5F9' }}
+                          />
+                        </PieChart>
+                      </ResponsiveContainer>
+                    </div>
+                    <div className="flex flex-wrap justify-center gap-4 mt-2">
+                      {transferStatusData.map((entry, idx) => (
+                        <div key={idx} className="flex items-center text-xs font-semibold text-slate-300">
+                          <span className="w-3 h-3 rounded-full mr-2" style={{ backgroundColor: entry.color }}></span>
+                          {entry.name}: {entry.value}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex-1 flex items-center justify-center border-2 border-dashed border-slate-800 rounded-xl">
+                    <p className="text-slate-500 text-sm">No transfers found</p>
+                  </div>
+                )}
+              </div>
+
             </div>
 
           </div>

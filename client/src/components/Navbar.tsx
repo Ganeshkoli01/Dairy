@@ -53,10 +53,6 @@ export const Navbar: React.FC = () => {
                 <FileText className="w-5 h-5 md:w-3.5 md:h-3.5 text-cyan-400" />
                 <span>Reports</span>
               </NavLink>
-              <NavLink to={user.role === 'admin' ? '/admin/analytics' : '/owner/analytics'} className={navLinkClass} onClick={closeMobileMenu}>
-                <TrendingUp className="w-5 h-5 md:w-3.5 md:h-3.5 text-cyan-400" />
-                <span>Analytics</span>
-              </NavLink>
             </>
           )}
 
@@ -112,15 +108,17 @@ export const Navbar: React.FC = () => {
               <Package className="w-5 h-5 md:w-3.5 md:h-3.5 text-indigo-400" />
               <span>Inventory</span>
             </NavLink>
-            {user.role === 'admin' && (
-              <NavLink to="/admin/stock-intake" className={navLinkClass} onClick={closeMobileMenu}>
-                <Package className="w-5 h-5 md:w-3.5 md:h-3.5 text-indigo-400" />
-                <span>Stock Intake</span>
-              </NavLink>
-            )}
+            <NavLink to={user.role === 'admin' ? '/admin/stock-intake' : '/owner/stock-intake'} className={navLinkClass} onClick={closeMobileMenu}>
+              <Package className="w-5 h-5 md:w-3.5 md:h-3.5 text-indigo-400" />
+              <span>Stock Transfers</span>
+            </NavLink>
             <NavLink to={user.role === 'admin' ? '/admin/orders' : '/owner/orders'} className={navLinkClass} onClick={closeMobileMenu}>
               <Package className="w-5 h-5 md:w-3.5 md:h-3.5 text-indigo-400" />
               <span>Orders History</span>
+            </NavLink>
+            <NavLink to={user.role === 'admin' ? '/admin/analytics' : '/owner/analytics'} className={navLinkClass} onClick={closeMobileMenu}>
+              <TrendingUp className="w-5 h-5 md:w-3.5 md:h-3.5 text-indigo-400" />
+              <span>Analytics</span>
             </NavLink>
             {user.role === 'admin' && (
               <NavLink to="/admin/payments" className={navLinkClass} onClick={closeMobileMenu}>

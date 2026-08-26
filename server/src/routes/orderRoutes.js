@@ -1,5 +1,5 @@
 import express from 'express';
-import { createOrder, getOrders, updateOrderStatus, verifyPayment, sendOrderOtp, downloadInvoice, getRazorpayKey } from '../controllers/orderController.js';
+import { createOrder, getOrders, updateOrderStatus, verifyPayment, sendOrderOtp, downloadInvoice, getRazorpayKey, deleteOrder, receiveOrder } from '../controllers/orderController.js';
 import { protect, authorize } from '../middleware/authMiddleware.js';
 import rateLimit from 'express-rate-limit';
 
@@ -21,6 +21,8 @@ router.route('/verify-payment').post(verifyPayment);
 // Protected routes for admin/owner to manage orders
 router.route('/').get(protect, authorize('admin', 'dairyOwner'), getOrders);
 router.route('/:id/status').put(protect, authorize('admin', 'dairyOwner'), updateOrderStatus);
+router.route('/:id/receive').put(protect, authorize('dairyOwner'), receiveOrder);
 router.route('/:id/invoice').get(protect, authorize('admin', 'dairyOwner'), downloadInvoice);
+router.route('/:id').delete(protect, authorize('admin', 'dairyOwner'), deleteOrder);
 
 export default router;

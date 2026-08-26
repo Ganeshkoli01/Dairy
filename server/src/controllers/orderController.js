@@ -69,47 +69,46 @@ const fulfillOrder = async (orderId) => {
       const product = await Product.findById(item.product);
       if (!product) continue;
       
-      let prevStock = 0;
-      let newStock = 0;
-      
       if (order.branch) {
         // Dairy Owner is purchasing from Main Plant to stock their branch.
-        // Subtract from Main Plant stock
+        // Subtract from Main Plant stock only. Branch stock is updated when they confirm receipt.
         const mainPrevStock = product.stock;
         const mainNewStock = Math.max(0, product.stock - item.quantity);
         product.stock = mainNewStock;
+        
+        await product.save();
 
-        // Add to Branch stock
-        const bIndex = product.branchStock.findIndex(b => b.branch.toString() === order.branch.toString());
-        if (bIndex >= 0) {
-          prevStock = product.branchStock[bIndex].stock;
-          newStock = prevStock + item.quantity;
-          product.branchStock[bIndex].stock = newStock;
-        } else {
-          prevStock = 0;
-          newStock = item.quantity;
-          product.branchStock.push({ branch: order.branch, stock: newStock });
-        }
+        await InventoryHistory.create({
+          product: product._id,
+          type: 'Customer Order',
+          quantity: -item.quantity,
+          previousStock: mainPrevStock,
+          newStock: mainNewStock,
+          reason: 'Branch Order Dispatch',
+          referenceId: order._id,
+          branch: null, // Log against main plant since it's a dispatch
+          createdBy: order.user
+        });
       } else {
         // Main Plant Order (Admin direct sale)
-        prevStock = product.stock;
-        newStock = Math.max(0, product.stock - item.quantity);
+        const prevStock = product.stock;
+        const newStock = Math.max(0, product.stock - item.quantity);
         product.stock = newStock;
-      }
-      
-      await product.save();
+        
+        await product.save();
 
-      await InventoryHistory.create({
-        product: product._id,
-        type: 'Customer Order',
-        quantity: -item.quantity,
-        previousStock: prevStock,
-        newStock: newStock,
-        reason: 'Customer purchase',
-        referenceId: order._id,
-        branch: order.branch,
-        createdBy: order.user
-      });
+        await InventoryHistory.create({
+          product: product._id,
+          type: 'Customer Order',
+          quantity: -item.quantity,
+          previousStock: prevStock,
+          newStock: newStock,
+          reason: 'Customer purchase',
+          referenceId: order._id,
+          branch: null,
+          createdBy: order.user
+        });
+      }
     }
 
     // Determine email to send confirmation to
@@ -491,4 +490,87 @@ export const downloadInvoice = async (req, res) => {
 // Expose razorpay key to frontend
 export const getRazorpayKey = (req, res) => {
   res.status(200).json({ key: process.env.RAZORPAY_KEY_ID || 'rzp_test_placeholder_key' });
+};
+
+// @desc    Delete order
+// @route   DELETE /api/orders/:id
+// @access  Private/Admin
+export const deleteOrder = async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id);
+
+    if (!order) {
+      return res.status(404).json({ success: false, message: 'Order not found' });
+    }
+
+    await order.deleteOne();
+    res.json({ success: true, message: 'Order deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting order:', error);
+    res.status(500).json({ success: false, message: 'Server Error', error: error.message });
+  }
+};
+
+// @desc    Receive order (Dairy Owner confirms receipt of stock)
+// @route   PUT /api/orders/:id/receive
+// @access  Private/DairyOwner
+export const receiveOrder = async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id);
+
+    if (!order) {
+      return res.status(404).json({ success: false, message: 'Order not found' });
+    }
+
+    if (order.status !== 'Delivered') {
+      return res.status(400).json({ success: false, message: 'Order must be marked as Delivered by Admin before you can receive it.' });
+    }
+
+    const branchId = req.user.dairyOwnerProfile?.branchId;
+    if (String(order.branch) !== String(branchId)) {
+      return res.status(403).json({ success: false, message: 'Unauthorized to receive this order' });
+    }
+
+    // Add stock to branch
+    for (const item of order.items) {
+      const product = await Product.findById(item.product);
+      if (!product) continue;
+
+      let prevStock = 0;
+      let newStock = 0;
+
+      const bIndex = product.branchStock.findIndex(b => b.branch.toString() === order.branch.toString());
+      if (bIndex >= 0) {
+        prevStock = product.branchStock[bIndex].stock;
+        newStock = prevStock + item.quantity;
+        product.branchStock[bIndex].stock = newStock;
+      } else {
+        prevStock = 0;
+        newStock = item.quantity;
+        product.branchStock.push({ branch: order.branch, stock: newStock });
+      }
+
+      await product.save();
+
+      await InventoryHistory.create({
+        product: product._id,
+        type: 'Customer Order',
+        quantity: item.quantity,
+        previousStock: prevStock,
+        newStock: newStock,
+        reason: 'Branch Order Received',
+        referenceId: order._id,
+        branch: order.branch,
+        createdBy: req.user._id
+      });
+    }
+
+    order.status = 'Received';
+    await order.save();
+
+    res.json({ success: true, message: 'Order marked as received and stock updated', data: order });
+  } catch (error) {
+    console.error('Error receiving order:', error);
+    res.status(500).json({ success: false, message: 'Server Error', error: error.message });
+  }
 };

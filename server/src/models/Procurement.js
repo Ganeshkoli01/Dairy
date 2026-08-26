@@ -56,6 +56,17 @@ const procurementSchema = new mongoose.Schema({
     ref: 'Branch',
     required: false, // Optional for admin if they don't assign it
   },
+  status: {
+    type: String,
+    enum: ['Pending', 'Dispatched', 'Received', 'Issue Reported', 'Cancelled'],
+    default: 'Pending',
+  },
+  dispatchedAt: { type: Date },
+  dispatchedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  receivedAt: { type: Date },
+  receivedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  actualReceivedQuantity: { type: Number },
+  issueReason: { type: String, trim: true },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',

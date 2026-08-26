@@ -27,6 +27,16 @@ export const orderApi = {
     return response.data;
   },
 
+  receiveOrder: async (id: string) => {
+    const response = await api.put<{ success: boolean; data: Order }>(`/orders/${id}/receive`);
+    return response.data;
+  },
+
+  deleteOrder: async (id: string) => {
+    const response = await api.delete<{ success: boolean }>(`/orders/${id}`);
+    return response.data;
+  },
+
   verifyPayment: async (data: { razorpay_order_id: string; razorpay_payment_id: string; razorpay_signature: string }) => {
     const response = await api.post<{ success: boolean; message: string }>('/orders/verify-payment', data);
     return response.data;

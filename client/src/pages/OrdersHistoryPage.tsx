@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Trash2 } from 'lucide-react';
 import { orderApi } from '../api/orderApi';
 import { Order } from '../types/product';
 import { useAuth } from '../context/AuthContext';
@@ -34,6 +35,17 @@ export const OrdersHistoryPage: React.FC = () => {
       fetchOrders();
     } catch (err) {
       console.error('Failed to update status', err);
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!window.confirm('Are you sure you want to delete this order?')) return;
+    try {
+      await orderApi.deleteOrder(id);
+      fetchOrders();
+    } catch (err) {
+      console.error('Failed to delete order', err);
+      alert('Failed to delete order');
     }
   };
 
@@ -131,32 +143,72 @@ export const OrdersHistoryPage: React.FC = () => {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-center">
-                      <select
-                        value={order.status}
-                        onChange={(e) => handleStatusChange(order._id || '', e.target.value)}
-                        className={`bg-slate-950 border border-slate-700 rounded-lg text-xs py-1 px-2 focus:ring-indigo-500 focus:border-indigo-500 font-bold ${
-                          order.status === 'Delivered' ? 'text-emerald-400 border-emerald-500/30' :
-                          order.status === 'Pending' ? 'text-amber-400 border-amber-500/30' :
-                          order.status === 'Cancelled' ? 'text-rose-400 border-rose-500/30' :
-                          'text-indigo-400 border-indigo-500/30'
-                        }`}
-                      >
-                        <option value="Pending" className="text-amber-400">Pending</option>
-                        <option value="Processing" className="text-indigo-400">Processing</option>
-                        <option value="Delivered" className="text-emerald-400">Delivered</option>
-                        <option value="Cancelled" className="text-rose-400">Cancelled</option>
-                      </select>
+                      {isAdmin ? (
+                        <select
+                          value={order.status}
+                          onChange={(e) => handleStatusChange(order._id || '', e.target.value)}
+                          className={`bg-slate-950 border border-slate-700 rounded-lg text-xs py-1 px-2 focus:ring-indigo-500 focus:border-indigo-500 font-bold ${
+                            order.status === 'Received' ? 'text-emerald-400 border-emerald-500/30' :
+                            order.status === 'Delivered' ? 'text-teal-400 border-teal-500/30' :
+                            order.status === 'Pending' ? 'text-amber-400 border-amber-500/30' :
+                            order.status === 'Cancelled' ? 'text-rose-400 border-rose-500/30' :
+                            'text-indigo-400 border-indigo-500/30'
+                          }`}
+                        >
+                          <option value="Pending" className="text-amber-400">Pending</option>
+                          <option value="Processing" className="text-indigo-400">Processing</option>
+                          <option value="Delivered" className="text-teal-400">Delivered</option>
+                          {order.status === 'Received' && <option value="Received" className="text-emerald-400">Received</option>}
+                          <option value="Cancelled" className="text-rose-400">Cancelled</option>
+                        </select>
+                      ) : (
+                        <span className={`px-2 py-1 rounded-md text-xs font-bold ${
+                          order.status === 'Received' ? 'bg-emerald-500/10 text-emerald-400' :
+                          order.status === 'Delivered' ? 'bg-teal-500/10 text-teal-400' :
+                          order.status === 'Pending' ? 'bg-amber-500/10 text-amber-400' :
+                          order.status === 'Cancelled' ? 'bg-rose-500/10 text-rose-400' :
+                          'bg-indigo-500/10 text-indigo-400'
+                        }`}>
+                          {order.status}
+                        </span>
+                      )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-center">
-                      <button
-                        onClick={() => orderApi.downloadInvoice(order._id || '', (order as any).invoiceNumber)}
-                        className="inline-flex items-center justify-center p-2 bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500 hover:text-white rounded-lg transition-colors border border-indigo-500/20 shadow-sm"
-                        title="Download Invoice PDF"
-                      >
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                        </svg>
-                      </button>
+                      <div className="flex items-center justify-center gap-2">
+                        {!isAdmin && order.status === 'Delivered' && (
+                          <button
+                            onClick={async () => {
+                              try {
+                                await orderApi.receiveOrder(order._id || '');
+                                fetchOrders();
+                              } catch (err: any) {
+                                alert(err.response?.data?.message || 'Failed to receive order');
+                              }
+                            }}
+                            className="inline-flex items-center justify-center px-3 py-1.5 bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/40 rounded-lg text-xs font-bold transition-colors"
+                          >
+                            Confirm Receipt
+                          </button>
+                        )}
+                        <button
+                          onClick={() => orderApi.downloadInvoice(order._id || '', (order as any).invoiceNumber)}
+                          className="inline-flex items-center justify-center p-2 bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500 hover:text-white rounded-lg transition-colors border border-indigo-500/20 shadow-sm"
+                          title="Download Invoice PDF"
+                        >
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                          </svg>
+                        </button>
+                        {isAdmin && (
+                          <button
+                            onClick={() => handleDelete(order._id || '')}
+                            className="inline-flex items-center justify-center p-2 bg-rose-500/10 text-rose-400 hover:bg-rose-500 hover:text-white rounded-lg transition-colors border border-rose-500/20 shadow-sm"
+                            title="Delete Order"
+                          >
+                            <Trash2 className="w-5 h-5" />
+                          </button>
+                        )}
+                      </div>
                     </td>
                   </tr>
                 ))
