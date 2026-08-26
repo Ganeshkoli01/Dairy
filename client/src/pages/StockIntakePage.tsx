@@ -22,6 +22,7 @@ export const StockIntakePage: React.FC = () => {
   const [showReceiveModal, setShowReceiveModal] = useState(false);
   const [showIssueModal, setShowIssueModal] = useState(false);
   const [showDispatchModal, setShowDispatchModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedTransfer, setSelectedTransfer] = useState<any>(null);
 
   // Form state
@@ -105,11 +106,18 @@ export const StockIntakePage: React.FC = () => {
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if(!window.confirm('Are you sure you want to delete this pending transfer?')) return;
+  const handleDeleteClick = (t: any) => {
+    setSelectedTransfer(t);
+    setShowDeleteModal(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!selectedTransfer) return;
     try {
       setIsSubmitting(true);
-      await procurementApi.deleteProcurement(id);
+      await procurementApi.deleteProcurement(selectedTransfer._id);
+      setShowDeleteModal(false);
+      setSelectedTransfer(null);
       await fetchData();
     } catch (err: any) {
       setError(err.response?.data?.message || 'Failed to delete transfer');
@@ -366,7 +374,7 @@ export const StockIntakePage: React.FC = () => {
                         )}
                         {isAdmin && (
                           <button 
-                            onClick={() => handleDelete(t._id)} 
+                            onClick={() => handleDeleteClick(t)} 
                             disabled={isSubmitting}
                             title="Delete Transfer"
                             className="text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 p-1.5 rounded disabled:opacity-50 transition-colors ml-2"
@@ -479,6 +487,33 @@ export const StockIntakePage: React.FC = () => {
         </div>
       )}
 
+      {/* Delete Modal */}
+      {showDeleteModal && selectedTransfer && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 max-w-md w-full shadow-2xl animate-in zoom-in-95 duration-200">
+            <h3 className="text-lg font-bold text-rose-400 mb-2 flex items-center gap-2">
+              <Trash2 className="w-5 h-5" /> Delete Transfer
+            </h3>
+            <p className="text-sm text-slate-400 mb-4">Are you sure you want to delete this pending transfer? This action cannot be undone.</p>
+            
+            <div className="bg-slate-950 p-4 rounded-lg border border-slate-800 mb-6 space-y-2 text-sm text-slate-300">
+              <div className="flex justify-between"><span>Product:</span> <span className="font-bold text-white">{selectedTransfer.product?.nameEn}</span></div>
+              <div className="flex justify-between"><span>Quantity:</span> <span className="font-bold text-rose-400">{selectedTransfer.quantity}</span></div>
+              <div className="flex justify-between"><span>Destination:</span> <span>{selectedTransfer.branch?.name}</span></div>
+            </div>
+
+            <div className="flex justify-end gap-3">
+              <button onClick={() => { setShowDeleteModal(false); setSelectedTransfer(null); }} className="px-4 py-2 text-slate-400 hover:text-slate-200 text-sm font-medium transition-colors">Cancel</button>
+              <button onClick={handleConfirmDelete} disabled={isSubmitting} className="bg-rose-500 hover:bg-rose-600 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition-colors disabled:opacity-50">
+                <Trash2 className="w-4 h-4" />
+                {isSubmitting ? 'Deleting...' : 'Confirm Delete'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };
+

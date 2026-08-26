@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { milkCollectionApi } from '../api/milkCollectionApi';
 import { branchApi } from '../api/branchApi';
 import { farmerApi } from '../api/farmerApi';
@@ -33,12 +34,18 @@ import {
 
 export const MilkCollectionPage: React.FC = () => {
   const { user } = useAuth();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const urlDate = searchParams.get('date');
+  const urlSession = searchParams.get('session');
+  const urlEditId = searchParams.get('editId');
+
   // Top Bar State
   const [selectedBranch, setSelectedBranch] = useState<string>('');
   const [selectedDate, setSelectedDate] = useState<string>(
-    new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().split('T')[0]
+    urlDate || new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().split('T')[0]
   );
-  const [selectedSession, setSelectedSession] = useState<SessionType>('morning');
+  const [selectedSession, setSelectedSession] = useState<SessionType>((urlSession as SessionType) || 'morning');
   const [branches, setBranches] = useState<Branch[]>([]);
 
   // Hardware Auto-Capture States
@@ -97,6 +104,18 @@ export const MilkCollectionPage: React.FC = () => {
 
   const [formError, setFormError] = useState<string | null>(null);
   const [successToast, setSuccessToast] = useState<string | null>(null);
+
+  // Auto-edit from URL
+  useEffect(() => {
+    if (urlEditId && entries.length > 0 && !editingId) {
+      const entryToEdit = entries.find(e => e._id === urlEditId);
+      if (entryToEdit) {
+        handleEditRow(entryToEdit);
+        // Remove editId from URL so it doesn't get re-triggered
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+    }
+  }, [urlEditId, entries]);
 
   // Delete Confirmation State
   const [deletingEntry, setDeletingEntry] = useState<{ id: string; name: string } | null>(null);

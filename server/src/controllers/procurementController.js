@@ -92,11 +92,11 @@ export const createProcurement = async (req, res) => {
     const createdProcurement = await procurement.save();
 
     // Optionally update the product's default plant transfer price and cogs if admin
-    product.plantTransferPrice = plantTransferPrice;
+    const updateData = { plantTransferPrice };
     if (isAdmin && cogs !== undefined) {
-      product.cogs = Number(cogs);
+      updateData.cogs = Number(cogs);
     }
-    await product.save();
+    await Product.updateOne({ _id: productId }, { $set: updateData });
 
     // Generate PDF and send email asynchronously
     const sendInvoiceEmail = async () => {

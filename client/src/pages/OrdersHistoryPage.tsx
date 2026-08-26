@@ -10,6 +10,11 @@ export const OrdersHistoryPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const { user } = useAuth();
   const isAdmin = user?.role === 'admin';
+  
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [modalError, setModalError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchOrders();
@@ -38,14 +43,26 @@ export const OrdersHistoryPage: React.FC = () => {
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (!window.confirm('Are you sure you want to delete this order?')) return;
+  const handleDeleteClick = (order: Order) => {
+    setSelectedOrder(order);
+    setShowDeleteModal(true);
+    setModalError(null);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!selectedOrder) return;
     try {
-      await orderApi.deleteOrder(id);
+      setIsDeleting(true);
+      setModalError(null);
+      await orderApi.deleteOrder(selectedOrder._id || '');
+      setShowDeleteModal(false);
+      setSelectedOrder(null);
       fetchOrders();
-    } catch (err) {
+    } catch (err: any) {
       console.error('Failed to delete order', err);
-      alert('Failed to delete order');
+      setModalError(err.response?.data?.message || 'Failed to delete order. Please try again.');
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -201,7 +218,7 @@ export const OrdersHistoryPage: React.FC = () => {
                         </button>
                         {isAdmin && (
                           <button
-                            onClick={() => handleDelete(order._id || '')}
+                            onClick={() => handleDeleteClick(order)}
                             className="inline-flex items-center justify-center p-2 bg-rose-500/10 text-rose-400 hover:bg-rose-500 hover:text-white rounded-lg transition-colors border border-rose-500/20 shadow-sm"
                             title="Delete Order"
                           >
@@ -217,6 +234,40 @@ export const OrdersHistoryPage: React.FC = () => {
           </table>
         </div>
       </div>
+      
+      {/* Delete Modal */}
+      {showDeleteModal && selectedOrder && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 max-w-md w-full shadow-2xl animate-in zoom-in-95 duration-200">
+            <h3 className="text-lg font-bold text-rose-400 mb-2 flex items-center gap-2">
+              <Trash2 className="w-5 h-5" /> Delete Order
+            </h3>
+            
+            {modalError && (
+              <div className="bg-rose-500/10 border border-rose-500/30 text-rose-400 p-3 rounded-lg text-sm mb-4 animate-in fade-in">
+                {modalError}
+              </div>
+            )}
+            
+            <p className="text-sm text-slate-400 mb-4">Are you sure you want to delete this order? This action cannot be undone.</p>
+            
+            <div className="bg-slate-950 p-4 rounded-lg border border-slate-800 mb-6 space-y-2 text-sm text-slate-300">
+              <div className="flex justify-between"><span>Order ID:</span> <span className="font-mono text-indigo-400">{(selectedOrder._id || '').slice(-6)}</span></div>
+              <div className="flex justify-between"><span>Customer:</span> <span className="font-bold text-white">{selectedOrder.customerDetails.name}</span></div>
+              <div className="flex justify-between"><span>Total Amount:</span> <span className="font-bold text-emerald-400">₹{selectedOrder.totalAmount}</span></div>
+            </div>
+
+            <div className="flex justify-end gap-3">
+              <button onClick={() => { setShowDeleteModal(false); setSelectedOrder(null); setModalError(null); }} className="px-4 py-2 text-slate-400 hover:text-slate-200 text-sm font-medium transition-colors">Cancel</button>
+              <button onClick={handleConfirmDelete} disabled={isDeleting} className="bg-rose-500 hover:bg-rose-600 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition-colors disabled:opacity-50">
+                <Trash2 className="w-4 h-4" />
+                {isDeleting ? 'Deleting...' : 'Confirm Delete'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };

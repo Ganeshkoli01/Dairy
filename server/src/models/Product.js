@@ -84,5 +84,12 @@ const productSchema = new mongoose.Schema({
   },
 }, { timestamps: true });
 
+productSchema.pre('validate', function(next) {
+  if (!this.slug && this.nameEn) {
+    this.slug = this.nameEn.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '-' + this._id.toString().slice(-6);
+  }
+  next();
+});
+
 const Product = mongoose.model('Product', productSchema);
 export default Product;
