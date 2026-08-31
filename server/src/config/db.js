@@ -9,7 +9,9 @@ export const connectDB = async () => {
       throw new Error("MONGO_URI is not defined in environment variables");
     }
     
-    const conn = await mongoose.connect(mongoUri);
+    const conn = await mongoose.connect(mongoUri, {
+      serverSelectionTimeoutMS: 5000,
+    });
     console.log(`[MongoDB] Connected Successfully to Atlas: ${conn.connection.host}`);
 
     // Seed/Update Admin User in MongoDB
