@@ -377,6 +377,30 @@ export const verifyPayment = async (req, res) => {
   try {
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
 
+    if (!process.env.RAZORPAY_KEY_ID || process.env.RAZORPAY_KEY_ID === 'rzp_test_placeholder_key') {
+      const order = await Order.findOne({ razorpayOrderId: razorpay_order_id });
+      if (order) {
+        order.paymentStatus = 'Completed';
+        order.razorpayPaymentId = razorpay_payment_id;
+        order.razorpaySignature = razorpay_signature;
+        await order.save();
+        
+        await fulfillOrder(order._id);
+        
+        dispatchToAdminAndOwner(
+          order.branch,
+          'PAYMENT_RECEIVED',
+          'Online Payment Received',
+          `Payment of ₹${order.totalAmount} for Order #${order._id.toString().slice(-6).toUpperCase()} was successfully captured (Dev Mode).`,
+          order._id,
+          'Order'
+        );
+
+        return res.status(200).json({ success: true, message: 'Payment verified successfully (Dev Mode)' });
+      }
+      return res.status(404).json({ success: false, message: 'Order not found' });
+    }
+
     const sign = razorpay_order_id + '|' + razorpay_payment_id;
     const expectedSign = crypto
       .createHmac('sha256', process.env.RAZORPAY_KEY_SECRET)

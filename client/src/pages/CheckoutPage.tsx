@@ -142,6 +142,26 @@ export const CheckoutPage: React.FC = () => {
             }
             const keyResponse = await orderApi.getRazorpayKey();
             const rzpKey = keyResponse.key || 'rzp_test_placeholder_key';
+            
+            if (rzpKey === 'rzp_test_placeholder_key') {
+              // Dev Bypass: Skip Razorpay UI and auto-verify
+              const verifyRes = await orderApi.verifyPayment({
+                razorpay_order_id: response.razorpayOrderId || 'order_dummy_dev',
+                razorpay_payment_id: 'pay_dummy_dev',
+                razorpay_signature: 'dummy_signature',
+              });
+              if (verifyRes.success) {
+                setPlacedOrderId(response.data._id || null);
+                clearCart();
+                setShowOtpModal(false);
+                setShowSuccessModal(true);
+              } else {
+                setError('Payment verification failed in dev mode');
+              }
+              setLoading(false);
+              return;
+            }
+
             const options = {
               key: rzpKey,
               amount: Math.round(totalPrice * 100),
